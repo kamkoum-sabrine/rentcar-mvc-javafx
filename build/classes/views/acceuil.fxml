@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.AcceuilController" prefWidth="1200.0" prefHeight="800.0" style="-fx-background-image: url('/images/background.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;">
+    
+    <!-- Barre latérale -->
+    <VBox prefWidth="250.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" alignment="CENTER">
+        
+        <!-- Logo -->
+        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" image="@images/logo.png" style="-fx-padding: 20;" />
+        
+        <!-- Titre -->
+        <Label text="Agence Location" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;" />
+        
+        <!-- Boutons de navigation -->
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <Button text="Accueil" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 16;" onAction="#allerAccueil" />
+            <Button text="Gérer les Véhicules" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;" onAction="#gererVehicules" />
+            <Button text="Gérer les Locations" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-size: 16;" onAction="#gererLocations" />
+            <Button text="Clients" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16;" onAction="#voirClients" />
+        </VBox>
+    </VBox>
+    
+    <!-- Zone principale -->
+    <HBox alignment="CENTER" layoutX="250.0" prefWidth="550.0">
+        
+        <!-- Contenu principal -->
+        <VBox alignment="CENTER" spacing="20">
+            
+            <!-- Texte principal -->
+            <Label text="Bienvenue dans l'application de gestion !" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
+            
+            <!-- Image illustrative -->
+            <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" image="@images/cars.png" />
+            
+            <!-- Texte secondaire -->
+            <Label text="Commencez à gérer vos locations et véhicules facilement." style="-fx-font-size: 16; -fx-text-fill: white;" />
+            
+        </VBox>
+    </HBox>
+</AnchorPane>
