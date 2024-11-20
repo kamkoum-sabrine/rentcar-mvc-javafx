@@ -10,7 +10,7 @@
 <?import javafx.scene.media.MediaPlayer?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.LoginController" prefWidth="600.0" prefHeight="500.0">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.LoginController" prefWidth="1200.0" prefHeight="800.0">
     <!-- Video en arrière-plan -->
     <MediaView fx:id="mediaView" layoutX="0" layoutY="0" />
 

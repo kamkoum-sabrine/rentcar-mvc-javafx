@@ -4,23 +4,32 @@ import javafx.fxml.FXML;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.layout.AnchorPane;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class LoginController {
 
     @FXML
-    private MediaView mediaView;
+    private MediaView mediaView; // Il est déjà défini dans le FXML
 
     @FXML
-    private AnchorPane rootPane;
+    private TextField usernameField;
 
-    public void initialize() {
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private AnchorPane anchorPane; // Votre conteneur de mise en page (AnchorPane)
+
+  
+     public void initialize() {
         // Chemin de votre vidéo
-        String videoPath = "file:ressources/videos/bg.mp4";  // Assurez-vous que le chemin soit correct
+        String videoPath = "file:/path/to/your/video.mp4";  // Assurez-vous que le chemin soit correct
         Media media = new Media(videoPath);
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 
@@ -31,14 +40,7 @@ public class LoginController {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
-    
-    
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private Label errorLabel;
+
 
     @FXML
     private void handleLogin() {

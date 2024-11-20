@@ -12,7 +12,7 @@
     <VBox prefWidth="250.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" alignment="CENTER">
         
         <!-- Logo -->
-        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" image="@images/logo.png" style="-fx-padding: 20;" />
+        <!--<ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"  style="-fx-padding: 20;" />-->
         
         <!-- Titre -->
         <Label text="Agence Location" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;" />
@@ -36,7 +36,7 @@
             <Label text="Bienvenue dans l'application de gestion !" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
             
             <!-- Image illustrative -->
-            <ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" image="@images/cars.png" />
+            <!--<ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" image="@images/cars.png" />-->
             
             <!-- Texte secondaire -->
             <Label text="Commencez à gérer vos locations et véhicules facilement." style="-fx-font-size: 16; -fx-text-fill: white;" />
