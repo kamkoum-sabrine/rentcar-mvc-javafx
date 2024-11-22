@@ -9,6 +9,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 import java.io.File;
+import javafx.scene.control.Label;
 public class LoginController {
 
     @FXML
@@ -22,6 +23,9 @@ public class LoginController {
 
     private MediaPlayer mediaPlayer;
     private MediaView mediaView;
+    
+    @FXML
+    private Label errorLabel; // Label for displaying errors
 
     @FXML
     public void initialize() {
@@ -51,11 +55,17 @@ public class LoginController {
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
+         // Clear previous error message
+        errorLabel.setText("");
 
-        if ("admin".equals(username) && "password".equals(password)) {
+        // Validate username and password
+        if (username.isEmpty() || password.isEmpty()) {
+            errorLabel.setText("Veuillez remplir tous les champs.");
+        } else if ("admin".equals(username) && "password".equals(password)) {
             System.out.println("Connexion réussie!");
         } else {
-            System.out.println("Nom d'utilisateur ou mot de passe incorrect.");
+            errorLabel.setText("Nom d'utilisateur ou mot de passe incorrect.");
         }
+       
     }
 }
