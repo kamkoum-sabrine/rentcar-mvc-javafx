@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="contentArea" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.GestionVehiculesController" >
+    <!-- Contenu par défaut ou une zone vide -->
+    <VBox spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Label text="Gestion des Véhicules" style="-fx-font-size: 18px;" />
+    <Button text="Ajouter un véhicule" />
+    <Button text="Modifier un véhicule" />
+    <Button text="Supprimer un véhicule" />
+</VBox>
+</StackPane>
