@@ -7,10 +7,7 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-/**
- *
- * @author LENOVO
- */
+/**added*/
 public class AcceuilController {
     @FXML
     private void allerAccueil(ActionEvent event) {
