@@ -18,10 +18,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-/**
- *
- * @author LENOVO
- */
+/**added*/
 public class AcceuilController {
 
     @FXML
