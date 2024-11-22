@@ -28,7 +28,7 @@ public class RentcarMvc extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
             Scene scene = new Scene(root, 1200, 800);
             
             primaryStage.setTitle("Hello World!");

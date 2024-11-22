@@ -1,18 +1,18 @@
 package controllers;
 
+
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
+import java.io.File;
 public class LoginController {
 
     @FXML
-    private MediaView mediaView; // Il est déjà défini dans le FXML
+    private MediaView backgroundVideo;
 
     @FXML
     private TextField usernameField;
@@ -20,37 +20,42 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    @FXML
-    private Label errorLabel;
+    private MediaPlayer mediaPlayer;
+    private MediaView mediaView;
 
     @FXML
-    private AnchorPane anchorPane; // Votre conteneur de mise en page (AnchorPane)
-
-  
-     public void initialize() {
-        // Chemin de votre vidéo
-        String videoPath = "file:/path/to/your/video.mp4";  // Assurez-vous que le chemin soit correct
+    public void initialize() {
+        // Charger la vidéo en arrière-plan
+       /**  String videoPath = getClass().getResource("/resources/videos/bg.mp4").toExternalForm();
         Media media = new Media(videoPath);
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer = new MediaPlayer(media);
+        backgroundVideo.setMediaPlayer(mediaPlayer);
 
-        // Connecter le player au MediaView
-        mediaView.setMediaPlayer(mediaPlayer);
+        // Démarrer la vidéo en boucle
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();**/
+       // Charger la vidéo en arrière-plan
+       // String videoPath = getClass().getResource("/ressources/videos/bg.mp4").toExternalForm();
+        String videoPath = new File("src/ressources/videos/bg.mp4").toURI().toString();
 
-        // Lancer la vidéo en boucle
+
+        Media media = new Media(videoPath);
+        mediaPlayer = new MediaPlayer(media);
+        backgroundVideo.setMediaPlayer(mediaPlayer);
+
+        // Démarrer la vidéo en boucle
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
-
-
     @FXML
     private void handleLogin() {
-        // Logique de connexion ici
-        if (usernameField.getText().equals("admin") && passwordField.getText().equals("admin")) {
-            // Connexion réussie
-            errorLabel.setVisible(false);
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if ("admin".equals(username) && "password".equals(password)) {
+            System.out.println("Connexion réussie!");
         } else {
-            // Connexion échouée
-            errorLabel.setVisible(true);
+            System.out.println("Nom d'utilisateur ou mot de passe incorrect.");
         }
     }
 }
