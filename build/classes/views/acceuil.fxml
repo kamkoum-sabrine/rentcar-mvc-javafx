@@ -1,46 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.AcceuilController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.AcceuilController">
+   
     <!-- MediaView pour afficher la vidéo -->
     <MediaView fx:id="backgroundImage" preserveRatio="true" />
 
 <BorderPane>
-    
+     
     <!-- Navbar en haut avec des boutons -->
-    <top>
-        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #2c3e50;">
-            <Button text="Véhicules" onAction="#showGestionVehicules" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button text="Clients" onAction="#showGestionClients" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button text="Locations" onAction="#showGestionLocations" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button text="Factures" onAction="#showGestionFactures" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button text="Assurances" onAction="#showGestionAssurances" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button text="Garage" onAction="#showGestionGarage" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-            <Button text="Entretien" onAction="#showGestionEntretien" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
-        </HBox>
-    </top>
-
-    <!-- Contenu central -->
+  
+<left>
+    <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 20 10 10 20; -fx-background-color: #205072;">
+        <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules" />
+        <Button onAction="#showGestionClients" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Clients" />
+        <Button onAction="#showGestionLocations" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Locations" />
+        <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" />
+        <Button onAction="#showGestionAssurances" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances" />
+        <Button onAction="#showGestionGarage" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Garage" />
+        <Button onAction="#showGestionEntretien" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Entretien" />
+        <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion" />
+    </VBox>
+</left>
+       <!-- Contenu central -->
         <!-- Zone de contenu principal -->
     <center>
       <!-- Contenu central -->
     <StackPane fx:id="contentArea" style="-fx-background-image: url('src/ressources/images/bgimage.jpg'); -fx-background-size: cover;">
         <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
             <!-- Titre des statistiques -->
-            <Label text="Statistiques générales" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
 
             <!-- Zone des statistiques -->
             <GridPane alignment="CENTER" hgap="20" vgap="20">
-                <Label text="Nombre total de véhicules :" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                <Label fx:id="statTotalVehicules" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                <Label text="Nombre total de véhicules :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="statTotalVehicules" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Nombre total de clients :" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                <Label fx:id="statTotalClients" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                <Label text="Nombre total de clients :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="statTotalClients" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Nombre total de locations :" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                <Label fx:id="statTotalLocations" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                <Label text="Nombre total de locations :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label fx:id="statTotalLocations" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <columnConstraints>
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
             </GridPane>
         </VBox>
     </StackPane>

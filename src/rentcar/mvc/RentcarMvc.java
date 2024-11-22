@@ -29,8 +29,10 @@ public class RentcarMvc extends Application {
         
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+          
+
             Scene scene = new Scene(root, 818, 614);
-            
+              scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
             primaryStage.setTitle("Hello World!");
             primaryStage.setScene(scene);
             primaryStage.show();
