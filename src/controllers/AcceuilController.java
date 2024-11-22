@@ -4,34 +4,78 @@
  */
 package controllers;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.StackPane;
 
 /**
  *
  * @author LENOVO
  */
 public class AcceuilController {
+
     @FXML
-    private void allerAccueil(ActionEvent event) {
-        System.out.println("Vous êtes sur la page d'accueil !");
+    private StackPane contentArea;
+
+    // Méthodes pour chaque gestion
+    @FXML
+    private void showGestionVehicules() {
+        loadView("/views/GestionVehicules.fxml");
     }
 
     @FXML
-    private void gererVehicules(ActionEvent event) {
-        System.out.println("Naviguer vers la gestion des véhicules !");
-        // Naviguer vers une autre scène.
+    private void showGestionClients() {
+        loadView("/views/GestionClients.fxml");
     }
 
     @FXML
-    private void gererLocations(ActionEvent event) {
-        System.out.println("Naviguer vers la gestion des locations !");
-        // Naviguer vers une autre scène.
+    private void showGestionLocations() {
+        loadView("/views/GestionLocations.fxml");
     }
 
     @FXML
-    private void voirClients(ActionEvent event) {
-        System.out.println("Afficher les clients !");
-        // Naviguer vers une autre scène.
+    private void showGestionFactures() {
+        loadView("/views/GestionFactures.fxml");
+    }
+
+    @FXML
+    private void showGestionAssurances() {
+        loadView("/views/GestionAssurances.fxml");
+    }
+
+    @FXML
+    private void showGestionGarage() {
+        loadView("/views/GestionGarage.fxml");
+    }
+
+    @FXML
+    private void showGestionEntretien() {
+        loadView("/views/GestionEntretien.fxml");
+    }
+
+    // Méthode pour charger une vue FXML dans la zone centrale
+     private void loadView(String fxmlPath) {
+        try {
+            // Charger la vue spécifiée
+            System.out.println("path "+fxmlPath);
+            Parent view = FXMLLoader.load(getClass().getResource(fxmlPath));
+            contentArea.getChildren().clear(); // Effacer le contenu actuel
+            contentArea.getChildren().add(view); // Ajouter le nouveau contenu
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Afficher une alerte d'erreur
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

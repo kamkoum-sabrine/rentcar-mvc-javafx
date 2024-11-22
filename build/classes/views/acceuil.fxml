@@ -1,46 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="controllers.AcceuilController" prefWidth="1200.0" prefHeight="800.0" style="-fx-background-image: url('/images/background.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat;">
-    
-    <!-- Barre latérale -->
-    <VBox prefWidth="250.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" alignment="CENTER">
-        
-        <!-- Logo -->
-        <!--<ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"  style="-fx-padding: 20;" />-->
-        
-        <!-- Titre -->
-        <Label text="Agence Location" style="-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10;" />
-        
-        <!-- Boutons de navigation -->
-        <VBox spacing="15" style="-fx-padding: 20;">
-            <Button text="Accueil" style="-fx-background-color: #1abc9c; -fx-text-fill: white; -fx-font-size: 16;" onAction="#allerAccueil" />
-            <Button text="Gérer les Véhicules" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16;" onAction="#gererVehicules" />
-            <Button text="Gérer les Locations" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-size: 16;" onAction="#gererLocations" />
-            <Button text="Clients" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16;" onAction="#voirClients" />
-        </VBox>
-    </VBox>
-    
-    <!-- Zone principale -->
-    <HBox alignment="CENTER" layoutX="250.0" prefWidth="550.0">
-        
-        <!-- Contenu principal -->
-        <VBox alignment="CENTER" spacing="20">
-            
-            <!-- Texte principal -->
-            <Label text="Bienvenue dans l'application de gestion !" style="-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold;" />
-            
-            <!-- Image illustrative -->
-            <!--<ImageView fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" image="@images/cars.png" />-->
-            
-            <!-- Texte secondaire -->
-            <Label text="Commencez à gérer vos locations et véhicules facilement." style="-fx-font-size: 16; -fx-text-fill: white;" />
-            
-        </VBox>
-    </HBox>
-</AnchorPane>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.AcceuilController">
+
+    <!-- Navbar en haut avec des boutons -->
+    <top>
+        <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10; -fx-background-color: #2c3e50;">
+            <Button text="Véhicules" onAction="#showGestionVehicules" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button text="Clients" onAction="#showGestionClients" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button text="Locations" onAction="#showGestionLocations" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button text="Factures" onAction="#showGestionFactures" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button text="Assurances" onAction="#showGestionAssurances" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button text="Garage" onAction="#showGestionGarage" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+            <Button text="Entretien" onAction="#showGestionEntretien" style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+        </HBox>
+    </top>
+
+    <!-- Contenu central -->
+        <!-- Zone de contenu principal -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-padding: 20;">
+            <VBox alignment="TOP_CENTER" spacing="20">
+                <Label text="Bienvenue dans la gestion de l'agence de location !" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                <GridPane alignment="CENTER" hgap="20" vgap="20">
+                    <Label text="Nombre total de véhicules :" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                    <Label fx:id="statTotalVehicules" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                    <Label text="Nombre total de clients :" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                    <Label fx:id="statTotalClients" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                    <Label text="Nombre total de locations :" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                    <Label fx:id="statTotalLocations" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                </GridPane>
+            </VBox>
+        </StackPane>
+    </center>
+   
+</BorderPane>

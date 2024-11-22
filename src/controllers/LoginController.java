@@ -9,7 +9,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 import java.io.File;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 public class LoginController {
 
     @FXML
@@ -63,9 +68,26 @@ public class LoginController {
             errorLabel.setText("Veuillez remplir tous les champs.");
         } else if ("admin".equals(username) && "password".equals(password)) {
             System.out.println("Connexion réussie!");
+             navigateToAccueil(); // Naviguer vers la page d'accueil
         } else {
             errorLabel.setText("Nom d'utilisateur ou mot de passe incorrect.");
         }
        
+    }
+    private void navigateToAccueil() {
+        try {
+            // Charger la page Accueil
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/acceuil.fxml"));
+            Parent accueilRoot = loader.load();
+
+            // Obtenir la scène actuelle et remplacer son contenu
+            Stage stage = (Stage) usernameField.getScene().getWindow();
+            Scene scene = new Scene(accueilRoot,818, 614);
+        
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+            errorLabel.setText("Erreur lors du chargement de la page d'accueil.");
+        }
     }
 }
