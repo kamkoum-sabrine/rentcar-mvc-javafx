@@ -4,14 +4,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<StackPane  fx:controller="controllers.LoginController" xmlns:fx="http://javafx.com/fxml">
+<StackPane fx:controller="controllers.LoginController" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx">
     <!-- MediaView pour afficher la vidéo -->
-    <MediaView fx:id="backgroundVideo" preserveRatio="false" />
-    <GridPane alignment="CENTER" hgap="10" vgap="10" style="-fx-background-color: rgba(255, 255, 255, 0.7); -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;">
-           <Label text="Nom d'utilisateur:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-           <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-           <Label text="Mot de passe:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-           <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-           <Button text="Se connecter" onAction="#handleLogin" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-       </GridPane>
+    <MediaView fx:id="backgroundVideo" preserveRatio="true" />
+
+    <!-- BorderPane pour structurer la mise en page -->
+     <HBox alignment="CENTER_RIGHT" spacing="20" style="-fx-padding: 20;">
+        <!-- Spacer to push the form to the right -->
+        <Region HBox.hgrow="ALWAYS" />
+        
+        <!-- Login Form -->
+        <GridPane alignment="CENTER" hgap="10" vgap="10" 
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-border-radius: 10; 
+                         -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0.5, 0, 5);"
+                  maxWidth="300" maxHeight="200">
+            <Label text="Nom d'utilisateur:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Mot de passe:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Button text="Se connecter" onAction="#handleLogin" GridPane.rowIndex="2" GridPane.columnIndex="1" 
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        </GridPane>
+    </HBox>
+
 </StackPane>
