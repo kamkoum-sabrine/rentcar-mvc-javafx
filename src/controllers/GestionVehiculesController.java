@@ -58,13 +58,22 @@ public class GestionVehiculesController  {
     public void initialize() {
         // Initialiser les colonnes de la TableView
         colMatricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
+        System.out.println("1");
+
         colMarque.setCellValueFactory(new PropertyValueFactory<>("marque"));
+                System.out.println("2");
+
         colModele.setCellValueFactory(new PropertyValueFactory<>("modele"));
+                System.out.println("3");
+
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+                System.out.println("4");
+
         colCoutParJour.setCellValueFactory(new PropertyValueFactory<>("coutParJour"));
 
         // Charger des données initiales
         vehicules.addAll(getVehiculesInitiaux());
+        System.out.println("Vehicule "+vehicules);
         tableVoitures.setItems(vehicules);
     }
 
