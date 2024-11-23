@@ -25,6 +25,8 @@
                         <TableColumn fx:id="colModele" text="Modèle" />
                         <TableColumn fx:id="colType" text="Type" />
                         <TableColumn fx:id="colCoutParJour" text="Coût Par Jour" />
+                        <TableColumn fx:id="colNombrePlaces" text="Nombre de Places" />
+                        <TableColumn fx:id="colSiegeBebe" text="Siège Bébé" />
                     </columns>
                 </TableView>
             </VBox>

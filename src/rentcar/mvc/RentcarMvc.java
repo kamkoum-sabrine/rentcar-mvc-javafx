@@ -5,6 +5,7 @@
 package rentcar.mvc;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -17,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import models.Personnes.Gerant;
+import models.vehicules.ContratLocation;
 
 /**
  *
@@ -28,6 +31,15 @@ public class RentcarMvc extends Application {
     public void start(Stage primaryStage) {
         
         try {
+            Gerant gerant = Gerant.getInstance();
+            gerant.setNom("Sabrine");
+            gerant.setPrenom("Kamkoum");
+            gerant.setVehicules(new ArrayList<>());
+            gerant.setClients(new ArrayList<>());
+            gerant.setEntretiens(new ArrayList<>());
+            gerant.setChauffeurs(new ArrayList<>());
+            gerant.setLocations(new ArrayList<ContratLocation>());
+
             Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
           
 

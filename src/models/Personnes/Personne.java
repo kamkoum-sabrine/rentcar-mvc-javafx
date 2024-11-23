@@ -4,7 +4,7 @@ package models.Personnes;
 import java.util.Date;
 
 
-public sealed abstract class Personne permits Chauffeur,Client {
+public sealed abstract class Personne permits Chauffeur,Client, Gerant {
     protected double cin ;
     protected String nom;
     protected String prenom;

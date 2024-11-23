@@ -57,5 +57,4 @@ public class VoitureFamiliale extends Vehicule{
                ", " + super.toString() + // Appel sécurisé au toString() de Vehicule
                '}';
     }
-
 }
