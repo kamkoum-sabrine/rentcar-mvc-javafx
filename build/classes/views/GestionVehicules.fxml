@@ -1,31 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="contentArea" style="-fx-padding: 20;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.GestionVehiculesController">
-    <!-- Contenu par défaut ou une zone vide -->
+<StackPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionVehiculesController">
+    <BorderPane>
+        <top>
+            <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
+                <Button text="Ajouter une voiture" onAction="#onAjouterVoitureClick"/>
+            </HBox>
+        </top>
+        <center>
+              <TableView fx:id="tableVoitures" layoutX="50" layoutY="50" prefHeight="400" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="colMatricule" text="Matricule" />
+            <TableColumn fx:id="colMarque" text="Marque" />
+            <TableColumn fx:id="colModele" text="Modèle" />
+            <TableColumn fx:id="colType" text="Type" />
+            <TableColumn fx:id="colCoutParJour" text="Coût Par Jour" />
+        </columns>
+    </TableView>
+        </center>
+    </BorderPane>
+</StackPane>
+
+<!--<StackPane fx:id="contentArea" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionVehiculesController">
+   
    <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20; -fx-background-color: #f4f4f4;" xmlns:fx="http://javafx.com/fxml">
    
 
     <Label styleClass="title-label" text="Gestion des Véhicules" textFill="#205072">
          <font>
-            <Font name="SimSun" size="36.0" />
+            <Font name="SimSun" size="30.0" />
          </font></Label>
-    <Button style="-fx-background-color: #329D9C;" styleClass="btn-ajouter" text="Ajouter une véhicule" textFill="WHITE">
+    <Button prefHeight="49.0" prefWidth="357.0" style="-fx-background-color: #329D9C;" styleClass="btn-ajouter" text="Ajouter une véhicule" textFill="WHITE">
          <font>
-            <Font name="SimSun" size="28.0" />
+            <Font name="SimSun" size="24.0" />
          </font></Button>
-    <Button style="-fx-background-color: #329D9C;" styleClass="btn-modifier" text="Modifier une véhicule" textFill="WHITE">
+    <Button prefHeight="46.0" prefWidth="358.0" style="-fx-background-color: #329D9C;" styleClass="btn-modifier" text="Modifier une véhicule" textFill="WHITE">
          <font>
-            <Font name="SimSun" size="26.0" />
+            <Font name="SimSun" size="24.0" />
          </font></Button>
-    <Button style="-fx-background-color: #329D9C;" styleClass="btn-supprimer" text="Supprimer une véhicule" textFill="WHITE">
+    <Button prefHeight="46.0" prefWidth="355.0" style="-fx-background-color: #329D9C;" styleClass="btn-supprimer" text="Supprimer une véhicule" textFill="WHITE">
          <font>
-            <Font name="SimSun" size="26.0" />
+            <Font name="SimSun" size="24.0" />
          </font></Button>
+      <Button prefHeight="42.0" prefWidth="358.0" style="-fx-background-color: #329D9C;" styleClass="btn-ajouter" text="Consulter les véhicules" textFill="WHITE">
+         <font>
+            <Font name="SimSun" size="24.0" />
+         </font>
+      </Button>
 </VBox>
-</StackPane>
+</StackPane>->

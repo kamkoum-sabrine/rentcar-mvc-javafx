@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.AcceuilController">
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcceuilController">
    
     <!-- MediaView pour afficher la vidéo -->
     <MediaView fx:id="backgroundImage" preserveRatio="true" />
@@ -21,14 +22,40 @@
   
 <left>
     <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 20 10 10 20; -fx-background-color: #205072;">
-        <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules" />
-        <Button onAction="#showGestionClients" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Clients" />
-        <Button onAction="#showGestionLocations" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Locations" />
-        <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" />
-        <Button onAction="#showGestionAssurances" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances" />
-        <Button onAction="#showGestionGarage" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Garage" />
-        <Button onAction="#showGestionEntretien" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Entretien" />
-        <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion" />
+        <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules">
+               <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionClients" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Clients" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionLocations" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Locations" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" >
+            <font>
+            <Font name="SimSun" size="14.0" />
+               </font>
+        </Button>
+        <Button onAction="#showGestionAssurances" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionGarage" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Garage" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionEntretien" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Entretien" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font>
+           </Button>
     </VBox>
 </left>
        <!-- Contenu central -->
