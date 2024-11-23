@@ -82,7 +82,7 @@ public class LoginController {
 
             // Obtenir la scène actuelle et remplacer son contenu
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            Scene scene = new Scene(accueilRoot,818, 614);
+            Scene scene = new Scene(accueilRoot,1200, 800);
         
             stage.setScene(scene);
         } catch (IOException e) {

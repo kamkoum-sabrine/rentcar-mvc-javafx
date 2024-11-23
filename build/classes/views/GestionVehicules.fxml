@@ -26,7 +26,13 @@
                         <TableColumn fx:id="colType" text="Type" />
                         <TableColumn fx:id="colCoutParJour" text="Coût Par Jour" />
                         <TableColumn fx:id="colNombrePlaces" text="Nombre de Places" />
-                        <TableColumn fx:id="colSiegeBebe" text="Siège Bébé" />
+                        <TableColumn fx:id="colSiegeBebe" text="Siège Bébé" />                        
+                        <TableColumn fx:id="colGrandCoffre" text="Grand coffre" />
+                        <TableColumn fx:id="colCapaciteCharge" text="Capacité charge" />
+                        <TableColumn fx:id="colToitOuvrant" text="Toit ouvrant" />
+                        <TableColumn fx:id="colCameraRecul" text="Camera recul" />
+                        <TableColumn fx:id="colActions" text="Actions" />
+
                     </columns>
                 </TableView>
             </VBox>
