@@ -182,5 +182,14 @@ public final class Gerant extends Personne {
         return lieuCin;
     }
     
+    public boolean supprimerVehicule(Vehicule vehicule) {
+    if (vehicules.contains(vehicule)) {
+        vehicules.remove(vehicule);
+        return true; // Indique que la suppression a réussi
+    }
+    return false; // Indique que le véhicule n'était pas dans la liste
+}
+
+    
    
 }

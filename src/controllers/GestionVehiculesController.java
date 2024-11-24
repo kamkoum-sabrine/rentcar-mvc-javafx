@@ -160,13 +160,27 @@ public void initialize() {
 
         {
             // Configure les boutons avec des icônes
-            editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("src/ressources/images/edit.png"))));
-            deleteButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("src/ressources/images/trash.png"))));
+           // editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ressources/images/edit.png"))));
+           // deleteButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ressources/images/trash.png"))));
+            // Configure les boutons avec des chaînes de caractères
+            editButton.setText("Éditer");
+            deleteButton.setText("Supprimer");
+
+            // (Facultatif) Ajoute des styles pour différencier les boutons
+            editButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold;");
+            deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
 
             // Ajout des actions
             editButton.setOnAction(event -> {
+                System.out.println("edit !!");
                 Vehicule vehicule = getTableView().getItems().get(getIndex());
-                onEditVehicule(vehicule);
+                System.out.println("Matricule vehicule "+ vehicule.getMatricule());
+                try {
+                    onEditVehicule(vehicule);
+                } catch (Exception e) {
+                    System.err.println("Erreur lors de l'édition : " + e.getMessage());
+                    e.printStackTrace();
+                }
             });
 
             deleteButton.setOnAction(event -> {
@@ -189,32 +203,195 @@ public void initialize() {
     });
 }
 
-// Méthode pour gérer l'édition
 private void onEditVehicule(Vehicule vehicule) {
-    // Logique pour éditer un véhicule
-    System.out.println("Édition de : " + vehicule.getMatricule());
+    System.out.println("onEditVehicule appelé pour le véhicule : " + vehicule.getMatricule());
+    
+    Dialog<Vehicule> dialog = new Dialog<>();
+    dialog.setTitle("Modifier le véhicule");
+
+    dialog.getDialogPane().setPrefWidth(600);
+    dialog.getDialogPane().setPrefHeight(700);
+
+    // Type de véhicule
+    ComboBox<String> typeBox = new ComboBox<>();
+    typeBox.getItems().addAll("Voiture Familiale", "Voiture Commerciale");
+    typeBox.setValue(vehicule instanceof VoitureFamiliale ? "Voiture Familiale" : "Voiture Commerciale");
+
+    // Champs communs
+    TextField matriculeField = new TextField(vehicule.getMatricule());
+    TextField marqueField = new TextField(vehicule.getMarque());
+    TextField modeleField = new TextField(vehicule.getModele());
+    TextField puissanceField = new TextField(vehicule.getPuissance());
+    TextField carburantField = new TextField(vehicule.getCarburant());
+    TextField anneeField = new TextField(String.valueOf(vehicule.getAnneeModele()));
+    TextField kilometrageField = new TextField(String.valueOf(vehicule.getKilometrage()));
+    TextField coutParJourField = new TextField(String.valueOf(vehicule.getCoutParJour()));
+
+    // Création des cases à cocher
+    CheckBox roueSecoursField = new CheckBox("Roue de secours");
+    roueSecoursField.setSelected(vehicule.getRoueSecours()); 
+
+    CheckBox cricOutilsField = new CheckBox("Cric et outils");
+    cricOutilsField.setSelected(vehicule.getCricOutils());
+
+    CheckBox radioAntenneField = new CheckBox("Radio et antenne");
+    radioAntenneField.setSelected(vehicule.getRadioAntenne());
+
+    CheckBox enjoliversField = new CheckBox("Enjoliveurs");
+    enjoliversField.setSelected(vehicule.getEnjolivers());
+
+    CheckBox retroviseursField = new CheckBox("Rétroviseurs");
+    retroviseursField.setSelected(vehicule.getRetroviseurs());
+
+    CheckBox climatiseurMarcheField = new CheckBox("Climatiseur fonctionnel");
+    climatiseurMarcheField.setSelected(vehicule.getClimatiseurMarche());
+
+    // Conteneur pour champs spécifiques
+    VBox champsSpecifiques = new VBox(10);
+
+    // Précharger les champs spécifiques pour VoitureFamiliale
+    if (vehicule instanceof VoitureFamiliale vf) {
+        TextField nombrePlacesField = new TextField(String.valueOf(vf.getNombrePlaces()));
+        CheckBox siegeBebeField = new CheckBox("Siège bébé disponible");
+        siegeBebeField.setSelected(vf.getSiegeBebeDisponible());
+        CheckBox coffreField = new CheckBox("Grand coffre");
+        coffreField.setSelected(vf.getGrandCoffre());
+
+        champsSpecifiques.getChildren().addAll(
+            new Label("Champs spécifiques - Voiture Familiale"),
+            new Label("Nombre de places:"), nombrePlacesField,
+            siegeBebeField,
+            coffreField
+        );
+    } else if (vehicule instanceof VoitureCommerciale vc) {
+        TextField capaciteChargeField = new TextField(String.valueOf(vc.getCapaciteCharge()));
+        CheckBox toitOuvrantField = new CheckBox("Toit ouvrant disponible");
+        toitOuvrantField.setSelected(vc.getToitOuvrant());
+        CheckBox cameraReculField = new CheckBox("Caméra de recul");
+        cameraReculField.setSelected(vc.getCameraRecul());
+
+        champsSpecifiques.getChildren().addAll(
+            new Label("Champs spécifiques - Voiture Commerciale"),
+            new Label("Capacité de charge:"), capaciteChargeField,
+            toitOuvrantField,
+            cameraReculField
+        );
+    }
+
+    // Formulaire complet
+    VBox form = new VBox(10,
+        new Label("Type de véhicule:"), typeBox,
+        new Label("Matricule:"), matriculeField,
+        new Label("Marque:"), marqueField,
+        new Label("Modèle:"), modeleField,
+        new Label("Puissance:"), puissanceField,
+        new Label("Carburant:"), carburantField,
+        new Label("Année du modèle:"), anneeField,
+        new Label("Kilométrage:"), kilometrageField,
+        new Label("Coût par jour:"), coutParJourField,
+        new Label("Équipements :"),
+        roueSecoursField, cricOutilsField, radioAntenneField,
+        enjoliversField, retroviseursField, climatiseurMarcheField,
+        champsSpecifiques
+    );
+
+    ScrollPane scrollPane = new ScrollPane(form);
+    scrollPane.setFitToWidth(true);
+    dialog.getDialogPane().setContent(scrollPane);
+
+    // Boutons
+    ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
+    dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+    dialog.setResultConverter(buttonType -> {
+        if (buttonType == saveButtonType) {
+            try {
+                // Mettre à jour les champs du véhicule
+                vehicule.setMatricule(matriculeField.getText());
+                vehicule.setMarque(marqueField.getText());
+                vehicule.setModele(modeleField.getText());
+                vehicule.setPuissance(puissanceField.getText());
+                vehicule.setCarburant(carburantField.getText());
+                vehicule.setAnneeModele(Integer.parseInt(anneeField.getText()));
+                vehicule.setKilometrage(Double.parseDouble(kilometrageField.getText()));
+                vehicule.setCoutParJour(Double.parseDouble(coutParJourField.getText()));
+
+                vehicule.setRoueSecours(roueSecoursField.isSelected());
+                vehicule.setCricOutils(cricOutilsField.isSelected());
+                vehicule.setRadioAntenne(radioAntenneField.isSelected());
+                vehicule.setEnjolivers(enjoliversField.isSelected());
+                vehicule.setRetroviseurs(retroviseursField.isSelected());
+                vehicule.setClimatiseurMarche(climatiseurMarcheField.isSelected());
+
+                // Champs spécifiques
+                if (vehicule instanceof VoitureFamiliale vf) {
+                    vf.setNombrePlaces(Integer.parseInt(((TextField) champsSpecifiques.getChildren().get(2)).getText()));
+                    vf.setSiegeBebeDisponible(((CheckBox) champsSpecifiques.getChildren().get(3)).isSelected());
+                    vf.setGrandCoffre(((CheckBox) champsSpecifiques.getChildren().get(4)).isSelected());
+                } else if (vehicule instanceof VoitureCommerciale vc1) {
+                    vc1.setCapaciteCharge(Integer.parseInt(((TextField) champsSpecifiques.getChildren().get(2)).getText()));
+                    vc1.setToitOuvrant(((CheckBox) champsSpecifiques.getChildren().get(3)).isSelected());
+                    vc1.setCameraRecul(((CheckBox) champsSpecifiques.getChildren().get(4)).isSelected());
+                }
+
+                return vehicule;
+            } catch (Exception e) {
+                System.err.println("Erreur dans les données : " + e.getMessage());
+            }
+        }
+        return null;
+    });
+
+    dialog.showAndWait().ifPresent(updatedVehicule -> {
+        tableVoitures.refresh(); // Met à jour la TableView
+        Gerant.getInstance().setVehicules(new ArrayList<>(vehicules)); // Met à jour la liste des véhicules dans le gestionnaire
+    });
 }
+
+
 
 // Méthode pour gérer la suppression
+
+// Méthode pour gérer la suppression d'un véhicule
 private void onDeleteVehicule(Vehicule vehicule) {
-    // Logique pour supprimer un véhicule
-        System.out.println("Suppression de : " + vehicule.getMatricule());
+    Gerant gerant = Gerant.getInstance(); // Obtenez l'instance unique de Gerant
 
-    vehicules.remove(vehicule); // Supposons que "vehicules" est votre liste observable
-    tableVoitures.refresh();
+    boolean supprimé = gerant.supprimerVehicule(vehicule);
+    if (supprimé) {
+        System.out.println("Véhicule supprimé : " + vehicule.getMatricule());
+        vehicules.remove(vehicule); // Met à jour la liste observable si utilisée dans l'interface
+        tableVoitures.refresh(); // Rafraîchit la table
+    } else {
+        System.out.println("Échec de la suppression : Véhicule introuvable.");
+    }
+}
+
+public List<Vehicule> getVehiculesInitiaux() {
+    // Récupère les véhicules stockés dans Gerant
+    return Gerant.getInstance().getVehicules();
 }
 
 
-private List<Vehicule> getVehiculesInitiaux() {
-    List<Vehicule> list = new ArrayList<>();
-    list.add(new VoitureFamiliale("1234AB", "Toyota", "Corolla", "90cv", "Essence", 2020, 15000.0,
+/**private List<Vehicule> getVehiculesInitiaux() {
+    
+    Gerant gerant = Gerant.getInstance();
+    
+    
+    List<Vehicule> vehiculesInitiaux = new ArrayList<>();
+    vehiculesInitiaux.add(new VoitureFamiliale("1234AB", "Toyota", "Corolla", "90cv", "Essence", 2020, 15000.0,
             true, true, false, true, true, true, 5, true, true, "Voiture Familiale", 50.0, null));
-    list.add(new VoitureCommerciale("5678CD", "Renault", "Kangoo", "110cv", "Diesel", 2019, 30000.0,
+    vehiculesInitiaux.add(new VoitureCommerciale("5678CD", "Renault", "Kangoo", "110cv", "Diesel", 2019, 30000.0,
             true, true, true, true, true, true, 1000, false, true, "Voiture Commerciale", 70.0, null));
-    list.add(new Vehicule("9101EF", "Ford", "Focus", "100cv", "Essence", 2018, 20000.0,
+    vehiculesInitiaux.add(new Vehicule("9101EF", "Ford", "Focus", "100cv", "Essence", 2018, 20000.0,
             true, true, true, true, true, true, "Vehicule", 60.0, null));
-    return list;
-}
+
+    for (Vehicule v : vehiculesInitiaux) {
+        gerant.ajouterVoiture(v);
+    }
+    
+    // Retourner la liste des véhicules
+    return vehiculesInitiaux;
+}**/
 
 
   @FXML
@@ -378,6 +555,7 @@ public void onAjouterVoitureClick(ActionEvent event) {
 
     // Afficher la boîte de dialogue
     dialog.showAndWait().ifPresent(vehicule -> {
+         Gerant.getInstance().ajouterVoiture(vehicule);
         vehicules.add(vehicule);
         tableVoitures.refresh();
     });
