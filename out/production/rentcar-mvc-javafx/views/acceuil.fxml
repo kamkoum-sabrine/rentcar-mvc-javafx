@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcceuilController">
+   
+    <!-- MediaView pour afficher la vidéo -->
+    <MediaView fx:id="backgroundImage" preserveRatio="true" />
+
+<BorderPane>
+     
+    <!-- Navbar en haut avec des boutons -->
+  
+<left>
+    <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 20 10 10 20; -fx-background-color: #205072;">
+        <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules">
+               <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionClients" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Clients" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionLocations" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Locations" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" >
+            <font>
+            <Font name="SimSun" size="14.0" />
+               </font>
+        </Button>
+        <Button onAction="#showGestionAssurances" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionGarage" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Garage" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionEntretien" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Entretien" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
+        <Button onAction="#showGestionChauffeurs" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Chauffeurs">
+            <font>
+                <Font name="SimSun" size="14.0" />
+            </font></Button>
+        <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion" >
+            <font>
+                  <Font name="SimSun" size="14.0" />
+               </font>
+           </Button>
+
+    </VBox>
+</left>
+       <!-- Contenu central -->
+        <!-- Zone de contenu principal -->
+    <center>
+      <!-- Contenu central -->
+    <StackPane fx:id="contentArea" style="-fx-background-image: url('src/ressources/images/bgimage.jpg'); -fx-background-size: cover;">
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
+            <!-- Titre des statistiques -->
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
+
+            <!-- Zone des statistiques -->
+            <GridPane alignment="CENTER" hgap="20" vgap="20">
+                <Label text="Nombre total de véhicules :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label fx:id="statTotalVehicules" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label text="Nombre total de clients :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label fx:id="statTotalClients" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Nombre total de locations :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label fx:id="statTotalLocations" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <columnConstraints>
+                     <ColumnConstraints />
+                     <ColumnConstraints />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints />
+                     <RowConstraints />
+                     <RowConstraints />
+                  </rowConstraints>
+            </GridPane>
+        </VBox>
+    </StackPane>
+    </center>
+   
+</BorderPane>
+</StackPane>
