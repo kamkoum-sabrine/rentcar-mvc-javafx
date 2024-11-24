@@ -15,6 +15,7 @@ import models.vehicules.Vehicule;
  * @author LENOVO
  */
 public final class Gerant extends Personne {
+
     public ArrayList<Vehicule> vehicules;
     public ArrayList<Client> clients;
     public ArrayList<Chauffeur> chauffeurs;

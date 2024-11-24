@@ -72,6 +72,11 @@ public class AcceuilController {
     private void showGestionEntretien() {
         loadView("/views/GestionEntretien.fxml");
     }
+
+    @FXML
+    private void showGestionChauffeurs() {
+        loadView("/views/GestionChauffeurs.fxml");
+    }
     
    
      public void logout(ActionEvent event) {

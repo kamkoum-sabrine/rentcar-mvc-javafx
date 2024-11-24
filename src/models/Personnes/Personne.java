@@ -6,6 +6,7 @@ import java.util.Date;
 
 public sealed abstract class Personne permits Chauffeur,Client, Gerant {
     protected double cin ;
+
     protected String nom;
     protected String prenom;
     protected double tel;

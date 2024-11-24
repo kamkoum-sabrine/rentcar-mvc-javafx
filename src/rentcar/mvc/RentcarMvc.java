@@ -45,7 +45,7 @@ public class RentcarMvc extends Application {
 
             Scene scene = new Scene(root, 818, 614);
               scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
-            primaryStage.setTitle("Hello World!");
+            primaryStage.setTitle("RentCar");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException ex) {
