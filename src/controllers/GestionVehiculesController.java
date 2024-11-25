@@ -92,6 +92,8 @@ private TableColumn<Vehicule, Void> colActions;
 
 @FXML
 public void initialize() {
+        
+   //  tableVoitures.lookup(".column-header-background").setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
     // Initialiser les colonnes génériques
     colMatricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
     colMarque.setCellValueFactory(new PropertyValueFactory<>("marque"));
