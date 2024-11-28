@@ -11,6 +11,11 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import java.lang.String?>
+<?import java.util.List?>
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcceuilController">
    
     <!-- MediaView pour afficher la vidéo -->
@@ -66,34 +71,29 @@
        <!-- Contenu central -->
         <!-- Zone de contenu principal -->
     <center>
-      <!-- Contenu central -->
-    <StackPane fx:id="contentArea" style="-fx-background-image: url('src/ressources/images/bgimage.jpg'); -fx-background-size: cover;">
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
-            <!-- Titre des statistiques -->
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
+        <StackPane fx:id="contentArea" style="-fx-background-image: url('src/ressources/images/bgimage.jpg'); -fx-background-size: cover;">
+            <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
+                <!-- Titre des statistiques -->
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
 
-            <!-- Zone des statistiques -->
-            <GridPane alignment="CENTER" hgap="20" vgap="20">
-                <Label text="Nombre total de véhicules :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <Label fx:id="statTotalVehicules" text="-" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <TableView fx:id="statistiquesTable" layoutX="50.0" layoutY="50.0" prefHeight="200.0" prefWidth="600.0">
+                    <columns>
+                        <!-- Colonne pour le nombre de véhicules -->
+                        <TableColumn fx:id="colVehicules" text="Nombre de véhicules" prefWidth="200" />
+                        <!-- Colonne pour le nombre de chauffeurs -->
+                        <TableColumn fx:id="colChauffeurs" text="Nombre de chauffeurs" prefWidth="200" />
+                        <!-- Colonne pour le nombre de locations -->
+                        <TableColumn fx:id="colLocations" text="Nombre de locations" prefWidth="200" />
+                    </columns>
+                </TableView>
 
-                <Label text="Nombre total de clients :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Label fx:id="statTotalClients" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Nombre total de locations :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <Label fx:id="statTotalLocations" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <columnConstraints>
-                     <ColumnConstraints />
-                     <ColumnConstraints />
-                  </columnConstraints>
-                  <rowConstraints>
-                     <RowConstraints />
-                     <RowConstraints />
-                     <RowConstraints />
-                  </rowConstraints>
-            </GridPane>
-        </VBox>
-    </StackPane>
+
+
+            </VBox>
+        </StackPane>
+
+
     </center>
    
 </BorderPane>
