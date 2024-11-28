@@ -37,6 +37,7 @@ import javafx.scene.control.Button;
 
 import models.Personnes.Gerant;
 import models.vehicules.Assurance;
+import models.vehicules.FiltreVehicule;
 import models.vehicules.Vehicule;
 import models.vehicules.VoitureCommerciale;
 import models.vehicules.VoitureFamiliale;
@@ -87,6 +88,9 @@ private TableColumn<VoitureCommerciale, Boolean> colToitOuvrant;
 @FXML
 private TableColumn<VoitureCommerciale, Boolean> colCameraRecul;
 
+@FXML
+private TextField searchField;  // Le champ de recherche
+
 // Liste observable des véhicules
 private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 
@@ -98,6 +102,9 @@ private TableColumn<Vehicule, Void> colActionsAssurance;
 
 @FXML
 private TableColumn<Vehicule, String> colAssurance;
+
+private ObservableList<Vehicule> listeVehicules = FXCollections.observableArrayList();
+
 
 @FXML
 public void initialize() {
@@ -636,6 +643,21 @@ public void onAjouterVoitureClick(ActionEvent event) {
             vehicule.setAssurance(null);  // Supprimer l'assurance du véhicule
               tableVoitures.refresh();
         }
+    }
+    
+     // Méthode pour filtrer les véhicules en fonction de la marque
+    public void filtrerVehicules() {
+        String searchQuery = searchField.getText().toLowerCase();  // Texte saisi par l'utilisateur
+        FiltreVehicule filtre = vehicule -> vehicule.getMarque().toLowerCase().contains(searchQuery);
+
+        ObservableList<Vehicule> vehiculesFiltres = FXCollections.observableArrayList();
+        for (Vehicule vehicule : listeVehicules) {
+            if (filtre.filtrer(vehicule)) {
+                vehiculesFiltres.add(vehicule);
+            }
+        }
+
+        tableVoitures.setItems(vehiculesFiltres);  // Mettre à jour la TableView avec les résultats filtrés
     }
 
 }

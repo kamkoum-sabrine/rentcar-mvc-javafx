@@ -13,19 +13,29 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.beans.property.SimpleStringProperty?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionVehiculesController">
     <BorderPane>
         <top>
-            <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
-                <Button onAction="#onAjouterVoitureClick" style="-fx-background-color: #CFF4D2;" text="Ajouter une voiture" textFill="#205072">
-               <font>
-                  <Font name="Microsoft Yi Baiti" size="20.0" />
-               </font></Button>
-            </HBox>
+            <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+                <!-- HBox pour le bouton "Ajouter une voiture" -->
+                <HBox alignment="TOP_RIGHT" spacing="10">
+                    <Button onAction="#onAjouterVoitureClick" style="-fx-background-color: #CFF4D2;" text="Ajouter une voiture" textFill="#205072">
+                        <font>
+                            <Font name="Microsoft Yi Baiti" size="20.0" />
+                        </font>
+                    </Button>
+                </HBox>
+
+                <!-- HBox pour le champ de recherche et le bouton Filtrer -->
+                <HBox spacing="10">
+                    <TextField fx:id="searchField" promptText="Rechercher une voiture par marque..." />
+                    <Button text="Filtrer" onAction="#filtrerVehicules" />
+                </HBox>
+            </VBox>
         </top>
+
         <center>
-               <VBox style="-fx-padding: 0 0 0 20;"> <!-- Padding: haut, droite, bas, gauche -->
+            <VBox style="-fx-padding: 0 0 0 20;"> <!-- Padding: haut, droite, bas, gauche -->
                 <TableView fx:id="tableVoitures" prefHeight="400" prefWidth="600">
                     <columns>
                         <TableColumn fx:id="colMatricule" style="-fx-background-color: #205072; -fx-text-fill: white;" text="Matricule" />
@@ -44,10 +54,8 @@
                                 <PropertyValueFactory property="assurance"/>
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="colActionsAssurance" text="Gestion assurance" />
-
+                        <TableColumn fx:id="colActionsAssurance" text="Action sur l'assurance" />
                         <TableColumn fx:id="colActions" text="Actions" />
-
                     </columns>
                 </TableView>
             </VBox>
