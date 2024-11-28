@@ -31,13 +31,10 @@
                 </columns>
             </TableView>
             <Button onAction="#ajouterChauffeur" prefHeight="26.0" prefWidth="159.0" text="Ajouter un chauffeur" />
-         <Button layoutX="20.0" layoutY="331.0" onAction="#modifierChauffeur" prefHeight="26.0" prefWidth="160.0" text="Modifier un chauffeur" />
+         <Button layoutX="20.0" layoutY="331.0" onAction="#modifierchauffeur" prefHeight="26.0" prefWidth="160.0" text="Modifier un chauffeur" />
          <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerChauffeur" prefHeight="26.0" prefWidth="160.0" text="Supprimer un chauffeur" />
-            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="20.0" layoutY="367.0" onAction="#clearFields" prefHeight="26.0" prefWidth="597.0" text="Supprimer tous les chauffeurs" textAlignment="CENTER" textFill="#ff0404">
-            <font>
-               <Font size="20.0" />
-            </font>
-         </Button>
+
+
             <!-- Formulaire caché -->
             <VBox fx:id="formulaireAjout" spacing="10" visible="false">
                 <TextField fx:id="tfCin" promptText="CIN" />
