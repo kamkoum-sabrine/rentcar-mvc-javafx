@@ -365,13 +365,8 @@ public class GestionChauffeursController {
             System.out.println("Aucun chauffeur sélectionné");
             showAlert("Erreur", "Aucun chauffeur sélectionné", "Sélectionnez un chauffeur à supprimer !", Alert.AlertType.ERROR);
         }
-    }
-
-
-    public void clearFields() {
-        tfCin.clear();
-        tfNom.clear();
-        tfPrenom.clear();
-        cbDisponibilite.setSelected(false);
     }}
+
+
+
 

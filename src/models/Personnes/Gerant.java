@@ -190,7 +190,11 @@ public final class Gerant extends Personne {
     }
     return false; // Indique que le véhicule n'était pas dans la liste
 }
-
+    public int nombrevehicules(){return vehicules.size();}
+    public int nombreclients(){return clients.size();}
+    public int nombrechauffeurs(){return chauffeurs.size();}
+    public int nombrelocations(){return locations.size();}
+    public int nombreentretiens(){return entretiens.size();}
     
    
 }
