@@ -246,38 +246,37 @@ private void onEditVehicule(Vehicule vehicule) {
     retroviseursField.setSelected(vehicule.getRetroviseurs());
 
     CheckBox climatiseurMarcheField = new CheckBox("Climatiseur fonctionnel");
-    climatiseurMarcheField.setSelected(vehicule.getClimatiseurMarche());
+    CheckBox toitOuvrantField = new CheckBox("Toit ouvrant disponible");
+        toitOuvrantField.setSelected(vehicule.getClimatiseurMarche());
 
-    // Conteneur pour champs spécifiques
-    VBox champsSpecifiques = new VBox(10);
+        // Conteneur pour champs spécifiques
+        VBox champsSpecifiques = new VBox(10);
 
-    // Précharger les champs spécifiques pour VoitureFamiliale
-    if (vehicule instanceof VoitureFamiliale vf) {
-        TextField nombrePlacesField = new TextField(String.valueOf(vf.getNombrePlaces()));
-        CheckBox siegeBebeField = new CheckBox("Siège bébé disponible");
-        siegeBebeField.setSelected(vf.getSiegeBebeDisponible());
-        CheckBox coffreField = new CheckBox("Grand coffre");
-        coffreField.setSelected(vf.getGrandCoffre());
+        // Précharger les champs spécifiques pour VoitureFamiliale
+        if (vehicule instanceof VoitureFamiliale vf) {
+            TextField nombrePlacesField = new TextField(String.valueOf(vf.getNombrePlaces()));
+            CheckBox siegeBebeField = new CheckBox("Siège bébé disponible");
+            siegeBebeField.setSelected(vf.getSiegeBebeDisponible());
+            CheckBox coffreField = new CheckBox("Grand coffre");
+            coffreField.setSelected(vf.getGrandCoffre());
 
-        champsSpecifiques.getChildren().addAll(
-            new Label("Champs spécifiques - Voiture Familiale"),
-            new Label("Nombre de places:"), nombrePlacesField,
-            siegeBebeField,
-            coffreField
-        );
-    } else if (vehicule instanceof VoitureCommerciale vc) {
-        TextField capaciteChargeField = new TextField(String.valueOf(vc.getCapaciteCharge()));
-        CheckBox toitOuvrantField = new CheckBox("Toit ouvrant disponible");
-        toitOuvrantField.setSelected(vc.getToitOuvrant());
+            champsSpecifiques.getChildren().addAll(
+                    new Label("Champs spécifiques - Voiture Familiale"),
+                    new Label("Nombre de places:"), nombrePlacesField,
+                    siegeBebeField,
+                    coffreField
+            );
+        } else if (vehicule instanceof VoitureCommerciale vc) {
+            TextField capaciteChargeField = new TextField(String.valueOf(vc.getCapaciteCharge()));
+            CheckBox toitOuvrantField1 = new CheckBox("Toit ouvrant");
+            toitOuvrantField1.setSelected(vc.getToitOuvrant());
         CheckBox cameraReculField = new CheckBox("Caméra de recul");
         cameraReculField.setSelected(vc.getCameraRecul());
 
         champsSpecifiques.getChildren().addAll(
             new Label("Champs spécifiques - Voiture Commerciale"),
             new Label("Capacité de charge:"), capaciteChargeField,
-            toitOuvrantField,
-            cameraReculField
-        );
+            toitOuvrantField, cameraReculField );
     }
 
     // Formulaire complet

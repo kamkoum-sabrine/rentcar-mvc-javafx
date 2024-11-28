@@ -1,7 +1,7 @@
 
 package models.Personnes;
 
-import java.util.Date;
+import java.sql.Date;
 
 
 public sealed abstract class Personne permits Chauffeur,Client, Gerant {

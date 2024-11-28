@@ -4,14 +4,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import models.Personnes.Adresse;
 import models.Personnes.Chauffeur;
 import models.Personnes.Gerant;
 import models.Personnes.Permis;
+import models.vehicules.Vehicule;
 
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
+
 
 public class GestionChauffeursController {
     @FXML
@@ -44,28 +50,29 @@ public class GestionChauffeursController {
     @FXML
     private Label statusBar;
 
-    private ObservableList<Chauffeur> chauffeurList;
 
-  /*  @FXML
+    private  ObservableList<Chauffeur> chauffeurList= FXCollections.observableArrayList();
+    @FXML
     public void initialize() {
+        colCin.setCellValueFactory(new PropertyValueFactory<>("cin"));
+        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        colDisponibilite.setCellValueFactory(new PropertyValueFactory<>("disponibilite"));
+
         chauffeurList = FXCollections.observableArrayList();
 
-        // Liaison des colonnes
-        colCin.setCellValueFactory(data -> data.getValue().cinProperty().asObject());
-        colNom.setCellValueFactory(data -> data.getValue().nomProperty());
-        colPrenom.setCellValueFactory(data -> data.getValue().prenomProperty());
-        colDisponibilite.setCellValueFactory(data -> data.getValue().isDisponibilite().asObject());
+
 
         tableViewChauffeurs.setItems(chauffeurList);
-    }*/
+    }
 
   @FXML
   private void ajouterChauffeur() {
       Dialog<Chauffeur> dialog = new Dialog<>();
       dialog.setTitle("Ajouter un chauffeur");
 
-      dialog.getDialogPane().setPrefWidth(500);
-      dialog.getDialogPane().setPrefHeight(600);
+      dialog.getDialogPane().setPrefWidth(600);
+      dialog.getDialogPane().setPrefHeight(700);
 
       // Champs de base pour le chauffeur
       TextField nomField = new TextField();
@@ -77,15 +84,25 @@ public class GestionChauffeursController {
       TextField cinField = new TextField();
       cinField.setPromptText("CIN");
 
-      TextField numeroPermisField = new TextField();
-      numeroPermisField.setPromptText("Numéro de permis");
+      TextField telephoneField = new TextField();
+      telephoneField.setPromptText("Numéro de téléphone");
+
+      TextField emailField = new TextField();
+      emailField.setPromptText("Email");
 
       DatePicker dateNaissanceField = new DatePicker();
       dateNaissanceField.setPromptText("Date de naissance");
 
-      DatePicker dateExpirationPermisField = new DatePicker();
-      dateExpirationPermisField.setPromptText("Date d'expiration du permis");
+      TextField nationaliteField = new TextField();
+      nationaliteField.setPromptText("Nationalité");
 
+      DatePicker dateCinField = new DatePicker();
+      dateCinField.setPromptText("Date de délivrance du CIN");
+
+      TextField lieuCinField = new TextField();
+      lieuCinField.setPromptText("Lieu de délivrance du CIN");
+
+      // Adresse
       TextField rueField = new TextField();
       rueField.setPromptText("Rue");
 
@@ -98,25 +115,51 @@ public class GestionChauffeursController {
       TextField paysField = new TextField();
       paysField.setPromptText("Pays");
 
-      TextField telephoneField = new TextField();
-      telephoneField.setPromptText("Numéro de téléphone");
+      // Champs spécifiques au chauffeur
+      TextField numeroPermisField = new TextField();
+      numeroPermisField.setPromptText("Numéro de permis");
 
-      CheckBox disponibleField = new CheckBox("Disponible");
+      ComboBox<Permis> categoriePermisField = new ComboBox<>();
+      categoriePermisField.getItems().addAll(Permis.values());
+      categoriePermisField.setPromptText("Catégorie de permis");
+
+      DatePicker datePermisField = new DatePicker();
+      datePermisField.setPromptText("Date de délivrance du permis");
+
+      TextField lieuPermisField = new TextField();
+      lieuPermisField.setPromptText("Lieu de délivrance du permis");
+
+      TextField experienceField = new TextField();
+      experienceField.setPromptText("Années d'expérience");
+
+      TextField prixJourField = new TextField();
+      prixJourField.setPromptText("Prix par jour");
+
+      CheckBox disponibiliteField = new CheckBox("Disponible");
 
       // Formulaire complet
       VBox form = new VBox(10,
               new Label("Nom:"), nomField,
               new Label("Prénom:"), prenomField,
               new Label("CIN:"), cinField,
-              new Label("Numéro de permis:"), numeroPermisField,
+              new Label("Numéro de téléphone:"), telephoneField,
+              new Label("Email:"), emailField,
               new Label("Date de naissance:"), dateNaissanceField,
-              new Label("Date d'expiration du permis:"), dateExpirationPermisField,
+              new Label("Nationalité:"), nationaliteField,
+              new Label("Date de délivrance du CIN:"), dateCinField,
+              new Label("Lieu de délivrance du CIN:"), lieuCinField,
+              new Label("Adresse:"),
               new Label("Rue:"), rueField,
               new Label("Ville:"), villeField,
               new Label("Code Postal:"), codePostalField,
               new Label("Pays:"), paysField,
-              new Label("Numéro de téléphone:"), telephoneField,
-              disponibleField
+              new Label("Numéro de permis:"), numeroPermisField,
+              new Label("Catégorie de permis:"), categoriePermisField,
+              new Label("Date de délivrance du permis:"), datePermisField,
+              new Label("Lieu de délivrance du permis:"), lieuPermisField,
+              new Label("Années d'expérience:"), experienceField,
+              new Label("Prix par jour:"), prixJourField,
+              disponibiliteField
       );
 
       ScrollPane scrollPane = new ScrollPane(form);
@@ -132,107 +175,198 @@ public class GestionChauffeursController {
       dialog.setResultConverter(buttonType -> {
           if (buttonType == ajouterButtonType) {
               try {
-                  // Récupération des données
+                  // Récupération et validation des données
                   String nom = nomField.getText();
                   String prenom = prenomField.getText();
-                  String cin = cinField.getText();
-                  String numeroPermis = numeroPermisField.getText();
+                  double cin = Double.parseDouble(cinField.getText());
+                  double telephone = Double.parseDouble(telephoneField.getText());
+                  String email = emailField.getText();
                   LocalDate dateNaissance = dateNaissanceField.getValue();
-                  LocalDate dateExpirationPermis = dateExpirationPermisField.getValue();
-                  String rue = rueField.getText();
-                  String ville = villeField.getText();
-                  String codePostal = codePostalField.getText();
-                  String pays = paysField.getText();
-                  String telephone = telephoneField.getText();
-                  boolean disponible = disponibleField.isSelected();
+                  String nationalite = nationaliteField.getText();
+                  LocalDate dateCin = dateCinField.getValue();
+                  String lieuCin = lieuCinField.getText();
 
-                  // Validation des données
-                  if (nom.isEmpty() || prenom.isEmpty() || cin.isEmpty() || numeroPermis.isEmpty()
-                          || dateNaissance == null || dateExpirationPermis == null || rue.isEmpty() || ville.isEmpty()
-                          || codePostal.isEmpty() || pays.isEmpty() || telephone.isEmpty()) {
-                      throw new IllegalArgumentException("Tous les champs doivent être remplis.");
+                  Adresse adresse = new Adresse(rueField.getText(), villeField.getText(), codePostalField.getText(), paysField.getText());
+
+                  String numeroPermis = numeroPermisField.getText();
+                  Permis categoriePermis = categoriePermisField.getValue();
+                  LocalDate datePermis = datePermisField.getValue();
+                  String lieuPermis = lieuPermisField.getText();
+                  int experience = Integer.parseInt(experienceField.getText());
+                  double prixJour = Double.parseDouble(prixJourField.getText());
+                  boolean disponibilite = disponibiliteField.isSelected();
+
+                  // Validation des champs obligatoires
+                  if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || nationalite.isEmpty() ||
+                          adresse.rue().isEmpty() || adresse.ville().isEmpty() ||
+                          categoriePermis == null || datePermis == null || lieuPermis.isEmpty()) {
+                      throw new IllegalArgumentException("Tous les champs obligatoires doivent être remplis.");
                   }
 
-                  // Créer l'objet Adresse
-                  Adresse adresse = new Adresse(rue, ville, codePostal, pays);
-
-                  // Créer l'objet Chauffeur
-                  Chauffeur chauffeur = new Chauffeur(
-                          disponible, // Disponibilité
-                          0, // Expérience (initiale à 0, ou selon votre logique)
+                  // Création de l'objet Chauffeur
+                  return new Chauffeur(
+                          disponibilite,
+                          experience,
                           numeroPermis,
-                          java.sql.Date.valueOf(dateExpirationPermis), // Convert LocalDate to SQL Date if needed
-                          "Lieu permis", // Provide a value for lieuPermis
-                          Permis.A, // Correct usage of the enum value
-                          Double.parseDouble(cin),
-                          nom, prenom,
-                          Double.parseDouble(telephone),
-                          "email@domain.com", // Placeholder for email
+                          java.sql.Date.valueOf(datePermis),
+                          lieuPermis,
+                          categoriePermis,
+                          cin,
+                          nom,
+                          prenom,
+                          telephone,
+                          email,
                           adresse,
-                          java.sql.Date.valueOf(dateNaissance), // Convert LocalDate to SQL Date if needed
-                          "Nationalité", // Placeholder for nationality
-                          java.sql.Date.valueOf(dateNaissance), // Placeholder for CIN date (adjust accordingly)
-                          "Lieu CIN" // Placeholder for CIN location
+                          java.sql.Date.valueOf(dateNaissance),
+                          nationalite,
+                          java.sql.Date.valueOf(dateCin),
+                          lieuCin
                   );
 
-                  // Return the Chauffeur object for further processing (e.g., saving to database, list, etc.)
-                  return chauffeur;
-
               } catch (Exception e) {
-                  System.err.println("Erreur dans les données : " + e.getMessage());
+                  System.err.println("Erreur lors de l'ajout du chauffeur : " + e.getMessage());
               }
           }
           return null;
       });
 
-      // Afficher la boîte de dialogue
+      // Affichage de la boîte de dialogue
       dialog.showAndWait().ifPresent(chauffeur -> {
-          // Process the added chauffeur (e.g., save it to a list or database)
-          System.out.println("Chauffeur ajouté: " + chauffeur);
+          Gerant.getInstance().ajouterChauffeur(chauffeur);
+          chauffeurList.add(chauffeur);
+          tableViewChauffeurs.refresh();
       });
   }
 
 
-
-
-
-    @FXML
-    private void modifierChauffeur() {
-        Chauffeur selectedChauffeur = tableViewChauffeurs.getSelectionModel().getSelectedItem();
-        if (selectedChauffeur == null) {
-            statusBar.setText("Sélectionnez un chauffeur à modifier !");
+    public void modifierchauffeur() {
+        Chauffeur chauffeur = tableViewChauffeurs.getSelectionModel().getSelectedItem();
+        if (chauffeur == null) {
+            // Afficher un message d'erreur si aucun chauffeur n'est sélectionné
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucun chauffeur sélectionné");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un chauffeur à modifier.");
+            alert.showAndWait();
             return;
         }
 
-        String nom = tfNom.getText();
-        String prenom = tfPrenom.getText();
-        boolean disponibilite = cbDisponibilite.isSelected();
+        System.out.println("onEditChauffeur appelé pour le chauffeur : " + chauffeur.getCin());
 
-        selectedChauffeur.setNom(nom);
-        selectedChauffeur.setPrenom(prenom);
-        selectedChauffeur.setDisponibilite(disponibilite);
+        Dialog<Chauffeur> dialog = new Dialog<>();
+        dialog.setTitle("Modifier le chauffeur");
 
-        tableViewChauffeurs.refresh();
-        clearFields();
-        statusBar.setText("Chauffeur modifié avec succès !");
+        dialog.getDialogPane().setPrefWidth(400);
+        dialog.getDialogPane().setPrefHeight(300);
+
+        // Champs spécifiques à modifier
+        DatePicker dateValiditePermisField = new DatePicker(chauffeur.getDatePermis().toLocalDate());
+        TextField experienceField = new TextField(String.valueOf(chauffeur.getExperience()));
+        CheckBox disponibleField = new CheckBox("Disponible");
+        disponibleField.setSelected(chauffeur.isDisponibilite());
+
+        // Conteneur pour les champs
+        VBox form = new VBox(10,
+                new Label("Date de validité du permis:"), dateValiditePermisField,
+                new Label("Années d'expérience:"), experienceField,
+                disponibleField
+        );
+
+        ScrollPane scrollPane = new ScrollPane(form);
+        scrollPane.setFitToWidth(true);
+        dialog.getDialogPane().setContent(scrollPane);
+
+        // Boutons
+        ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        // Gestion de la sauvegarde
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == saveButtonType) {
+                try {
+                    // Validation et mise à jour des champs modifiés
+                    chauffeur.setDatePermis(java.sql.Date.valueOf(dateValiditePermisField.getValue()));
+                    chauffeur.setExperience(Integer.parseInt(experienceField.getText()));
+                    chauffeur.setDisponibilite(disponibleField.isSelected());
+
+                    return chauffeur;
+                } catch (Exception e) {
+                    System.err.println("Erreur dans les données : " + e.getMessage());
+                    showAlert("Erreur", "Données invalides", "Vérifiez les données saisies.", Alert.AlertType.ERROR);
+                }
+            }
+            return null;
+        });
+
+        dialog.showAndWait().ifPresent(updatedChauffeur -> {
+            tableViewChauffeurs.refresh(); // Rafraîchit la TableView après modification
+            System.out.println("Chauffeur mis à jour : " + updatedChauffeur);
+        });
     }
 
-    @FXML
+
+
+
+
+
+
+
+    // Fonction utilitaire pour afficher une boîte de dialogue d'alerte
+    private void showAlert(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    /*@FXML
     private void supprimerChauffeur() {
         Chauffeur selectedChauffeur = tableViewChauffeurs.getSelectionModel().getSelectedItem();
-        if (selectedChauffeur == null) {
-            statusBar.setText("Sélectionnez un chauffeur à supprimer !");
-            return;
+
+        if (selectedChauffeur != null) {
+            chauffeurList.remove(selectedChauffeur);
+            statusBar.setText("Chauffeur supprimé avec succès !");;
+        } else {
+            System.out.println("Aucun chauffeur sélectionné");
+            showAlert("Erreur", "Aucun chauffeur sélectionné", "Sélectionnez un chauffeur à supprimer !", Alert.AlertType.ERROR);
         }
 
-        chauffeurList.remove(selectedChauffeur);
-        statusBar.setText("Chauffeur supprimé avec succès !");
-    }
 
-    private void clearFields() {
-        tfCin.clear();
-        tfNom.clear();
-        tfPrenom.clear();
-        cbDisponibilite.setSelected(false);
-    }
-}
+    }*/
+    @FXML
+    private void supprimerChauffeur() {
+        // Récupérer le chauffeur sélectionné dans la TableView
+        Chauffeur selectedChauffeur = tableViewChauffeurs.getSelectionModel().getSelectedItem();
+
+        if (selectedChauffeur != null) {
+            // Afficher une boîte de confirmation
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation de suppression");
+            confirmationAlert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce chauffeur ?");
+            confirmationAlert.setContentText("Nom : " + selectedChauffeur.getNom() + "\nPrénom : " + selectedChauffeur.getPrenom());
+
+            // Si l'utilisateur confirme, supprimer le chauffeur
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // Suppression du chauffeur de la liste
+                    chauffeurList.remove(selectedChauffeur);
+
+                    // Mise à jour de la TableView
+                    tableViewChauffeurs.refresh();
+
+                    // Mise à jour du message dans la status bar
+                    statusBar.setText("Chauffeur '" + selectedChauffeur.getNom() + "' supprimé avec succès !");
+                }
+            });
+
+        } else {
+            // Si aucun chauffeur n'est sélectionné, afficher un message d'erreur avec votre méthode showAlert
+            System.out.println("Aucun chauffeur sélectionné");
+            showAlert("Erreur", "Aucun chauffeur sélectionné", "Sélectionnez un chauffeur à supprimer !", Alert.AlertType.ERROR);
+        }
+    }}
+
+
+
+

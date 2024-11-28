@@ -5,7 +5,7 @@
 package models.Personnes;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import models.management.Entretien;
 import models.vehicules.Assurance;
 import models.vehicules.ContratLocation;
@@ -215,9 +215,19 @@ public final class Gerant extends Personne {
     public void setAssurances(ArrayList<Assurance> assurances) {
         this.assurances = assurances;
     }
+<<<<<<< HEAD
 
     
 
+=======
+    return false; // Indique que le véhicule n'était pas dans la liste
+}
+    public int nombrevehicules(){return vehicules.size();}
+    public int nombreclients(){return clients.size();}
+    public int nombrechauffeurs(){return chauffeurs.size();}
+    public int nombrelocations(){return locations.size();}
+    public int nombreentretiens(){return entretiens.size();}
+>>>>>>> e26cbcb4de8c136e7cbac07665488045356347d5
     
    
 }
