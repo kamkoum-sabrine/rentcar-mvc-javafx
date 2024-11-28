@@ -10,11 +10,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -34,6 +36,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 
 import models.Personnes.Gerant;
+import models.vehicules.Assurance;
 import models.vehicules.Vehicule;
 import models.vehicules.VoitureCommerciale;
 import models.vehicules.VoitureFamiliale;
@@ -91,6 +94,12 @@ private final ObservableList<Vehicule> vehicules = FXCollections.observableArray
 private TableColumn<Vehicule, Void> colActions;
 
 @FXML
+private TableColumn<Vehicule, Void> colActionsAssurance;
+
+@FXML
+private TableColumn<Vehicule, String> colAssurance;
+
+@FXML
 public void initialize() {
         
    //  tableVoitures.lookup(".column-header-background").setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
@@ -100,6 +109,14 @@ public void initialize() {
     colModele.setCellValueFactory(new PropertyValueFactory<>("modele"));
     colType.setCellValueFactory(new PropertyValueFactory<>("type"));
     colCoutParJour.setCellValueFactory(new PropertyValueFactory<>("coutParJour"));
+    
+     colAssurance.setCellValueFactory(cellData -> {
+            if (cellData.getValue().getAssurance() != null) {
+                return new SimpleStringProperty(cellData.getValue().getAssurance().getNomAssureur());
+            } else {
+                return new SimpleStringProperty("Aucune");
+            }
+        });
 
     // Configurer les colonnes spécifiques
     colNombrePlaces.setCellValueFactory(cellData -> {
@@ -155,6 +172,27 @@ public void initialize() {
     tableVoitures.setItems(vehicules);
     
   // Ajouter des boutons pour la colonne d'actions
+   // Colonne Actions : bouton pour affecter l'assurance et supprimer l'affectation
+         colActionsAssurance.setCellFactory(param -> new TableCell<Vehicule, Void>() {
+            private final Button affecterButton = new Button("Affecter");
+            private final Button supprimerButton = new Button("Supprimer");
+
+            {
+                affecterButton.setOnAction(event -> affecterAssurance(getTableRow().getItem()));
+                supprimerButton.setOnAction(event -> supprimerAssurance(getTableRow().getItem()));
+            }
+
+            @Override
+            public void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    VBox vbox = new VBox(affecterButton, supprimerButton);
+                    setGraphic(vbox);
+                }
+            }
+        });
     colActions.setCellFactory(param -> new TableCell<>() {
         private final HBox actionBox = new HBox(10); // Conteneur horizontal pour les icônes
         private final Button editButton = new Button();
@@ -560,6 +598,44 @@ public void onAjouterVoitureClick(ActionEvent event) {
         vehicules.add(vehicule);
         tableVoitures.refresh();
     });
+    
 }
+ // Méthode pour affecter une assurance à un véhicule
+    private void affecterAssurance(Vehicule vehicule) {
+        // Ouvrir un dialog pour afficher les assurances
+        Dialog<Assurance> dialog = new Dialog<>();
+        dialog.setTitle("Choisir une Assurance");
+
+        ComboBox<Assurance> comboBoxAssurances = new ComboBox<>();
+        comboBoxAssurances.getItems().addAll(Gerant.getInstance().getAssurances());  // Liste des assurances du gestionnaire
+        dialog.getDialogPane().setContent(comboBoxAssurances);
+
+        ButtonType affecterButtonType = new ButtonType("Affecter", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(affecterButtonType, ButtonType.CANCEL);
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == affecterButtonType && comboBoxAssurances.getValue() != null) {
+                Assurance selectedAssurance = comboBoxAssurances.getValue();
+                vehicule.setAssurance(selectedAssurance);  // Affecter l'assurance au véhicule
+            }
+            return null;
+        });
+
+        dialog.showAndWait();
+          tableVoitures.refresh();
+    }
+
+    // Méthode pour supprimer l'affectation de l'assurance d'un véhicule
+    private void supprimerAssurance(Vehicule vehicule) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Supprimer l'Assurance");
+        alert.setHeaderText("Êtes-vous sûr de vouloir supprimer l'affectation de l'assurance ?");
+        alert.setContentText("Cela supprimera l'assurance actuelle du véhicule.");
+        
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            vehicule.setAssurance(null);  // Supprimer l'assurance du véhicule
+              tableVoitures.refresh();
+        }
+    }
 
 }

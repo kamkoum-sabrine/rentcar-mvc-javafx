@@ -3,11 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
+
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.beans.property.SimpleStringProperty?>
+
 
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionVehiculesController">
     <BorderPane>
@@ -34,6 +39,13 @@
                         <TableColumn fx:id="colCapaciteCharge" text="Capacité charge" />
                         <TableColumn fx:id="colToitOuvrant" text="Toit ouvrant" />
                         <TableColumn fx:id="colCameraRecul" text="Camera recul" />
+                        <TableColumn fx:id="colAssurance" text="Assurance">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="assurance"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colActionsAssurance" text="Gestion assurance" />
+
                         <TableColumn fx:id="colActions" text="Actions" />
 
                     </columns>

@@ -209,4 +209,13 @@ public class Vehicule implements Comparable<Vehicule>{
     public int compareTo(Vehicule other) {
         return Integer.compare(this.AnneeModele, other.AnneeModele); // Tri par année croissante
     }
+
+    public Assurance getAssurance() {
+        return assurance;
+    }
+
+    public void setAssurance(Assurance assurance) {
+        this.assurance = assurance;
+    }
+    
 }
