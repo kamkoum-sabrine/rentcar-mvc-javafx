@@ -39,6 +39,7 @@ public class RentcarMvc extends Application {
             gerant.setEntretiens(new ArrayList<>());
             gerant.setChauffeurs(new ArrayList<>());
             gerant.setLocations(new ArrayList<ContratLocation>());
+            gerant.setAssurances(new ArrayList<>());
 
             Parent root = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
           

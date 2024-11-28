@@ -5,7 +5,32 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<StackPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionAssurancesController">
+    <BorderPane>
+        <top>
+            <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
+                <Button onAction="#onAjouterAssuranceClick" style="-fx-background-color: #CFF4D2;" text="Ajouter une assurance" textFill="#205072">
+               <font>
+                  <Font name="Microsoft Yi Baiti" size="20.0" />
+               </font></Button>
+            </HBox>
+        </top>
+        <center>
+               <VBox style="-fx-padding: 0 0 0 20;"> <!-- Padding: haut, droite, bas, gauche -->
+                <TableView fx:id="tableAssurance" prefHeight="400" prefWidth="600">
+                    <columns>
+                        <TableColumn fx:id="colIdAssurance" style="-fx-background-color: #205072; -fx-text-fill: white;" text="Num Assurance" />
+                        <TableColumn fx:id="colNomAssureur" text="Nom assureur" />
+                        <TableColumn fx:id="colTypeAssurance" text="Type assurance" />
+                        <TableColumn fx:id="colDateDebut" text="Date début" />
+                        <TableColumn fx:id="colDateFin" text="Date fin" />
+                        <TableColumn fx:id="colCoutAssurance" text="Cout assurance" />
+                        <TableColumn fx:id="colActions" text="Actions" />
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionAssurancesController">
-    
-</AnchorPane>
+                    </columns>
+                </TableView>
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>

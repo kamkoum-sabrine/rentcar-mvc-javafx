@@ -7,6 +7,7 @@ package models.Personnes;
 import java.util.ArrayList;
 import java.util.Date;
 import models.management.Entretien;
+import models.vehicules.Assurance;
 import models.vehicules.ContratLocation;
 import models.vehicules.Vehicule;
 
@@ -20,25 +21,28 @@ public final class Gerant extends Personne {
     public ArrayList<Client> clients;
     public ArrayList<Chauffeur> chauffeurs;
     public ArrayList<ContratLocation> locations;
-    public ArrayList<Entretien> entretiens;
+    public ArrayList<Entretien> entretiens;    
+    public ArrayList<Assurance> assurances;
+
     
     private static Gerant instance;
 
     public static Gerant getInstance() {
         if (instance == null) {
-            instance = new Gerant();
+            instance = new Gerant(); // Ensure instance is created
         }
         return instance;
     }
 
 
-    public Gerant(ArrayList<Vehicule> vehicules, ArrayList<Client> clients, ArrayList<Chauffeur> chauffeurs, ArrayList<ContratLocation> locations, ArrayList<Entretien> entretiens, double cin, String nom, String prenom, double tel, String email, Adresse adresse, Date dateNaissance, String nationalite, Date dateCin, String lieuCin) {
+    public Gerant(ArrayList<Vehicule> vehicules, ArrayList<Client> clients, ArrayList<Chauffeur> chauffeurs, ArrayList<ContratLocation> locations, ArrayList<Entretien> entretiens,ArrayList<Assurance> assurances, double cin, String nom, String prenom, double tel, String email, Adresse adresse, Date dateNaissance, String nationalite, Date dateCin, String lieuCin) {
         super(cin, nom, prenom, tel, email, adresse, dateNaissance, nationalite, dateCin, lieuCin);
         this.vehicules = new ArrayList<Vehicule>();
         this.clients = new ArrayList<Client>();
         this.chauffeurs = new ArrayList<Chauffeur>();
         this.locations = new ArrayList<ContratLocation>();
         this.entretiens = new ArrayList<Entretien>();
+        this.assurances = new ArrayList<Assurance>();
     }
 
     public Gerant() {
@@ -52,6 +56,10 @@ public final class Gerant extends Personne {
         clients.add(client);
     }
      
+     public void ajouterAssurance(Assurance assurance){
+        assurances.add(assurance);
+    }
+    
     public void ajouterChauffeur(Chauffeur chauffeur){
         chauffeurs.add(chauffeur);
     }
@@ -142,6 +150,11 @@ public final class Gerant extends Personne {
     public ArrayList<Entretien> getEntretiens() {
         return entretiens;
     }
+    
+     public ArrayList<Assurance> getAssurances() {
+        return assurances;
+    }
+     
 
     public double getCin() {
         return cin;
@@ -184,12 +197,26 @@ public final class Gerant extends Personne {
     }
     
     public boolean supprimerVehicule(Vehicule vehicule) {
-    if (vehicules.contains(vehicule)) {
-        vehicules.remove(vehicule);
-        return true; // Indique que la suppression a réussi
+        if (vehicules.contains(vehicule)) {
+            vehicules.remove(vehicule);
+            return true; // Indique que la suppression a réussi
+        }
+        return false; // Indique que le véhicule n'était pas dans la liste
+    }  
+    public boolean supprimerAssurance(Assurance assurance) {
+        if (assurances.contains(assurance)) {
+            assurances.remove(assurance);
+            return true; // Indique que la suppression a réussi
+        }
+        return false; // Indique que l'assurance n'était pas dans la liste
+    }   
+
+
+    public void setAssurances(ArrayList<Assurance> assurances) {
+        this.assurances = assurances;
     }
-    return false; // Indique que le véhicule n'était pas dans la liste
-}
+
+    
 
     
    

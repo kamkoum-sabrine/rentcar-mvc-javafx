@@ -31,10 +31,12 @@ public class Vehicule implements Comparable<Vehicule>{
     private String type; 
     private Double coutParJour;
     private CoordonnéesGPS coordonneesGPS;
+    private Assurance assurance;        
+
     
     public Vehicule(String matricule, String marque, String modele, String puissance, String carburant , int anneeModele, 
             Double kilometrage, Boolean roueSecours, Boolean CricOutils, Boolean RadioAntenne, Boolean enjolivers,
-            Boolean retroviseurs,Boolean climatiseurMarche,String type,double coutParJour,CoordonnéesGPS coordonneesGPS){
+            Boolean retroviseurs,Boolean climatiseurMarche,String type,double coutParJour,CoordonnéesGPS coordonneesGPS, Assurance assurance){
         this.matricule = matricule;
         this.modele = modele;
         this.marque = marque;
@@ -51,6 +53,7 @@ public class Vehicule implements Comparable<Vehicule>{
         this.type = type;
         this.coutParJour = coutParJour;
         this.coordonneesGPS = coordonneesGPS;
+        this.assurance = assurance;
     }
 
     public String getMatricule() {

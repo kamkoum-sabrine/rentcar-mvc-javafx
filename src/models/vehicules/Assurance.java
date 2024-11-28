@@ -7,6 +7,7 @@ package models.vehicules;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
 import models.VehiculesException.CoutException;
@@ -21,28 +22,18 @@ public class Assurance {
     
     private int idAssurance;
     private String nomAssureur;
-    private String numeroPolice;
     private String typeAssurance; 
     private Date dateDebut;        
     private Date dateFin;
     private double coutAssurance; 
-    private Vehicule vehiculeAssure; 
-    private double franchise;      
-    private String couverture;     
-    private String status;         
 
-    public Assurance(int idAssurance, String nomAssureur, String numeroPolice, String typeAssurance, Date dateDebut, Date dateFin, double coutAssurance, Vehicule vehiculeAssure, double franchise, String couverture, String status) {
+    public Assurance(int idAssurance, String nomAssureur, String typeAssurance, Date dateDebut, Date dateFin, double coutAssurance) {
         this.idAssurance = idAssurance;
         this.nomAssureur = nomAssureur;
-        this.numeroPolice = numeroPolice;
         this.typeAssurance = typeAssurance;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.coutAssurance = coutAssurance;
-        this.vehiculeAssure = vehiculeAssure;
-        this.franchise = franchise;
-        this.couverture = couverture;
-        this.status = status;
     }
 
     public int getIdAssurance() {
@@ -51,10 +42,6 @@ public class Assurance {
 
     public String getNomAssureur() {
         return nomAssureur;
-    }
-
-    public String getNumeroPolice() {
-        return numeroPolice;
     }
 
     public String getTypeAssurance() {
@@ -73,32 +60,12 @@ public class Assurance {
         return coutAssurance;
     }
 
-    public Vehicule getVehiculeAssure() {
-        return vehiculeAssure;
-    }
-
-    public double getFranchise() {
-        return franchise;
-    }
-
-    public String getCouverture() {
-        return couverture;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
     public void setIdAssurance(int idAssurance) {
         this.idAssurance = idAssurance;
     }
 
     public void setNomAssureur(String nomAssureur) {
         this.nomAssureur = nomAssureur;
-    }
-
-    public void setNumeroPolice(String numeroPolice) {
-        this.numeroPolice = numeroPolice;
     }
 
     public void setTypeAssurance(String typeAssurance) {
@@ -118,25 +85,9 @@ public class Assurance {
         this.coutAssurance = coutAssurance;
     }
 
-    public void setVehiculeAssure(Vehicule vehiculeAssure) {
-        this.vehiculeAssure = vehiculeAssure;
-    }
-
-    public void setFranchise(double franchise) {
-        this.franchise = franchise;
-    }
-
-    public void setCouverture(String couverture) {
-        this.couverture = couverture;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     @Override
     public String toString() {
-        return "Assurance{" + "idAssurance=" + idAssurance + ", nomAssureur=" + nomAssureur + ", numeroPolice=" + numeroPolice + ", typeAssurance=" + typeAssurance + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", coutAssurance=" + coutAssurance + ", vehiculeAssure=" + vehiculeAssure + ", franchise=" + franchise + ", couverture=" + couverture + ", status=" + status + '}';
+        return "Assurance{" + "idAssurance=" + idAssurance + ", nomAssureur=" + nomAssureur + ", typeAssurance=" + typeAssurance + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", coutAssurance=" + coutAssurance + "}";
     }
 
     public int dureeAssuranceJours(){

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.GestionChauffeursController">
+    <top>
+        <ToolBar>
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Gestion des Chauffeurs" />
+        </ToolBar>
+        <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;" />
+    </top>
+
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <!-- TableView pour afficher les chauffeurs -->
+            <TableView fx:id="tableViewChauffeurs" prefHeight="300" prefWidth="600">
+                <columns>
+                    <TableColumn fx:id="colCin" prefWidth="100" text="CIN" />
+                    <TableColumn fx:id="colNom" prefWidth="150" text="Nom" />
+                    <TableColumn fx:id="colPrenom" prefWidth="150" text="Prénom" />
+                    <TableColumn fx:id="colDisponibilite" prefWidth="100" text="Disponibilité" />
+                </columns>
+            </TableView>
+            <Button onAction="#ajouterChauffeur" text="Ajouter un chauffeur" />
+         <Button layoutX="20.0" layoutY="331.0" onAction="#modifierChauffeur" text="Modifier un chauffeur" />
+         <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerChauffeur" text="Supprimer un chauffeur" />
+
+            <!-- Formulaire caché -->
+            <VBox fx:id="formulaireAjout" spacing="10" visible="false">
+                <TextField fx:id="tfCin" promptText="CIN" />
+                <TextField fx:id="tfNom" promptText="Nom" />
+                <TextField fx:id="tfPrenom" promptText="Prénom" />
+                <CheckBox fx:id="cbDisponibilite" text="Disponible" />
+                <Button onAction="#ajouterChauffeur" text="Ajouter" />
+
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

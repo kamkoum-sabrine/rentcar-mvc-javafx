@@ -537,7 +537,7 @@ public void onAjouterVoitureClick(ActionEvent event) {
 
                     return new VoitureFamiliale(matricule, marque, modele, puissance, carburant, anneeModele, kilometrage,
                         roueSecours, cricOutils, radioAntenne, enjolivers, retroviseurs, climatiseurMarche,
-                        nombrePlaces, siegeBebe, coffre, type, coutParJour, null);
+                        nombrePlaces, siegeBebe, coffre, type, coutParJour, null,null);
                 } else if ("Voiture Commerciale".equals(type)) {
                     int capaciteCharge = Integer.parseInt(((TextField) champsSpecifiques.getChildren().get(2)).getText()); // Index ajusté
                     boolean toitOuvrant = ((CheckBox) champsSpecifiques.getChildren().get(3)).isSelected();
@@ -545,7 +545,7 @@ public void onAjouterVoitureClick(ActionEvent event) {
 
                     return new VoitureCommerciale(matricule, marque, modele, puissance, carburant, anneeModele, kilometrage,
                         roueSecours, cricOutils, radioAntenne, enjolivers, retroviseurs, climatiseurMarche,
-                        capaciteCharge, toitOuvrant, cameraRecul, type, coutParJour, null);
+                        capaciteCharge, toitOuvrant, cameraRecul, type, coutParJour, null, null);
                 }
 
             } catch (Exception e) {
