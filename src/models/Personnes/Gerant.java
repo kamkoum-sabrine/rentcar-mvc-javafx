@@ -6,6 +6,7 @@ package models.Personnes;
 
 import java.util.ArrayList;
 import java.sql.Date;
+import models.Facture.Remise;
 import models.Personnes.Chauffeur;
 import models.Personnes.Client;
 import models.management.Entretien;
@@ -25,6 +26,9 @@ public final class Gerant extends Personne {
     public ArrayList<ContratLocation> locations;
     public ArrayList<Entretien> entretiens;    
     public ArrayList<Assurance> assurances;
+    public ArrayList<Remise> remises;
+
+    
 
     
     private static Gerant instance;
@@ -223,5 +227,27 @@ public final class Gerant extends Personne {
     public int nombrechauffeurs(){return chauffeurs.size();}
     public int nombrelocations(){return locations.size();}
     public int nombreentretiens(){return entretiens.size();}
+    public ArrayList<Remise> getRemises() {
+        return remises;
+    }
+
+    public void setRemises(ArrayList<Remise> remises) {
+        this.remises = remises;
+    }
+
+    public static void setInstance(Gerant instance) {
+        Gerant.instance = instance;
+    }
+    
+    public void ajouterRemise(Remise remise){
+        remises.add(remise);
+    }
+    public boolean supprimerRemise(Remise remise) {
+      if (remises.contains(remise)) {
+          remises.remove(remise);
+          return true; // Indique que la suppression a réussi
+      }
+      return false; // Indique que la remise n'était pas dans la liste
+    }   
 
 }

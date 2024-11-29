@@ -58,6 +58,11 @@ public class AcceuilController {
     private void showGestionFactures() {
         loadView("/views/GestionFactures.fxml");
     }
+    
+     @FXML
+    private void showGestionRemises() {
+        loadView("/views/GestionRemises.fxml");
+    }
 
     @FXML
     private void showGestionAssurances() {

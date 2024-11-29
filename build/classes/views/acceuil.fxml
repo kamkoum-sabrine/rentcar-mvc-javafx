@@ -60,6 +60,10 @@
             <font>
                 <Font name="SimSun" size="14.0" />
             </font></Button>
+            <Button onAction="#showGestionRemises" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Remises">
+            <font>
+                <Font name="SimSun" size="14.0" />
+            </font></Button>
         <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion" >
             <font>
                   <Font name="SimSun" size="14.0" />
