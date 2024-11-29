@@ -5,6 +5,7 @@
 package models.vehicules;
 
 import java.util.Date;
+import models.VehiculesException.CoutException;
 import models.vehicules.Assurance;
 
 /**
@@ -18,7 +19,7 @@ public class VoitureCommerciale extends Vehicule{
     
     public VoitureCommerciale(String matricule, String marque, String modele, String puissance, String carburant , int anneeModele, 
             Double kilometrage, Boolean roueSecours, Boolean CricOutils, Boolean RadioAntenne, Boolean enjolivers,
-            Boolean retroviseurs,Boolean climatiseurMarche, int capaciteCharge, Boolean toitOuvrant, Boolean cameraRecul,String type,Double coutParJour, CoordonnéesGPS  coordonneesGPS, Assurance assurance){
+            Boolean retroviseurs,Boolean climatiseurMarche, int capaciteCharge, Boolean toitOuvrant, Boolean cameraRecul,String type,Double coutParJour, CoordonnéesGPS  coordonneesGPS, Assurance assurance) throws CoutException{
         super(matricule, marque, modele, puissance, carburant, anneeModele, kilometrage, roueSecours, CricOutils, RadioAntenne, enjolivers, retroviseurs, climatiseurMarche,type,coutParJour, coordonneesGPS, assurance);
         this.capaciteCharge = capaciteCharge;
         this.toitOuvrant = toitOuvrant;

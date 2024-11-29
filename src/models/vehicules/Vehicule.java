@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import models.VehiculesException.CoutException;
+import models.VehiculesException.DateLocationException;
 
 
 /**
@@ -36,7 +38,8 @@ public class Vehicule implements Comparable<Vehicule>{
     
     public Vehicule(String matricule, String marque, String modele, String puissance, String carburant , int anneeModele, 
             Double kilometrage, Boolean roueSecours, Boolean CricOutils, Boolean RadioAntenne, Boolean enjolivers,
-            Boolean retroviseurs,Boolean climatiseurMarche,String type,double coutParJour,CoordonnéesGPS coordonneesGPS, Assurance assurance){
+            Boolean retroviseurs,Boolean climatiseurMarche,String type,double coutParJour,CoordonnéesGPS coordonneesGPS, Assurance assurance)
+            throws CoutException{
         this.matricule = matricule;
         this.modele = modele;
         this.marque = marque;
@@ -52,6 +55,7 @@ public class Vehicule implements Comparable<Vehicule>{
         this.climatiseurMarche = climatiseurMarche;
         this.type = type;
         this.coutParJour = coutParJour;
+        if (this.coutParJour<=0) throw new CoutException();
         this.coordonneesGPS = coordonneesGPS;
         this.assurance = assurance;
     }
@@ -199,9 +203,9 @@ public class Vehicule implements Comparable<Vehicule>{
     public Double getCoutParJour() {
         return coutParJour;
     }
-
-    public void setCoutParJour(Double coutParJour) {
-        this.coutParJour = coutParJour;
+    public void setCoutParJour(double coutParJour) throws CoutException {
+            this.coutParJour = coutParJour;
+            if (this.coutParJour<=0) throw new CoutException();
     }
     
      // Implémentation de l'interface Comparable

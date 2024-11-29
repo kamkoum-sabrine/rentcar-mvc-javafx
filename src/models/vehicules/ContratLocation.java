@@ -21,18 +21,15 @@ public class ContratLocation {
     private Vehicule vehicule;
     private Date dateDebut;
     private Date dateFin;
-    private double coutParJour;
-
-    public ContratLocation(int id, Vehicule vehicule, Date dateDebut, Date datFin, double coutParJour) throws DateLocationException, CoutException{
+  
+    public ContratLocation(int id, Vehicule vehicule, Date dateDebut, Date datFin) throws DateLocationException, CoutException{
         this.clients =new HashSet<Client>();
         this.id = id;
         this.vehicule = vehicule;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         if (this.dateDebut.compareTo(this.dateFin) > 0) throw new DateLocationException(); 
-        
-        this.coutParJour = coutParJour;
-        if (this.coutParJour<=0) throw new CoutException();
+
     }
 
     public int getId() {
@@ -55,10 +52,7 @@ public class ContratLocation {
         return dateFin;
     }
 
-    public double getCoutParJour() {
-        return coutParJour;
-    }
-
+  
     public void setId(int id) {
         this.id = id;
     }
@@ -81,20 +75,17 @@ public class ContratLocation {
         if (this.dateDebut.compareTo(this.dateFin) > 0) throw new DateLocationException(); 
     }
 
-    public void setCoutParJour(double coutParJour) throws CoutException {
-        this.coutParJour = coutParJour;
-        if (this.coutParJour<=0) throw new CoutException();
-    }
+    
 
     @Override
     public String toString() {
         List<String> list = new ArrayList(clients);
-        return "ContratLocation{" + "id=" + id + ", conducteur1=" + list.get(0) + ", conducteur2=" + list.get(1) + ", vehicule=" + vehicule + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + ", coutParJour=" + coutParJour + '}';
+        return "ContratLocation{" + "id=" + id + ", conducteur1=" + list.get(0) + ", conducteur2=" + list.get(1) + ", vehicule=" + vehicule + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin +'}';
     }
     
     public double calculerCout(){
         long differenceEnMillisecondes = dateFin.getTime() - dateDebut.getTime();
         long differenceEnJours = differenceEnMillisecondes / (1000 * 60 * 60 * 24); // Conversion en jours
-        return differenceEnJours * coutParJour;
+        return differenceEnJours * vehicule.getCoutParJour();
     }
 }
