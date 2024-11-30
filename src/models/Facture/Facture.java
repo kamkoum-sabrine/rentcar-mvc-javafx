@@ -23,15 +23,17 @@ public class Facture {
     private LocalDate dateEmission;
     private double montantTotal;
     private boolean estReglee;
-    private List<HistoriquePaiement> paiements; // Ajout de l'historique des paiements
+    private ContratLocation contrat;
+    
     private List<Remise> remises; // Ajout des remises appliquées à la facture
 
-    public Facture(int idFacture, LocalDate dateEmission, double montantTotal) {
+    public Facture(int idFacture, LocalDate dateEmission, double montantTotal, ContratLocation contrat) {
         this.idFacture = idFacture;
         this.dateEmission = dateEmission;
         this.montantTotal = montantTotal;
         this.estReglee = false; // Par défaut, une facture n'est pas réglée
-        this.paiements = new ArrayList<>();
+        this.contrat = contrat;
+       // this.paiements = new ArrayList<>();
         this.remises = new ArrayList<>();
     }
 
@@ -57,27 +59,43 @@ public class Facture {
         return estReglee;
     }
 
-    public void ajouterPaiement(HistoriquePaiement paiement) {
-        paiements.add(paiement);
-        double totalPaye = paiements.stream().mapToDouble(HistoriquePaiement::getMontantPaye).sum();
-        if (totalPaye >= montantTotal) {
-            this.estReglee = true;
-        }
-    }
+   
 
     public void ajouterRemise(Remise remise) {
         remises.add(remise);
     }
 
-    @Override
-    public String toString() {
-        return "Facture{" +
-                "idFacture=" + idFacture +
-                ", dateEmission=" + dateEmission +
-                ", montantTotal=" + getMontantTotal() +
-                ", estReglee=" + estReglee +
-                ", paiements=" + paiements +
-                ", remises=" + remises +
-                '}';
+    public ContratLocation getContrat() {
+        return contrat;
     }
+
+    public List<Remise> getRemises() {
+        return remises;
+    }
+
+    public void setIdFacture(int idFacture) {
+        this.idFacture = idFacture;
+    }
+
+    public void setDateEmission(LocalDate dateEmission) {
+        this.dateEmission = dateEmission;
+    }
+
+    public void setMontantTotal(double montantTotal) {
+        this.montantTotal = montantTotal;
+    }
+
+    public void setEstReglee(boolean estReglee) {
+        this.estReglee = estReglee;
+    }
+
+    public void setContrat(ContratLocation contrat) {
+        this.contrat = contrat;
+    }
+
+    public void setRemises(List<Remise> remises) {
+        this.remises = remises;
+    }
+    
+
 }

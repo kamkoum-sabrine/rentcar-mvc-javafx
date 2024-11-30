@@ -52,7 +52,7 @@ public class GestionAssurancesController {
      * Initializes the controller class.
      */
   
-      @FXML
+    @FXML
     private TableView<Assurance> tableAssurance;
 
     @FXML
