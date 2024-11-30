@@ -5,7 +5,7 @@
 package models.Personnes;
 
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import models.Facture.Remise;
 import models.Personnes.Chauffeur;
 import models.Personnes.Client;
@@ -248,6 +248,15 @@ public final class Gerant extends Personne {
           return true; // Indique que la suppression a réussi
       }
       return false; // Indique que la remise n'était pas dans la liste
+    }   
+    
+   
+    public boolean supprimerLocation(ContratLocation contratLocation) {
+      if (locations.contains(contratLocation)) {
+          locations.remove(contratLocation);
+          return true; // Indique que la suppression a réussi
+      }
+      return false; // Indique que le contrat n'était pas dans la liste
     }   
 
 }
