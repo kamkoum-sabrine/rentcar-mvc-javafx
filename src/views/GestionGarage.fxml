@@ -6,6 +6,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionGarageController">
-    
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionGarageController">
+    <top>
+
+    </top>
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;" BorderPane.alignment="CENTER">
+            <!-- TableView pour afficher les garages -->
+            <TableView fx:id="tableViewGarages" prefHeight="300" prefWidth="800">
+                <columns>
+                    <TableColumn fx:id="colIdGarage" prefWidth="100" text="ID Garage" />
+                    <TableColumn fx:id="colNomGarage" prefWidth="150" text="Nom" />
+                    <TableColumn fx:id="colAdresseGarage" prefWidth="200" text="Adresse" />
+                    <TableColumn fx:id="colNumeroTelephone" prefWidth="150" text="Numéro Téléphone" />
+                    <TableColumn fx:id="colCapaciteGarage" prefWidth="100" text="Capacité" />
+                    <TableColumn fx:id="colTechniciens" prefWidth="200" text="Techniciens" />
+                    <TableColumn fx:id="colVehiculesEntretien" prefWidth="200" text="Véhicules en Entretien" />
+                    <TableColumn fx:id="colHorairesOuverture" prefWidth="200" text="Horaires Ouverture" />
+                    <TableColumn fx:id="colServicesDisponibles" prefWidth="250" text="Services Disponibles" />
+                </columns>
+            </TableView>
+            <!--<Button onAction="#ajouterGarage" prefHeight="26.0" prefWidth="200.0" text="Ajouter un garage" />
+            <Button layoutX="20.0" layoutY="331.0" onAction="#modifierGarage" prefHeight="26.0" prefWidth="200.0" text="Modifier un garage" />
+            <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerGarage" prefHeight="26.0" prefWidth="200.0" text="Supprimer un garage" />-->
+        </VBox>
+    </center>
+</BorderPane>
+

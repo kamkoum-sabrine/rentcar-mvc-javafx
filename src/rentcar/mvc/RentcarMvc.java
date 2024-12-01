@@ -29,10 +29,7 @@ import models.vehicules.ContratLocation;
 import models.vehicules.CoordonnéesGPS;
 import models.vehicules.VoitureCommerciale;
 
-/**
- *
- * @author LENOVO
- */
+
 public class RentcarMvc extends Application {
     
     @Override

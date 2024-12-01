@@ -6,18 +6,23 @@ package controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import models.Personnes.Adresse;
+import models.Personnes.Chauffeur;
 import models.Personnes.Client;
 import models.Personnes.Gerant;
+import models.vehicules.Vehicule;
+
 import java.sql.Date;
 
 /**
@@ -51,8 +56,10 @@ public class GestionClientsController  {
     private TableColumn<Client, String> colLieuPermis;
     @FXML
     private TableColumn<Client, Void> colActions;
+    @FXML
+    private Label statusBar;
 
-    private ObservableList<Client> clients;
+    private final ObservableList<Client> clients=FXCollections.observableArrayList();
     public void initialize() {
         // Initialize table columns
         colCin.setCellValueFactory(new PropertyValueFactory<>("cin"));
@@ -76,7 +83,7 @@ public class GestionClientsController  {
                     showLocationsForClient(client);
                 });
             }*/
-        clients = FXCollections.observableArrayList();
+
         tableClient.setItems(clients);
 
     }
@@ -218,5 +225,111 @@ public class GestionClientsController  {
         });
     }
 
+    public void ModifierClient() {
+        Client client = tableClient.getSelectionModel().getSelectedItem();
+        if (client == null) {
+            // Afficher un message d'erreur si aucun client n'est sélectionné
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucun client sélectionné");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un client à modifier.");
+            alert.showAndWait();
+            return;
+        }
+        System.out.println("ModifierClient appelé pour le client : " + client.getNom() + " " + client.getPrenom());
 
+        Dialog<Client> dialog = new Dialog<>();
+        dialog.setTitle("Modifier les informations du client");
+
+        dialog.getDialogPane().setPrefWidth(600);
+        dialog.getDialogPane().setPrefHeight(400);
+
+        // Champs à modifier
+        TextField telephoneField = new TextField(String.valueOf(client.getTel()));
+        TextField emailField = new TextField(client.getEmail());
+        TextField carteCreditField = new TextField(client.getCarteCredit());
+        TextField lieuPermisField = new TextField(client.getLieuPermis());
+
+        // Formulaire limité aux champs modifiables
+        VBox form = new VBox(10,
+                new Label("Numéro de téléphone:"), telephoneField,
+                new Label("Email:"), emailField,
+                new Label("Numéro de carte de crédit:"), carteCreditField,
+                new Label("Lieu de délivrance du permis:"), lieuPermisField
+        );
+
+        ScrollPane scrollPane = new ScrollPane(form);
+        scrollPane.setFitToWidth(true);
+        dialog.getDialogPane().setContent(scrollPane);
+
+        // Boutons
+        ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == saveButtonType) {
+                try {
+                    // Mise à jour des champs modifiables du client
+                    client.setTel(Double.parseDouble(telephoneField.getText()));
+                    client.setEmail(emailField.getText());
+                    client.setCarteCredit(carteCreditField.getText());
+                    client.setLieuPermis(lieuPermisField.getText());
+
+                    return client;
+                } catch (Exception e) {
+                    System.err.println("Erreur lors de la modification du client : " + e.getMessage());
+                }
+            }
+            return null;
+        });
+
+        // Affichage de la boîte de dialogue
+        dialog.showAndWait().ifPresent(updatedClient -> {
+            tableClient.refresh(); // Met à jour la TableView
+            Gerant.getInstance().setClients(new ArrayList<>(clients)); // Met à jour la liste des clients dans le gestionnaire
+        });
     }
+
+    @FXML
+    public void SupprimerClient() {
+        // Récupérer le chauffeur sélectionné dans la TableView
+        Client selectedClient = tableClient.getSelectionModel().getSelectedItem();
+
+        if (selectedClient != null) {
+            // Afficher une boîte de confirmation
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation de suppression");
+            confirmationAlert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce chauffeur ?");
+            confirmationAlert.setContentText("Nom : " + selectedClient.getNom() + "\nPrénom : " + selectedClient.getPrenom());
+
+            // Si l'utilisateur confirme, supprimer le chauffeur
+            confirmationAlert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    // Suppression du chauffeur de la liste
+                    clients.remove(selectedClient);
+
+                    // Mise à jour de la TableView
+                    tableClient.refresh();
+
+                    // Mise à jour du message dans la status bar
+                    statusBar.setText("Chauffeur '" + selectedClient.getNom() + "' supprimé avec succès !");
+                }
+            });
+
+        } else {
+            // Si aucun chauffeur n'est sélectionné, afficher un message d'erreur avec votre méthode showAlert
+            System.out.println("Aucun chauffeur sélectionné");
+            showAlert("Erreur", "Aucun chauffeur sélectionné", "Sélectionnez un chauffeur à supprimer !", Alert.AlertType.ERROR);
+        }
+    }
+    private void showAlert(String title, String header, String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+
+
+}

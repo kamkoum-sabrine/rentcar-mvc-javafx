@@ -6,6 +6,34 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionEntretienController">
-    
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionEntretienController">
+    <top>
+        <ToolBar>
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Gestion des Entretiens" />
+        </ToolBar>
+
+    </top>
+    <center>
+        <VBox spacing="10" style="-fx-padding: 0;" BorderPane.alignment="CENTER">
+            <!-- TableView pour afficher les entretiens -->
+            <TableView fx:id="tableViewEntretiens" prefHeight="300" prefWidth="800">
+                <columns>
+                    <TableColumn fx:id="colIdEntretien" prefWidth="100" text="ID Entretien" />
+                    <TableColumn fx:id="colDateEntretien" prefWidth="150" text="Date Entretien" />
+                    <TableColumn fx:id="colTypeEntretien" prefWidth="150" text="Type Entretien" />
+                    <TableColumn fx:id="colCout" prefWidth="100" text="Coût" />
+                    <TableColumn fx:id="colKilometrage" prefWidth="100" text="Kilométrage" />
+                    <TableColumn fx:id="colTechnicien" prefWidth="150" text="Technicien" />
+                    <TableColumn fx:id="colNotes" prefWidth="200" text="Notes" />
+                    <TableColumn fx:id="colVehicule" prefWidth="150" text="Véhicule" />
+                    <TableColumn fx:id="colGarage" prefWidth="150" text="Garage" />
+                </columns>
+            </TableView>
+            <!--<Button onAction="#ajouterEntretien" prefHeight="26.0" prefWidth="200.0" text="Ajouter un entretien" />
+            <Button layoutX="20.0" layoutY="331.0" onAction="#modifierEntretien" prefHeight="26.0" prefWidth="200.0" text="Modifier un entretien" />
+            <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerEntretien" prefHeight="26.0" prefWidth="200.0" text="Supprimer un entretien" />-->
+
+
+        </VBox>
+    </center>
+</BorderPane>

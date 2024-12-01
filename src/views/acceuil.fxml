@@ -2,20 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import java.lang.String?>
-<?import java.util.List?>
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcceuilController">
    
     <!-- MediaView pour afficher la vidéo -->
@@ -26,45 +20,49 @@
     <!-- Navbar en haut avec des boutons -->
   
 <left>
-    <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 20 10 10 20; -fx-background-color: #205072;">
-        <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules">
+    <VBox alignment="TOP_LEFT" prefHeight="650.0" prefWidth="187.0" spacing="15" style="-fx-padding: 20 10 10 20; -fx-background-color: #205072;">
+        <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules">
                <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionClients" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Clients" >
+        <Button onAction="#showGestionClients" prefHeight="42.0" prefWidth="123.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Clients">
             <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionLocations" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Locations" >
+        <Button onAction="#showGestionLocations" prefHeight="42.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Locations">
             <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" >
+        <Button onAction="#showGestionFactures" prefHeight="42.0" prefWidth="130.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures">
             <font>
             <Font name="SimSun" size="14.0" />
                </font>
         </Button>
-        <Button onAction="#showGestionAssurances" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances" >
+        <Button onAction="#showGestionAssurances" prefHeight="42.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances">
             <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionGarage" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Garage" >
+        <Button onAction="#showGestionGarage" prefHeight="42.0" prefWidth="118.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Garage">
             <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionEntretien" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Entretien" >
+        <Button onAction="#showGestionEntretien" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Entretien">
             <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionChauffeurs" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Chauffeurs">
+        <Button onAction="#showGestionChauffeurs" prefHeight="42.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Chauffeurs">
             <font>
                 <Font name="SimSun" size="14.0" />
             </font></Button>
-            <Button onAction="#showGestionRemises" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Remises">
+            <Button onAction="#showGestionRemises" prefHeight="42.0" prefWidth="121.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Remises">
             <font>
                 <Font name="SimSun" size="14.0" />
             </font></Button>
-        <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion" >
+        <Button onAction="#showGestionTechnicien" prefHeight="42.0" prefWidth="134.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Techniciens">
+            <font>
+                <Font name="SimSun" size="14.0" />
+            </font></Button>
+        <Button onAction="#logout" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Déconnexion">
             <font>
                   <Font name="SimSun" size="14.0" />
                </font>
@@ -80,14 +78,14 @@
                 <!-- Titre des statistiques -->
                 <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
 
-                <TableView fx:id="statistiquesTable" layoutX="50.0" layoutY="50.0" prefHeight="200.0" prefWidth="600.0">
+                <TableView fx:id="statistiquesTable" layoutX="50.0" layoutY="50.0" prefHeight="56.0" prefWidth="600.0">
                     <columns>
                         <!-- Colonne pour le nombre de véhicules -->
-                        <TableColumn fx:id="colVehicules" text="Nombre de véhicules" prefWidth="200" />
+                        <TableColumn fx:id="colVehicules" prefWidth="200" text="Nombre de véhicules" />
                         <!-- Colonne pour le nombre de chauffeurs -->
-                        <TableColumn fx:id="colChauffeurs" text="Nombre de chauffeurs" prefWidth="200" />
+                        <TableColumn fx:id="colChauffeurs" prefWidth="200" text="Nombre de chauffeurs" />
                         <!-- Colonne pour le nombre de locations -->
-                        <TableColumn fx:id="colLocations" text="Nombre de locations" prefWidth="200" />
+                        <TableColumn fx:id="colLocations" prefWidth="200" text="Nombre de locations" />
                     </columns>
                 </TableView>
 
