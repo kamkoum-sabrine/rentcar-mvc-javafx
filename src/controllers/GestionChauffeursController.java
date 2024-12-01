@@ -60,9 +60,6 @@ public class GestionChauffeursController {
         colDisponibilite.setCellValueFactory(new PropertyValueFactory<>("disponibilite"));
 
         chauffeurList = FXCollections.observableArrayList();
-
-
-
         tableViewChauffeurs.setItems(chauffeurList);
     }
 
