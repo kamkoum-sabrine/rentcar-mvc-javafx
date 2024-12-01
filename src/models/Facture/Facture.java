@@ -20,32 +20,45 @@ import models.Personnes.Client;
  */
 public class Facture {
     private int idFacture;
-    private LocalDate dateEmission;
-    private double montantTotal;
+    private Date dateEmission;
+   
     private boolean estReglee;
     private ContratLocation contrat;
     
     private List<Remise> remises; // Ajout des remises appliquées à la facture
 
-    public Facture(int idFacture, LocalDate dateEmission, double montantTotal, ContratLocation contrat) {
+    public Facture(int idFacture, Date dateEmission,  ContratLocation contrat) {
         this.idFacture = idFacture;
         this.dateEmission = dateEmission;
-        this.montantTotal = montantTotal;
         this.estReglee = false; // Par défaut, une facture n'est pas réglée
         this.contrat = contrat;
        // this.paiements = new ArrayList<>();
         this.remises = new ArrayList<>();
     }
+    
+    public Facture(){
+        this.remises = new ArrayList<>();
+    };
 
     public int getIdFacture() {
         return idFacture;
     }
 
-    public LocalDate getDateEmission() {
+    public Date getDateEmission() {
         return dateEmission;
     }
+    public double calculerMontantTotalAvecRemise() {
+       
+        double coutLocation = contrat.calculerCout();
 
-    public double getMontantTotal() {
+        for (Remise remise : remises) {
+            double pourcentageRemise = remise.getPourcentageRemise();
+            coutLocation -= coutLocation * (pourcentageRemise / 100);
+        }
+
+        return coutLocation;
+    }
+   /** public double getMontantTotalAvecRemise() {
         double montantAvecRemises = montantTotal;
         for (Remise remise : remises) {
             if (remise.isConditionActive()) {
@@ -53,7 +66,7 @@ public class Facture {
             }
         }
         return montantAvecRemises;
-    }
+    }**/
 
     public boolean isEstReglee() {
         return estReglee;
@@ -77,12 +90,8 @@ public class Facture {
         this.idFacture = idFacture;
     }
 
-    public void setDateEmission(LocalDate dateEmission) {
+    public void setDateEmission(Date dateEmission) {
         this.dateEmission = dateEmission;
-    }
-
-    public void setMontantTotal(double montantTotal) {
-        this.montantTotal = montantTotal;
     }
 
     public void setEstReglee(boolean estReglee) {

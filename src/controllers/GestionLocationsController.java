@@ -6,12 +6,14 @@ package controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -33,6 +35,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -43,6 +46,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import models.Facture.Facture;
+import models.Facture.Remise;
 import models.Personnes.Adresse;
 import models.Personnes.Client;
 import models.Personnes.Gerant;
@@ -52,6 +57,7 @@ import models.vehicules.ContratLocation;
 import models.vehicules.Vehicule;
 import models.vehicules.VoitureCommerciale;
 import models.vehicules.VoitureFamiliale;
+
 
 /**
  * FXML Controller class
@@ -140,6 +146,7 @@ public void initialize() {
         private final HBox actionBox = new HBox(10); // Conteneur horizontal pour les icônes
         private final Button editButton = new Button();
         private final Button deleteButton = new Button();
+        private final Button generateInvoiceButton = new Button();
 
         {
             // Configure les boutons avec des icônes
@@ -148,10 +155,13 @@ public void initialize() {
             // Configure les boutons avec des chaînes de caractères
             editButton.setText("Éditer");
             deleteButton.setText("Supprimer");
+            generateInvoiceButton.setText("Générer la facture");
 
             // (Facultatif) Ajoute des styles pour différencier les boutons
             editButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold;");
             deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+            generateInvoiceButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+
 
             // Ajout des actions
             editButton.setOnAction(event -> {
@@ -170,8 +180,19 @@ public void initialize() {
                 ContratLocation contratLocation = getTableView().getItems().get(getIndex());
                 onDeleteContrat(contratLocation);
             });
+            generateInvoiceButton.setOnAction(event -> {
+                System.out.println("facture !!");
+                ContratLocation contratLocation = getTableView().getItems().get(getIndex());
+                System.out.println("Numero contrat "+ contratLocation.getId());
+                try {
+                    onGenerateInvoiceClick(contratLocation);
+                } catch (Exception e) {
+                    System.err.println("Erreur lors de l'édition : " + e.getMessage());
+                    e.printStackTrace();
+                }
+            });
 
-            actionBox.getChildren().addAll(editButton, deleteButton);
+            actionBox.getChildren().addAll(editButton, deleteButton,generateInvoiceButton);
         }
 
         @Override
@@ -315,9 +336,161 @@ private void onEditContratLocation(ContratLocation contratLocation) {
     });
 }
 
+private void onGenerateInvoiceClick(ContratLocation contratLocation) {
+        System.out.println("onGenerateInvoiceClick appelé pour le contrat : " + contratLocation.getId());
+        // Configuration de la boîte de dialogue
+        Dialog<ContratLocation> dialog = new Dialog<>();
+        dialog.setTitle("Générer une Facture pour le contrat n° "+contratLocation.getId());
+        dialog.getDialogPane().setPrefWidth(800);
+        dialog.getDialogPane().setPrefHeight(700);
 
+        // Champs de saisie dans un GridPane
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20));
 
-// Méthode pour gérer la suppression
+        // Champs de saisie
+        TextField idContratField = new TextField();
+        idContratField.setPromptText("Numéro Contrat");
+        idContratField.setText(String.valueOf(contratLocation.getId()));  // Valeur de l'ID du contrat
+        idContratField.setDisable(true); 
+        
+        
+        Facture facture = new Facture();
+        facture.setEstReglee(false);
+        facture.setContrat(contratLocation);
+        int idFacture = generateUniqueInvoiceNumber();
+        facture.setIdFacture(idFacture);
+        TextField idFactureField = new TextField();
+        idFactureField.setPromptText("Facture n°:");
+        idFactureField.setText(String.valueOf(facture.getIdFacture()));  // Valeur de l'ID du contrat
+        idFactureField.setDisable(true); 
+        ComboBox<Remise> remiseField = new ComboBox<>();
+        remiseField.getItems().addAll(Gerant.getInstance().getRemises());
+        remiseField.setPromptText("Ajoutez une remise");
+        remiseField.setEditable(true);
+
+        // Exemple de gestion de la sélection de plusieurs remises (entrées séparées par des virgules)
+        remiseField.setOnAction(event -> {
+            String text = remiseField.getEditor().getText();
+            String[] selectedRemises = text.split(",");  // Parse les remises séparées par des virgules
+            for (String remiseText : selectedRemises) {
+                // Trouver la remise correspondante dans la liste des remises disponibles
+                for (Remise remise : Gerant.getInstance().getRemises()) {
+                    if (remise.getDescription().equalsIgnoreCase(remiseText.trim())) {
+                        facture.ajouterRemise(remise);
+                        break;  // Sortir dès que la remise est trouvée
+                    }
+                }
+            }   
+        });
+        
+        double montantTotalRemise = facture.calculerMontantTotalAvecRemise();
+        TextField montantTotalRemiseField = new TextField();
+        TextField montantTotalSansRemiseField = new TextField();
+
+       // montantTotalRemiseField.setText(String.valueOf(montantTotalRemise));  // Valeur de l'ID du contrat
+        montantTotalSansRemiseField.setPromptText("Montant total sans remise :");
+        montantTotalSansRemiseField.setText(String.valueOf(contratLocation.calculerCout()));  // Valeur de l'ID du contrat
+        montantTotalRemiseField.setDisable(true); 
+        montantTotalRemiseField.setPromptText("Montant total avec remise :");
+        montantTotalRemiseField.setText(String.valueOf(montantTotalRemise));  // Valeur de l'ID du contrat
+        montantTotalRemiseField.setDisable(true); 
+        TextField estRegleeField = new TextField();
+        estRegleeField.setPromptText("Payée ? ");
+        estRegleeField.setText(String.valueOf(facture.isEstReglee()));  // Valeur de l'ID du contrat
+        estRegleeField.setDisable(true); 
+         // Ajouter les champs au GridPan
+         DatePicker dateEmissionField = new DatePicker();
+
+        // Définir la date d'émission sur la date d'aujourd'hui (sans l'heure dans le DatePicker)
+        LocalDate today = LocalDate.now();
+        dateEmissionField.setValue(today);
+        
+        // Désactiver le champ DatePicker pour qu'il ne soit pas modifiable
+        dateEmissionField.setDisable(true);
+        
+        // Facultatif: Si vous avez besoin de l'heure actuelle également, mais pas visible dans le DatePicker
+        LocalDateTime dateWithTime = LocalDateTime.now();
+        Date dateEmission = Date.from(dateWithTime.atZone(ZoneId.systemDefault()).toInstant());
+        facture.setDateEmission(dateEmission);
+        grid.add(new Label("Numéro facture "), 0, 0);
+        grid.add(idFactureField, 1, 0);
+
+        grid.add(new Label("Date d'emission"), 0, 1);
+        grid.add(dateEmissionField, 1, 1);
+
+        grid.add(new Label("Montant total avant remise"), 0, 2);
+        grid.add(montantTotalSansRemiseField, 1, 2);
+        
+        grid.add(new Label("Montant total après"), 0, 3);
+        grid.add(montantTotalRemiseField, 1, 3);
+
+        grid.add(new Label("Réglée ? :"), 0, 4);
+        grid.add(estRegleeField, 1, 4);
+
+        grid.add(new Label("Remises :"), 0, 5);
+        grid.add(remiseField, 1, 5);
+
+        
+        dialog.getDialogPane().setContent(grid);
+
+        // Conteneur de la grille dans un ScrollPane pour un défilement flexible
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);
+        dialog.getDialogPane().setContent(scrollPane);
+
+        // Boutons
+        ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        // Résultat de la conversion
+   /**    dialog.setResultConverter(buttonType -> {
+    if (buttonType == saveButtonType) {
+        try {
+            // Mise à jour des champs de l'objet facture
+            facture.setIdFacture(Integer.parseInt(idFactureField.getText()));  // Mise à jour de l'ID du facture
+
+            // Mise à jour des conducteurs
+            contratLocation.setConducteur1(conducteur1Field.getValue());  // Mise à jour du conducteur 1
+            contratLocation.setConducteur2(conducteur2Field.getValue());  // Mise à jour du conducteur 2
+
+            // Mise à jour du véhicule
+            contratLocation.setVehicule(vehiculeField.getValue());  // Mise à jour du véhicule
+
+            // Conversion de LocalDate en Date pour dateDebut
+            LocalDate localDateDebut = dateDebutField.getValue();
+            if (localDateDebut != null) {
+                Date dateDebut = Date.from(localDateDebut.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                contratLocation.setDateDebut(dateDebut);  // Mise à jour de la date de début
+            }
+
+            // Conversion de LocalDate en Date pour dateFin
+            LocalDate localDateFin = dateFinField.getValue();
+            if (localDateFin != null) {
+                Date dateFin = Date.from(localDateFin.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                contratLocation.setDateFin(dateFin);  // Mise à jour de la date de fin
+            }
+
+            // Retourne l'objet ContratLocation mis à jour
+            return contratLocation;  // Retourne l'objet modifié
+            } catch (Exception e) {
+                System.err.println("Erreur dans les données : " + e.getMessage());
+                showAlert("Erreur", "Les données saisies sont incorrectes.");
+            }
+        }
+        return null;
+    });**/
+    ArrayList<Facture> factures = Gerant.getInstance().getFactures();
+    factures.add(facture);
+    // Affiche la boîte de dialogue et met à jour la table si l'utilisateur a cliqué sur Sauvegarder
+    dialog.showAndWait().ifPresent(updatedFacture -> {
+        
+        tableContratLocation.refresh(); // Met à jour la TableView
+        Gerant.getInstance().setFactures(new ArrayList<>(factures)); // Met à jour la liste des contrats dans le gestionnaire
+    });
+}
 
 // Méthode pour gérer la suppression d'un contrat
 private void onDeleteContrat(ContratLocation contratLocation) {
@@ -583,6 +756,35 @@ private LocalDate toLocalDate(Date date) {
     }
     return null;
 }
+ public int generateUniqueInvoiceNumber() {
+        Random random = new Random();
+        int invoiceNumber;
+        
+        // Générer un nombre entre 100000 et 999999 pour éviter des numéros trop courts
+        //do {
+            invoiceNumber = random.nextInt(900000) + 100000; // Nombre entre 100000 et 999999
+        //} while (isInvoiceNumberExists(invoiceNumber)); // Vérifier si le numéro de facture existe déjà
+        
+        return invoiceNumber;
+    }
 
+    // Exemple d'une méthode qui vérifie si le numéro existe déjà (vous devez l'adapter à votre système de stockage)
+    private boolean isInvoiceNumberExists(int invoiceNumber) {
+        // Supposons que vous avez une liste ou une base de données contenant les numéros de facture
+        // Par exemple, vous pouvez comparer avec une liste d'ID de factures déjà générées
+        // Exemple de comparaison fictive
+        for (Facture facture : getExistingFactures()) {
+            if (facture.getIdFacture()== invoiceNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Exemple d'une méthode pour obtenir une liste des factures existantes (vous devez l'adapter)
+    private List<Facture> getExistingFactures() {
+        // Retourner la liste des factures existantes de la base de données ou autre stockage
+        return Gerant.getInstance().getFactures();
+    }
     
 }

@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import models.Facture.Facture;
 import models.Personnes.Adresse;
 import models.Personnes.Client;
 import models.Personnes.Gerant;
@@ -49,6 +50,7 @@ public class RentcarMvc extends Application {
             gerant.setLocations(new ArrayList<ContratLocation>());
             gerant.setAssurances(new ArrayList<>());
             gerant.setRemises(new ArrayList<>());
+            gerant.setFactures(new ArrayList<Facture>());
           
             java.util.Date dateNaissance1 = new java.util.Date(1990 - 1900, Calendar.MARCH, 25); // 25 mars 1990
             java.util.Date dateCin1 = new java.util.Date(2010 - 1900, Calendar.APRIL, 10);       // 10 avril 2010
