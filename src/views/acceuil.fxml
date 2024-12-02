@@ -39,11 +39,11 @@
             <font>
                   <Font name="SimSun" size="14.0" />
                </font></Button>
-        <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" >
+     <!--   <Button onAction="#showGestionFactures" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Factures" >
             <font>
             <Font name="SimSun" size="14.0" />
                </font>
-        </Button>
+        </Button>-->
         <Button onAction="#showGestionAssurances" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 10; -fx-border-color: transparent;" text="Assurances" >
             <font>
                   <Font name="SimSun" size="14.0" />
