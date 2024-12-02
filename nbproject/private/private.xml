@@ -24,10 +24,12 @@
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionClientsController.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionChauffeurs.fxml</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/Personnes/Permis.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/management/Entretien.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionAssurances.fxml</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionVehiculesController.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/Facture/Facture.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionAssurancesController.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionRemises.fxml</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/style.css</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionClients.fxml</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionLocations.fxml</file>
@@ -37,7 +39,9 @@
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/vehicules/Assurance.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/vehicules/Vehicule.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/Facture/HistoriquePaiement.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/management/Garage.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/LoginController.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/Personnes/Client.java</file>
         </group>
     </open-files>
 </project-private>

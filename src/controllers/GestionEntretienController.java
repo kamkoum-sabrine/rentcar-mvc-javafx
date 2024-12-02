@@ -23,4 +23,9 @@ public class GestionEntretienController {
     public void initialize() {
         System.out.println("Gestion des entretiens chargée !");
     }
+    @FXML
+    public void onAjouterEntretienClick(){
+        System.out.println("onAjouterEntretienClick !");
+
+    }
 }

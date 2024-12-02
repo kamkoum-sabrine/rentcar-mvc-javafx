@@ -5,6 +5,7 @@
 package controllers;
 
 import java.net.URL;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -186,6 +187,15 @@ public void initialize() {
                 System.out.println("Numero contrat "+ contratLocation.getId());
                 try {
                     onGenerateInvoiceClick(contratLocation);
+                //    generateInvoiceButton.setDisable(true);
+                      // Désactiver le bouton après la génération
+                    generateInvoiceButton.setDisable(true);
+
+                    // Changer le texte du bouton
+                    generateInvoiceButton.setText("Facture générée");
+
+                    // Changer la couleur du bouton (exemple : fond vert et texte blanc)
+                    generateInvoiceButton.setStyle("-fx-background-color: green; -fx-text-fill: white;");
                 } catch (Exception e) {
                     System.err.println("Erreur lors de la création de la facture : " + e.getMessage());
                     e.printStackTrace();
@@ -335,8 +345,235 @@ private void onEditContratLocation(ContratLocation contratLocation) {
         Gerant.getInstance().setLocations(new ArrayList<>(contratLocations)); // Met à jour la liste des contrats dans le gestionnaire
     });
 }
+private void onGenerateInvoiceClick(ContratLocation contratLocation){
+    System.out.println("onGenerateInvoiceClick appelé pour le contrat : " + contratLocation.getId());
+        // Configuration de la boîte de dialogue
+        Dialog<Facture> dialog = new Dialog<>();
+        dialog.setTitle("Générer une Facture pour le contrat n° "+contratLocation.getId());
+        dialog.getDialogPane().setPrefWidth(800);
+        dialog.getDialogPane().setPrefHeight(700);
+        
+        Facture facture = new Facture();
+        facture.setContrat(contratLocation);
+        int idFacture = generateUniqueInvoiceNumber();
+        System.out.println("idFacture "+idFacture);
+        facture.setIdFacture(idFacture);
+        DatePicker dateEmissionField = new DatePicker();
 
-private void onGenerateInvoiceClick(ContratLocation contratLocation) {
+        // Définir la date d'émission sur la date d'aujourd'hui (sans l'heure dans le DatePicker)
+        LocalDate today = LocalDate.now();
+        dateEmissionField.setValue(today);
+        
+        // Désactiver le champ DatePicker pour qu'il ne soit pas modifiable
+        dateEmissionField.setDisable(true);
+        
+        // Facultatif: Si vous avez besoin de l'heure actuelle également, mais pas visible dans le DatePicker
+        LocalDateTime dateWithTime = LocalDateTime.now();
+        Date dateEmission = Date.from(dateWithTime.atZone(ZoneId.systemDefault()).toInstant());
+        facture.setDateEmission(dateEmission);
+        TextField estRegleeField = new TextField();
+        estRegleeField.setPromptText("Payée ? ");
+        estRegleeField.setText(String.valueOf(false));  
+        estRegleeField.setDisable(true); 
+         TextField idFactureField = new TextField();
+        idFactureField.setPromptText("Facture n° ");
+        idFactureField.setText(String.valueOf(contratLocation.getId()));  
+        idFactureField.setDisable(true); 
+        
+        TextField contratField = new TextField();
+        contratField.setPromptText("Contrat n° ");
+        contratField.setText(String.valueOf(contratLocation.getId()));  
+        contratField.setDisable(true); 
+        
+        TextField montantSansRemiseField = new TextField();
+        montantSansRemiseField.setPromptText("Montant sans remise");
+        montantSansRemiseField.setText(String.valueOf(contratLocation.calculerCout()));  
+        montantSansRemiseField.setDisable(true); 
+        
+        
+
+        // Champs de saisie dans un GridPane
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20));
+        
+        TextField idContratField = new TextField();
+        idContratField.setPromptText("Numéro Contrat");
+        idContratField.setText(String.valueOf(contratLocation.getId()));  // Valeur de l'ID du contrat
+        idContratField.setDisable(true); 
+        
+       /** ComboBox<String> remiseField = new ComboBox<>();
+        ArrayList<String> nomRemises = new ArrayList<>();
+        for (int i = 0; i < Gerant.getInstance().getRemises().size(); i++) {
+            
+            nomRemises.add(Gerant.getInstance().getRemises().get(i).getDescription());
+        }
+        remiseField.getItems().addAll(nomRemises);
+        //remiseField.getItems().addAll(Gerant.getInstance().getRemises());**/
+       // Créer un conteneur VBox pour afficher les CheckBox des remises
+        VBox remiseContainer = new VBox();
+        ArrayList<CheckBox> checkBoxes = new ArrayList<>();
+
+        // Ajouter chaque remise sous forme de CheckBox
+        for (Remise remise : Gerant.getInstance().getRemises()) {
+            CheckBox checkBox = new CheckBox(remise.getDescription());
+            remiseContainer.getChildren().add(checkBox);
+            checkBoxes.add(checkBox);
+        }
+       // remiseField.setPromptText("Ajoutez une remise");
+       // remiseField.setEditable(true);
+        
+        TextField montantAvecRemiseField = new TextField();
+        montantAvecRemiseField.setPromptText("Montant avec remise");
+       // montantAvecRemiseField.setText(String.valueOf(contratLocation.calculerCout()));  
+        montantAvecRemiseField.setDisable(true); 
+        
+      /**  remiseField.setOnAction(event -> {
+            String text = remiseField.getEditor().getText();
+            System.out.println("Text saisi : '" + text + "'");
+
+            String[] selectedRemises = text.split(",");  // Parse les remises séparées par des virgules
+            //System.out.println("Selected Remises : " + Arrays.toString(selectedRemises));
+
+            for (String remiseText : selectedRemises) {
+                String normalizedRemiseText = normalizeString(remiseText);
+
+                // Trouver la remise correspondante dans la liste des remises disponibles
+                for (Remise remise : Gerant.getInstance().getRemises()) {
+                    String normalizedDescription = normalizeString(remise.getDescription());
+
+                    System.out.println("Comparaison : '" + normalizedDescription + "' avec '" + normalizedRemiseText + "'");
+
+                    if (normalizedDescription.equals(normalizedRemiseText)) {
+                        facture.ajouterRemise(remise);
+                        System.out.println("Remise trouvée et ajoutée : " + remise.getDescription());
+                        break;  // Sortir dès que la remise est trouvée
+                    }
+                }
+            }
+
+            // Recalcul du montant total avec les remises
+            double montantTotalRemise = facture.calculerMontantTotalAvecRemise();
+            montantAvecRemiseField.setText(String.valueOf(montantTotalRemise));
+        });**/
+      // Ajouter une action pour calculer les remises sélectionnées
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setOnAction(event -> {
+                facture.videsLesRemises();// Vider les remises précédentes
+                for (CheckBox cb : checkBoxes) {
+                    if (cb.isSelected()) {
+                        for (Remise remise : Gerant.getInstance().getRemises()) {
+                            if (remise.getDescription().equals(cb.getText())) {
+                                facture.ajouterRemise(remise);
+                            }
+                        }
+                    }
+                }
+
+                // Recalculer le montant total après ajout des remises
+                double montantTotalRemise = facture.calculerMontantTotalAvecRemise();
+                montantAvecRemiseField.setText(String.valueOf(montantTotalRemise));
+            });
+        }
+
+        grid.add(new Label("Numéro facture "), 0, 0);
+        grid.add(idFactureField, 1, 0);
+
+        grid.add(new Label("Date d'emission"), 0, 1);
+        grid.add(dateEmissionField, 1, 1);
+
+        grid.add(new Label("Montant total avant remise"), 0, 2);
+        grid.add(montantSansRemiseField, 1, 2);
+        
+          grid.add(new Label("Remises :"), 0, 3);
+        grid.add(remiseContainer, 1, 3);
+
+        
+        grid.add(new Label("Montant total après"), 0, 4);
+        grid.add(montantAvecRemiseField, 1, 4);
+
+        grid.add(new Label("Payée ? :"), 0, 5);
+        grid.add(estRegleeField, 1, 5);
+
+      
+        
+        dialog.getDialogPane().setContent(grid);
+        
+        dialog.getDialogPane().setContent(grid);
+
+        // Conteneur de la grille dans un ScrollPane pour un défilement flexible
+        ScrollPane scrollPane = new ScrollPane(grid);
+        scrollPane.setFitToWidth(true);
+        dialog.getDialogPane().setContent(scrollPane);
+
+        // Boutons
+        ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+        
+         dialog.setResultConverter(buttonType -> {
+             if (buttonType == saveButtonType) {
+                 Gerant.getInstance().ajouterFacture(facture);
+                 //  Facture facture = new Facture();
+                /** int idFacture = generateUniqueInvoiceNumber();
+                 System.out.println("idFacture "+idFacture);
+                facture.setIdFacture(idFacture);
+                 
+            // Renvoie la facture mise à jour si le bouton "Sauvegarder" a été cliqué
+                remiseField.setOnAction(event -> {
+               String text = remiseField.getEditor().getText();
+               String[] selectedRemises = text.split(",");  // Parse les remises séparées par des virgules
+               ArrayList<Remise> remises = new ArrayList<Remise>();
+               for (String remiseText : selectedRemises) {
+                   // Trouver la remise correspondante dans la liste des remises disponibles
+                   for (Remise remise : Gerant.getInstance().getRemises()) {
+                       if (remise.getDescription().equalsIgnoreCase(remiseText.trim())) {
+                           remises.add(remise);
+                           break;  // Sortir dès que la remise est trouvée
+                       }
+                   }
+               }
+                facture.setRemises(remises);
+           });
+               
+                facture.setContrat(contratLocation);
+               
+            double montantTotalRemise = facture.calculerMontantTotalAvecRemise();
+            facture.setDateEmission(dateEmission);
+            montantTotalRemiseField.setText(String.valueOf(montantTotalRemise));  // Valeur de l'ID du contrat
+            facture.setEstReglee(false);
+           ArrayList<Facture> factures = Gerant.getInstance().getFactures();
+    
+            System.out.println(facture.toString());
+             Gerant.getInstance().setFactures(new ArrayList<>(factures)); // Met à jour la liste des factures dans le gestionnaire
+             **/
+            return facture;
+        }
+        return null;  // Retourne null si le bouton Annuler est cliqué
+        });
+        
+   //  ArrayList<Facture> factures = Gerant.getInstance().getFactures();
+    
+    //System.out.println(facture.toString());
+    // Affiche la boîte de dialogue et met à jour la table si l'utilisateur a cliqué sur Sauvegarder
+   dialog.showAndWait().ifPresent(updatedFacture -> {
+        
+        tableContratLocation.refresh(); // Met à jour la TableView
+        showAlertOk("Facture", "Facture crée avec succés !");
+        
+      //  Gerant.getInstance().setFactures(new ArrayList<>(factures)); // Met à jour la liste des contrats dans le gestionnaire
+    });
+ 
+        
+}
+public static String normalizeString(String input) {
+    if (input == null) return "";
+    return Normalizer.normalize(input.trim(), Normalizer.Form.NFD)
+                     .replaceAll("\\p{M}", "")  // Supprime les accents
+                     .replaceAll("\\s+", " ")   // Remplace plusieurs espaces par un seul
+                     .toLowerCase();            // Convertit en minuscules
+}
+/**private void onGenerateInvoiceClick(ContratLocation contratLocation) {
         System.out.println("onGenerateInvoiceClick appelé pour le contrat : " + contratLocation.getId());
         // Configuration de la boîte de dialogue
         Dialog<Facture> dialog = new Dialog<>();
@@ -384,7 +621,7 @@ private void onGenerateInvoiceClick(ContratLocation contratLocation) {
                     }
                 }
             }   
-        });**/
+        });/
         
         //double montantTotalRemise = facture.calculerMontantTotalAvecRemise();
         TextField montantTotalRemiseField = new TextField();
@@ -496,6 +733,7 @@ private void onGenerateInvoiceClick(ContratLocation contratLocation) {
         Gerant.getInstance().setFactures(new ArrayList<>(factures)); // Met à jour la liste des contrats dans le gestionnaire
     });
 }
+**/
 
 // Méthode pour gérer la suppression d'un contrat
 private void onDeleteContrat(ContratLocation contratLocation) {
@@ -738,6 +976,13 @@ private void validateFields(Node okButton, TextField idContratField, ComboBox<Cl
 // Méthode d'affichage d'alerte
 private void showAlert(String title, String message) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
+}
+private void showAlertOk(String title, String message) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle(title);
     alert.setHeaderText(null);
     alert.setContentText(message);

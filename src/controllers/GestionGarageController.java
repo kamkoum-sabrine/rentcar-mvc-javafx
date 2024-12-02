@@ -19,6 +19,11 @@ public class GestionGarageController  {
     /**
      * Initializes the controller class.
      */
+    @FXML
+    public void onAjouterGarageClick(){
+        System.out.println("Gestion des garage chargée !");
+
+    }
      @FXML
     public void initialize() {
         System.out.println("Gestion des garage chargée !");

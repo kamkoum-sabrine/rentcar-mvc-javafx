@@ -53,57 +53,57 @@ public class GestionVehiculesController  {
      * Initializes the controller class.
      */
     @FXML
-private TableView<Vehicule> tableVoitures;
+    private TableView<Vehicule> tableVoitures;
 
-@FXML
-private TableColumn<Vehicule, String> colMatricule;
+    @FXML
+    private TableColumn<Vehicule, String> colMatricule;
 
-@FXML
-private TableColumn<Vehicule, String> colMarque;
+    @FXML
+    private TableColumn<Vehicule, String> colMarque;
 
-@FXML
-private TableColumn<Vehicule, String> colModele;
+    @FXML
+    private TableColumn<Vehicule, String> colModele;
 
-@FXML
-private TableColumn<Vehicule, String> colType;
+    @FXML
+    private TableColumn<Vehicule, String> colType;
 
-@FXML
-private TableColumn<Vehicule, Double> colCoutParJour;
+    @FXML
+    private TableColumn<Vehicule, Double> colCoutParJour;
 
-// Colonnes spécifiques aux VoitureFamiliale
-@FXML
-private TableColumn<VoitureFamiliale, Integer> colNombrePlaces;
+    // Colonnes spécifiques aux VoitureFamiliale
+    @FXML
+    private TableColumn<VoitureFamiliale, Integer> colNombrePlaces;
 
-@FXML
-private TableColumn<VoitureFamiliale, Boolean> colSiegeBebe;
-@FXML
-private TableColumn<VoitureCommerciale, Integer> colCapaciteCharge;
+    @FXML
+    private TableColumn<VoitureFamiliale, Boolean> colSiegeBebe;
+    @FXML
+    private TableColumn<VoitureCommerciale, Integer> colCapaciteCharge;
 
-@FXML
-private TableColumn<VoitureFamiliale, Boolean> colGrandCoffre;
+    @FXML
+    private TableColumn<VoitureFamiliale, Boolean> colGrandCoffre;
 
-@FXML
-private TableColumn<VoitureCommerciale, Boolean> colToitOuvrant;
+    @FXML
+    private TableColumn<VoitureCommerciale, Boolean> colToitOuvrant;
 
-@FXML
-private TableColumn<VoitureCommerciale, Boolean> colCameraRecul;
+    @FXML
+    private TableColumn<VoitureCommerciale, Boolean> colCameraRecul;
 
-@FXML
-private TextField searchField;  // Le champ de recherche
+    @FXML
+    private TextField searchField;  // Le champ de recherche
 
-// Liste observable des véhicules
-private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
+    // Liste observable des véhicules
+    private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 
-@FXML
-private TableColumn<Vehicule, Void> colActions;
+    @FXML
+    private TableColumn<Vehicule, Void> colActions;
 
-@FXML
-private TableColumn<Vehicule, Void> colActionsAssurance;
+    @FXML
+    private TableColumn<Vehicule, Void> colActionsAssurance;
 
-@FXML
-private TableColumn<Vehicule, String> colAssurance;
+    @FXML
+    private TableColumn<Vehicule, String> colAssurance;
 
-private ObservableList<Vehicule> listeVehicules = FXCollections.observableArrayList();
+    private ObservableList<Vehicule> listeVehicules = FXCollections.observableArrayList();
 
 
 @FXML
