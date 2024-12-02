@@ -6,6 +6,7 @@ package models.Personnes;
 
 import java.util.ArrayList;
 import java.util.Date;
+import models.Facture.Facture;
 import models.Facture.Remise;
 import models.Personnes.Chauffeur;
 import models.Personnes.Client;
@@ -27,10 +28,8 @@ public final class Gerant extends Personne {
     public ArrayList<Entretien> entretiens;    
     public ArrayList<Assurance> assurances;
     public ArrayList<Remise> remises;
-
-    
-
-    
+    public ArrayList<Facture> factures;
+   
     private static Gerant instance;
 
     public static Gerant getInstance() {
@@ -49,6 +48,7 @@ public final class Gerant extends Personne {
         this.locations = new ArrayList<ContratLocation>();
         this.entretiens = new ArrayList<Entretien>();
         this.assurances = new ArrayList<Assurance>();
+        this.factures = new ArrayList<Facture>();
     }
 
     public Gerant() {
@@ -257,6 +257,24 @@ public final class Gerant extends Personne {
           return true; // Indique que la suppression a réussi
       }
       return false; // Indique que le contrat n'était pas dans la liste
+    }   
+
+    public ArrayList<Facture> getFactures() {
+        return factures;
+    }
+
+    public void setFactures(ArrayList<Facture> factures) {
+        this.factures = factures;
+    }
+     public void ajouterFacture(Facture facture){
+        factures.add(facture);
+    }
+    public boolean supprimerFacture(Facture facture) {
+      if (factures.contains(facture)) {
+          factures.remove(facture);
+          return true; // Indique que la suppression a réussi
+      }
+      return false; // Indique que la remise n'était pas dans la liste
     }   
 
 }
