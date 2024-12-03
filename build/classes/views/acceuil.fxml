@@ -16,6 +16,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import java.lang.String?>
 <?import java.util.List?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.XYChart?>
+
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AcceuilController">
    
     <!-- MediaView pour afficher la vidéo -->
@@ -27,6 +33,10 @@
   
 <left>
     <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 20 10 10 20; -fx-background-color: #205072;">
+         <Button onAction="#showAcceuil" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Acceuil">
+               <font>
+                  <Font name="SimSun" size="14.0" />
+               </font></Button>
         <Button onAction="#showGestionVehicules" prefHeight="42.0" prefWidth="109.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-border-color: transparent; -fx-background-radius: 10;" text="Véhicules">
                <font>
                   <Font name="SimSun" size="14.0" />
@@ -74,19 +84,19 @@
 </left>
        <!-- Contenu central -->
         <!-- Zone de contenu principal -->
-    <center>
+  <!--  <center>
         <StackPane fx:id="contentArea" style="-fx-background-image: url('src/ressources/images/bgimage.jpg'); -fx-background-size: cover;">
             <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
-                <!-- Titre des statistiques -->
+              
                 <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
 
                 <TableView fx:id="statistiquesTable" layoutX="50.0" layoutY="50.0" prefHeight="200.0" prefWidth="600.0">
                     <columns>
-                        <!-- Colonne pour le nombre de véhicules -->
+                      
                         <TableColumn fx:id="colVehicules" text="Nombre de véhicules" prefWidth="200" />
-                        <!-- Colonne pour le nombre de chauffeurs -->
+                       
                         <TableColumn fx:id="colChauffeurs" text="Nombre de chauffeurs" prefWidth="200" />
-                        <!-- Colonne pour le nombre de locations -->
+                   
                         <TableColumn fx:id="colLocations" text="Nombre de locations" prefWidth="200" />
                     </columns>
                 </TableView>
@@ -98,7 +108,31 @@
         </StackPane>
 
 
+    </center>-->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-image: url('src/ressources/images/bgimage.jpg'); -fx-background-size: cover;">
+            <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 20;">
+                <!-- Titre des statistiques -->
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques générales" />
+
+               
+
+                <!-- Graphique en secteurs pour les statistiques générales -->
+                <PieChart fx:id="pieChartStats" prefHeight="300" prefWidth="600" />
+
+                <!-- Graphique en barres pour la répartition des locations -->
+                <BarChart fx:id="barChartLocations" prefHeight="300" prefWidth="600">
+                    <xAxis>
+                        <CategoryAxis fx:id="categoryAxis" label="Catégories" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="numberAxis" label="Valeurs" />
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </StackPane>
     </center>
+
    
 </BorderPane>
 </StackPane>

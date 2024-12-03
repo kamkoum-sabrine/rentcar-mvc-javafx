@@ -26,14 +26,14 @@
                         <TableColumn fx:id="colIdFacture" style="-fx-background-color: #205072; -fx-text-fill: white;" text="N° Facture" />
                         <TableColumn fx:id="colDateEmission" text="Date d'émission" />
                        <!-- <TableColumn fx:id="colContrat" text="N° contrat" />-->
-                        <!-- <TableColumn fx:id="colContrat" text="contrat">
+                         <TableColumn fx:id="colContrat" text="contrat">
                             <cellValueFactory>
                                 <PropertyValueFactory property="contrat"/>
                             </cellValueFactory>
-                        </TableColumn>-->
+                        </TableColumn>
                        <!-- <TableColumn fx:id="colRemises" text="Remises" />-->
                         <TableColumn fx:id="colEstReglee" text="Payée ?" />
-
+                        <TableColumn fx:id="colActions" text="Actions" />
                     </columns>
                 </TableView>
             </VBox>

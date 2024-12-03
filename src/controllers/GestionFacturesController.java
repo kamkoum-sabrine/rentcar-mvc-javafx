@@ -50,9 +50,11 @@ public class GestionFacturesController  {
 
  
     @FXML
-    private TableColumn<Facture, Integer> colContrat;
+    private TableColumn<Facture, String> colContrat;
 
-
+    @FXML
+    private TableColumn<Facture, Void> colActions;
+    
     private final ObservableList<Facture> factures = FXCollections.observableArrayList();
 
     /**@FXML
@@ -69,78 +71,56 @@ public class GestionFacturesController  {
         colDateEmission.setCellValueFactory(new PropertyValueFactory<>("dateEmission"));
         colEstReglee.setCellValueFactory(new PropertyValueFactory<>("estReglee"));
 
-       /** colContrat.setCellValueFactory(cellData -> {
+        colContrat.setCellValueFactory(cellData -> {
             if (cellData.getValue().getContrat()!= null) {
-                return new SimpleStringProperty(cellData.getValue().getContrat().getId());
+                return new SimpleStringProperty(String.valueOf(cellData.getValue().getContrat().getId()));
             } else {
                 return new SimpleStringProperty("Aucun contrat");
             }
-        });**/
-        // Remises : afficher la description de chaque remise
-    /**    colRemises.setCellFactory(column -> new TableCell<>() {
-            
-            @Override
-            protected void updateItem(ArrayList<Remise> remises, boolean empty) {
-                
-                
-                super.updateItem(remises, empty);
-                 StringBuilder descriptionsBuilder = new StringBuilder();
-                   for (Remise remise : remises) {
-                         //   if (remise != null && remise.getDescription() != null) {
-                                System.out.println("+++++++++++++++++++++++remise.getDescription() "+remise.getDescription());
-                             //   if (descriptionsBuilder.length() > 0) {
-                                    descriptionsBuilder.append(", ");
-                              //  }
-                                descriptionsBuilder.append(remise.getDescription());
-                         //   }
-                        }
-                if (empty || remises == null) {
-                    setText(null);
-                    System.out.println("nuuuuuuuuuuuuuuuuuuuuuuuuuuulllllllllllllllll");
-                } else {
-                    // Convertir la liste des descriptions en chaîne de texte
-                 /**   System.out.println("remises "+remises.toString());
-                    String descriptions = remises.stream()
-                                                 .map(Remise::getDescription) // Assurez-vous que la méthode getDescription() existe
-                                                 .reduce((desc1, desc2) -> desc1 + ", " + desc2)
-                                                 .orElse("Aucune remise");
-                    System.out.println("Les desciptions "+descriptions);
-                    setText(descriptions);/
-                 try {
-                    
+        });
+          colActions.setCellFactory(param -> new TableCell<>() {
+            private final HBox actionBox = new HBox(10); // Conteneur horizontal pour les icônes
+            private final Button PayeButton = new Button();
+          //  private final Button deleteButton = new Button();
 
+            {
+                PayeButton.setText("Payer");
+                //deleteButton.setText("Supprimer");
 
-                  
-                    if (remises != null && !remises.isEmpty()) {
-                        for (Remise remise : remises) {
-                            if (remise != null && remise.getDescription() != null) {
-                                System.out.println("remise.getDescription() "+remise.getDescription());
-                                if (descriptionsBuilder.length() > 0) {
-                                    descriptionsBuilder.append(", ");
-                                }
-                                descriptionsBuilder.append(remise.getDescription());
-                            }
-                        }
+                // (Facultatif) Ajoute des styles pour différencier les boutons
+                PayeButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold;");
+               // deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+
+                // Ajout des actions
+                PayeButton.setOnAction(event -> {
+                    System.out.println("edit !!");
+                    Facture facture = getTableView().getItems().get(getIndex());
+                    //System.out.println("Id facture "+ f.getIdRemise());
+                    try {
+                        //onEditRemise(remise);
+                        facture.setEstReglee(true);
+                    } catch (Exception e) {
+                        System.err.println("Erreur lors de l'édition : " + e.getMessage());
+                        e.printStackTrace();
                     }
+                });
 
-                    String descriptions = descriptionsBuilder.length() > 0 ? descriptionsBuilder.toString() : "Aucune remise";
-                    System.out.println("Les descriptions : " + descriptions);
-                    setText(descriptions);
+                actionBox.getChildren().addAll(PayeButton);
+            }
 
-
-                } catch (Exception e) {
-                    System.err.println("Erreur lors de la récupération des descriptions : " + e.getMessage());
-                    e.printStackTrace();
-                }
-
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(actionBox);
                 }
             }
         });
-
-*  * **/
-     
         
        
+          tableFacture.refresh();
         // Charger des données initiales
         factures.addAll(getFacturesInitiaux());
         tableFacture.setItems(factures);

@@ -6,18 +6,25 @@ package controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import models.Facture.Facture;
 import models.Personnes.Gerant;
 
 /**added*/
@@ -37,8 +44,23 @@ public class AcceuilController {
 
 
 
+    
+    @FXML
+    private TableColumn<Facture, Boolean> colEstReglee;
+    
  
     // Méthodes pour chaque gestion
+    @FXML
+    public void showAcceuil() {
+        // Charger le nouveau contenu sans recharger toute la scène ou la navigation
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/Acceuil.fxml"));
+        try {
+            Node newContent = loader.load();
+            contentArea.getChildren().setAll(newContent); // Remplace uniquement le contenu central
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @FXML
     private void showGestionVehicules() {
         loadView("/views/GestionVehicules.fxml");
@@ -172,8 +194,38 @@ public class AcceuilController {
     int b= gerant.nombrechauffeurs();
     int c= gerant.nombrelocations();
 
+    /** @FXML
+    public void initialize() {
+        colVehicules.setText(String.valueOf(a));
+        colChauffeurs.setText(String.valueOf(b));
+        colLocations.setText(String.valueOf(c));
+    }**/
+     @FXML
+    private PieChart pieChartStats;
 
+    @FXML
+    private BarChart<String, Number> barChartLocations;
+    
+     @FXML
+    public void initialize() {
+        // Ajouter des données au PieChart
+        pieChartStats.setData(FXCollections.observableArrayList(
+            new PieChart.Data("Véhicules commerciales", Gerant.getInstance().getNombreVoituresCommerciales()),
+            new PieChart.Data("Véhicules familiale", Gerant.getInstance().getNombreVoituresFamiliales())
+           // new PieChart.Data("Locations actives", 30)
+        ));
 
+        // Ajouter des données au BarChart
+         XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Statistiques des locations");
+        series.getData().add(new XYChart.Data<>("Janvier", 150));
+        series.getData().add(new XYChart.Data<>("Février", 200));
+        series.getData().add(new XYChart.Data<>("Mars", 180));
+
+        barChartLocations.getData().add(series);
+    }
+    
+ 
 
 
 
