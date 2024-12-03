@@ -5,7 +5,39 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.beans.property.SimpleStringProperty?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionFacturesController">
-    
-</AnchorPane>
+<StackPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionFacturesController">
+    <BorderPane>
+      <top>
+           <!-- <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
+                <Button onAction="#onAjouterRemiseClick" style="-fx-background-color: #CFF4D2;" text="Ajouter une remise" textFill="#205072">
+               <font>
+                  <Font name="Microsoft Yi Baiti" size="20.0" />
+               </font></Button>
+            </HBox>-->
+        </top>
+        <center>
+               <VBox style="-fx-padding: 0 0 0 20;"> <!-- Padding: haut, droite, bas, gauche -->
+                <TableView fx:id="tableFacture" prefHeight="400" prefWidth="600">
+                    <columns>           
+                        <TableColumn fx:id="colIdFacture" style="-fx-background-color: #205072; -fx-text-fill: white;" text="N° Facture" />
+                        <TableColumn fx:id="colDateEmission" text="Date d'émission" />
+                       <!-- <TableColumn fx:id="colContrat" text="N° contrat" />-->
+                        <!-- <TableColumn fx:id="colContrat" text="contrat">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="contrat"/>
+                            </cellValueFactory>
+                        </TableColumn>-->
+                       <!-- <TableColumn fx:id="colRemises" text="Remises" />-->
+                        <TableColumn fx:id="colEstReglee" text="Payée ?" />
+
+                    </columns>
+                </TableView>
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>
+
