@@ -159,9 +159,9 @@ public void initialize() {
             generateInvoiceButton.setText("Générer la facture");
 
             // (Facultatif) Ajoute des styles pour différencier les boutons
-            editButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold;");
-            deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
-            generateInvoiceButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+            editButton.setStyle("-fx-background-color: #F3C623; -fx-text-fill: white; -fx-font-weight: bold;");
+            deleteButton.setStyle("-fx-background-color: #B8001F; -fx-text-fill: white; -fx-font-weight: bold;");
+            generateInvoiceButton.setStyle("-fx-background-color: #219C90; -fx-text-fill: white; -fx-font-weight: bold;");
 
 
             // Ajout des actions
@@ -195,7 +195,7 @@ public void initialize() {
                     generateInvoiceButton.setText("Facture générée");
 
                     // Changer la couleur du bouton (exemple : fond vert et texte blanc)
-                    generateInvoiceButton.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                    generateInvoiceButton.setStyle("-fx-background-color: #219C90; -fx-text-fill: white;");
                 } catch (Exception e) {
                     System.err.println("Erreur lors de la création de la facture : " + e.getMessage());
                     e.printStackTrace();

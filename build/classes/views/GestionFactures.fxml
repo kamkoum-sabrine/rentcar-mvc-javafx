@@ -9,7 +9,7 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.beans.property.SimpleStringProperty?>
 
-<StackPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionFacturesController">
+<StackPane id="AnchorPane" prefHeight="400.0" stylesheets="@style.css" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionFacturesController">
     <BorderPane>
       <top>
            <!-- <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
@@ -23,7 +23,7 @@
                <VBox style="-fx-padding: 0 0 0 20;"> <!-- Padding: haut, droite, bas, gauche -->
                 <TableView fx:id="tableFacture" prefHeight="400" prefWidth="600">
                     <columns>           
-                        <TableColumn fx:id="colIdFacture" style="-fx-background-color: #205072; -fx-text-fill: white;" text="N° Facture" />
+                        <TableColumn fx:id="colIdFacture"  text="N° Facture" />
                         <TableColumn fx:id="colDateEmission" text="Date d'émission" />
                        <!-- <TableColumn fx:id="colContrat" text="N° contrat" />-->
                          <TableColumn fx:id="colContrat" text="contrat">

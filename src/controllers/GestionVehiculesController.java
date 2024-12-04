@@ -219,7 +219,7 @@ public void initialize() {
             editButton.setText("Éditer");
             deleteButton.setText("Supprimer");
 
-            // (Facultatif) Ajoute des styles pour différencier les boutons
+           
             editButton.setStyle("-fx-background-color: #F3C623; -fx-text-fill: white; -fx-font-weight: bold;");
             deleteButton.setStyle("-fx-background-color: #B8001F; -fx-text-fill: white; -fx-font-weight: bold;");
 

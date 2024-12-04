@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionChauffeursController">
+<BorderPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionChauffeursController">
     <top>
         <ToolBar>
             <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Gestion des Chauffeurs" />
@@ -30,9 +30,21 @@
                     <TableColumn fx:id="colDisponibilite" prefWidth="100" text="Disponibilité" />
                 </columns>
             </TableView>
-            <Button onAction="#ajouterChauffeur" prefHeight="26.0" prefWidth="159.0" text="Ajouter un chauffeur" />
-         <Button layoutX="20.0" layoutY="331.0" onAction="#modifierchauffeur" prefHeight="26.0" prefWidth="160.0" text="Modifier un chauffeur" />
-         <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerChauffeur" prefHeight="26.0" prefWidth="160.0" text="Supprimer un chauffeur" />
+            <Button onAction="#ajouterChauffeur" prefHeight="36.0" prefWidth="254.0" style="-fx-background-color: #FF4C29;" text="Ajouter un chauffeur" textFill="white">
+                 <font>
+                  <Font name="Calibri Light" size="20.0" />
+                 </font>
+            </Button>
+         <Button layoutX="20.0" layoutY="331.0" onAction="#modifierchauffeur" prefHeight="36.0" prefWidth="255.0" style="-fx-background-color: #FF4C29;" text="Modifier un chauffeur" textFill="white">
+              <font>
+                  <Font name="Calibri Light" size="20.0" />
+              </font>
+         </Button>
+         <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerChauffeur" prefHeight="36.0" prefWidth="254.0" style="-fx-background-color: #FF4C29;" text="Supprimer un chauffeur" textFill="white">
+              <font>
+                  <Font name="Calibri Light" size="20.0" />
+              </font>
+         </Button>
 
 
             <!-- Formulaire caché -->
