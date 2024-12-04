@@ -14,12 +14,16 @@
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionLocations.fxml</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionFacturesController.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionFactures.fxml</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/Personnes/Gerant.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/Facture/Remise.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/MainFXML.fxml</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/rentcar/mvc/RentcarMvc.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/vehicules/FiltreVehicule.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/AcceuilController.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/vehicules/VoitureFamiliale.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/models/vehicules/Vehicule.java</file>
             <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/Login.fxml</file>
+            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/LoginController.java</file>
         </group>
     </open-files>
 </project-private>
