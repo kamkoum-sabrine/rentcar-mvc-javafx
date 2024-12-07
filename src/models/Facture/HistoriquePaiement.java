@@ -12,8 +12,8 @@ import java.time.LocalDate;
  */
 public class HistoriquePaiement {
     private int idPaiement;
-    private Facture facture; // Lien vers la facture associée
-    private ModePaiement modePaiement; // Lien vers le mode de paiement utilisé
+    private Facture facture; 
+    private ModePaiement modePaiement; 
     private double montantPaye;
     private LocalDate datePaiement;
 

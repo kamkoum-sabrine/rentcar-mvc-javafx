@@ -66,16 +66,6 @@ public class GestionClientsController  {
         colDatePermis.setCellValueFactory(new PropertyValueFactory<>("datePermis"));
         colLieuPermis.setCellValueFactory(new PropertyValueFactory<>("lieuPermis"));
 
-        // Add action buttons dynamically
-        /*colActions.setCellFactory(param -> new TableCell<>() {
-            private final Button viewLocationsButton = new Button("Voir Locations");
-
-            {
-                viewLocationsButton.setOnAction(event -> {
-                    Client client = getTableView().getItems().get(getIndex());
-                    showLocationsForClient(client);
-                });
-            }*/
         clients = FXCollections.observableArrayList();
         tableClient.setItems(clients);
 

@@ -25,14 +25,13 @@ public class Facture {
     private boolean estReglee;
     private ContratLocation contrat;
     
-    private List<Remise> remises; // Ajout des remises appliquées à la facture
+    private List<Remise> remises; 
 
     public Facture(int idFacture, Date dateEmission,  ContratLocation contrat) {
         this.idFacture = idFacture;
         this.dateEmission = dateEmission;
-        this.estReglee = false; // Par défaut, une facture n'est pas réglée
+        this.estReglee = false; 
         this.contrat = contrat;
-       // this.paiements = new ArrayList<>();
         this.remises = new ArrayList<>();
     }
     
@@ -59,15 +58,6 @@ public class Facture {
 
         return coutLocation;
     }
-   /** public double getMontantTotalAvecRemise() {
-        double montantAvecRemises = montantTotal;
-        for (Remise remise : remises) {
-            if (remise.isConditionActive()) {
-                montantAvecRemises -= montantTotal * remise.getPourcentageRemise();
-            }
-        }
-        return montantAvecRemises;
-    }**/
 
     public boolean isEstReglee() {
         return estReglee;

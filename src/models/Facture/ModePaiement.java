@@ -10,8 +10,8 @@ package models.Facture;
  */
 public class ModePaiement {
     private int idMode;
-    private String nomMode; // Exemple: "Carte de crédit", "Espèces", "Chèque", "Virement bancaire"
-    private String details; // Pour des informations supplémentaires comme le numéro de transaction
+    private String nomMode; 
+    private String details; 
 
     public ModePaiement(int idMode, String nomMode, String details) {
         this.idMode = idMode;

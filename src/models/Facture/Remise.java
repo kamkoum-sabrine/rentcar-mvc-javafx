@@ -10,9 +10,9 @@ package models.Facture;
  */
 public class Remise {
     private int idRemise;
-    private String description; // Exemple : "Fidélité", "Promotion saisonnière"
-    private double pourcentageRemise; // Exemple: 10% -> 0.1
-    private boolean conditionActive; // Condition pour savoir si la remise est applicable
+    private String description; 
+    private double pourcentageRemise; 
+    private boolean conditionActive; 
 
     public Remise(int idRemise, String description, double pourcentageRemise, boolean conditionActive) {
         this.idRemise = idRemise;

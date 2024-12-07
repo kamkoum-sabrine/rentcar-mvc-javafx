@@ -13,7 +13,7 @@ import models.vehicules.Assurance;
  * @author LENOVO
  */
 public class VoitureCommerciale extends Vehicule{
-     private int capaciteCharge;//En kg
+    private int capaciteCharge;
     private Boolean toitOuvrant;
     private Boolean cameraRecul;
     
@@ -56,7 +56,7 @@ public class VoitureCommerciale extends Vehicule{
                "capaciteCharge=" + capaciteCharge +
                ", toitOuvrant=" + toitOuvrant +
                ", cameraRecul=" + cameraRecul +
-               ", " + super.toString() + // Appel sécurisé au toString() de Vehicule
+               ", " + super.toString() +
                '}';
     }
 
