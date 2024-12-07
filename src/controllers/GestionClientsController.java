@@ -6,8 +6,15 @@ package controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,78 +23,68 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Personnes.Adresse;
 import models.Personnes.Chauffeur;
 import models.Personnes.Client;
 import models.Personnes.Gerant;
 import models.vehicules.Vehicule;
-
+import java.time.LocalDate;
 import java.sql.Date;
 
-/**
- * FXML Controller class
- *
- * @author LENOVO
- */
-public class GestionClientsController  {
+
+public class GestionClientsController {
+    @FXML
+    private TableView<Client> tableViewClients;
 
     @FXML
-    private TableView<Client> tableClient;
-    @FXML
-    private TableColumn<Client, String> colCin;
+    private TableColumn<Client, Double> colCin;
+
     @FXML
     private TableColumn<Client, String> colNom;
+
     @FXML
     private TableColumn<Client, String> colPrenom;
+
     @FXML
-    private TableColumn<Client, String> colTel;
+    private TextField tfNom;
+
     @FXML
-    private TableColumn<Client, String> colEmail;
+    private TextField tfPrenom;
+
     @FXML
-    private TableColumn<Client, String> colSociete;
+    private TextField tfCin;
+
     @FXML
-    private TableColumn<Client, String> colCarteCredit;
+    private TextField tfTelephone;
+
     @FXML
-    private TableColumn<Client, String> colNumPermis;
+    private TextField tfEmail;
+
     @FXML
-    private TableColumn<Client, String> colDatePermis;
+    private TextField tfSociete;
+
     @FXML
-    private TableColumn<Client, String> colLieuPermis;
-    @FXML
-    private TableColumn<Client, Void> colActions;
+    private TextField tfCarteCredit;
+
     @FXML
     private Label statusBar;
 
-    private final ObservableList<Client> clients=FXCollections.observableArrayList();
+    private ObservableList<Client> clientList = FXCollections.observableArrayList();
+
+    @FXML
     public void initialize() {
-        // Initialize table columns
         colCin.setCellValueFactory(new PropertyValueFactory<>("cin"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colPrenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-        colTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colSociete.setCellValueFactory(new PropertyValueFactory<>("societe"));
-        colCarteCredit.setCellValueFactory(new PropertyValueFactory<>("carteCredit"));
-        colNumPermis.setCellValueFactory(new PropertyValueFactory<>("numPermis"));
-        colDatePermis.setCellValueFactory(new PropertyValueFactory<>("datePermis"));
-        colLieuPermis.setCellValueFactory(new PropertyValueFactory<>("lieuPermis"));
 
-        // Add action buttons dynamically
-        /*colActions.setCellFactory(param -> new TableCell<>() {
-            private final Button viewLocationsButton = new Button("Voir Locations");
-
-            {
-                viewLocationsButton.setOnAction(event -> {
-                    Client client = getTableView().getItems().get(getIndex());
-                    showLocationsForClient(client);
-                });
-            }*/
-
-        tableClient.setItems(clients);
-
+        clientList = FXCollections.observableArrayList();
+        tableViewClients.setItems(clientList);
     }
-    public void AjouterClient(){
+
+    @FXML
+    private void ajouterClient() {
         Dialog<Client> dialog = new Dialog<>();
         dialog.setTitle("Ajouter un client");
 
@@ -110,13 +107,12 @@ public class GestionClientsController  {
         TextField emailField = new TextField();
         emailField.setPromptText("Email");
 
-        DatePicker dateNaissanceField = new DatePicker();
-        dateNaissanceField.setPromptText("Date de naissance");
+        TextField societeField = new TextField();
+        societeField.setPromptText("Société");
 
-        TextField nationaliteField = new TextField();
-        nationaliteField.setPromptText("Nationalité");
+        TextField carteCreditField = new TextField();
+        carteCreditField.setPromptText("Carte de crédit");
 
-        // Adresse
         TextField rueField = new TextField();
         rueField.setPromptText("Rue");
 
@@ -129,53 +125,41 @@ public class GestionClientsController  {
         TextField paysField = new TextField();
         paysField.setPromptText("Pays");
 
-        // Champs spécifiques au client
-        TextField societeField = new TextField();
-        societeField.setPromptText("Société");
+        Adresse adresse = new Adresse(rueField.getText(), villeField.getText(), codePostalField.getText(), paysField.getText()); // Assuming the Adresse constructor will take care of this
 
-        TextField carteCreditField = new TextField();
-        carteCreditField.setPromptText("Numéro de carte de crédit");
+        DatePicker dateNaissanceField = new DatePicker();
+        dateNaissanceField.setPromptText("Date de naissance");
 
-        TextField numPermisField = new TextField();
-        numPermisField.setPromptText("Numéro de permis");
+        TextField nationaliteField = new TextField();
+        nationaliteField.setPromptText("Nationalité");
 
-        DatePicker datePermisField = new DatePicker();
-        datePermisField.setPromptText("Date de délivrance du permis");
+        DatePicker dateCinField = new DatePicker();
+        dateCinField.setPromptText("Date de délivrance du CIN");
 
-        TextField lieuPermisField = new TextField();
-        lieuPermisField.setPromptText("Lieu de délivrance du permis");
+        TextField lieuCinField = new TextField();
+        lieuCinField.setPromptText("Lieu de délivrance du CIN");
 
-        // Formulaire complet
         VBox form = new VBox(10,
                 new Label("Nom:"), nomField,
                 new Label("Prénom:"), prenomField,
                 new Label("CIN:"), cinField,
                 new Label("Numéro de téléphone:"), telephoneField,
                 new Label("Email:"), emailField,
+                new Label("Société:"), societeField,
+                new Label("Carte de crédit:"), carteCreditField,
                 new Label("Date de naissance:"), dateNaissanceField,
                 new Label("Nationalité:"), nationaliteField,
-                new Label("Adresse:"),
-                new Label("Rue:"), rueField,
-                new Label("Ville:"), villeField,
-                new Label("Code Postal:"), codePostalField,
-                new Label("Pays:"), paysField,
-                new Label("Société:"), societeField,
-                new Label("Numéro de carte de crédit:"), carteCreditField,
-                new Label("Numéro de permis:"), numPermisField,
-                new Label("Date de délivrance du permis:"), datePermisField,
-                new Label("Lieu de délivrance du permis:"), lieuPermisField
+                new Label("Date de délivrance du CIN:"), dateCinField,
+                new Label("Lieu de délivrance du CIN:"), lieuCinField
         );
 
         ScrollPane scrollPane = new ScrollPane(form);
         scrollPane.setFitToWidth(true);
-
         dialog.getDialogPane().setContent(scrollPane);
 
-        // Boutons
         ButtonType ajouterButtonType = new ButtonType("Ajouter", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(ajouterButtonType, ButtonType.CANCEL);
 
-        // Gestion de l'ajout
         dialog.setResultConverter(buttonType -> {
             if (buttonType == ajouterButtonType) {
                 try {
@@ -184,30 +168,33 @@ public class GestionClientsController  {
                     double cin = Double.parseDouble(cinField.getText());
                     double telephone = Double.parseDouble(telephoneField.getText());
                     String email = emailField.getText();
-                    LocalDate dateNaissance = dateNaissanceField.getValue();
-                    String nationalite = nationaliteField.getText();
-
-                    Adresse adresse = new Adresse(rueField.getText(), villeField.getText(), codePostalField.getText(), paysField.getText());
-
                     String societe = societeField.getText();
                     String carteCredit = carteCreditField.getText();
-                    String numPermis = numPermisField.getText();
-                    LocalDate datePermis = datePermisField.getValue();
-                    String lieuPermis = lieuPermisField.getText();
+                    LocalDate dateNaissance = dateNaissanceField.getValue();
+                    String nationalite = nationaliteField.getText();
+                    LocalDate dateCin = dateCinField.getValue();
+                    String lieuCin = lieuCinField.getText();
 
                     // Validation des champs obligatoires
-                    if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || nationalite.isEmpty() ||
-                            adresse.rue().isEmpty() || adresse.ville().isEmpty() || societe.isEmpty()) {
+                    if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || societe.isEmpty() || carteCredit.isEmpty() ||
+                            adresse.rue().isEmpty() || adresse.ville().isEmpty() ||
+                            dateNaissance == null || dateCin == null || lieuCin.isEmpty()) {
                         throw new IllegalArgumentException("Tous les champs obligatoires doivent être remplis.");
                     }
-                    Date dateCin=null;
-                    String lieuCin="-";
 
-                    // Création de l'objet Client
                     return new Client(
-                             societe,  carteCredit,  cin,  nom,  prenom,
-                     telephone,  email,  adresse, java.sql.Date.valueOf(dateNaissance), nationalite,  dateCin, lieuCin,
-                             numPermis,  lieuPermis
+                            societe,
+                            carteCredit,
+                            cin,
+                            nom,
+                            prenom,
+                            telephone,
+                            email,
+                            adresse,
+                            java.sql.Date.valueOf(dateNaissance),
+                            nationalite,
+                            java.sql.Date.valueOf(dateCin),
+                            lieuCin
                     );
 
                 } catch (Exception e) {
@@ -217,16 +204,15 @@ public class GestionClientsController  {
             return null;
         });
 
-        // Affichage de la boîte de dialogue
         dialog.showAndWait().ifPresent(client -> {
             Gerant.getInstance().ajouterClient(client);
-            clients.add(client);
-            tableClient.refresh();
+            clientList.add(client);
+            tableViewClients.refresh();
         });
     }
 
-    public void ModifierClient() {
-        Client client = tableClient.getSelectionModel().getSelectedItem();
+    public void modifierClient() {
+        Client client = tableViewClients.getSelectionModel().getSelectedItem();
         if (client == null) {
             // Afficher un message d'erreur si aucun client n'est sélectionné
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -236,92 +222,99 @@ public class GestionClientsController  {
             alert.showAndWait();
             return;
         }
-        System.out.println("ModifierClient appelé pour le client : " + client.getNom() + " " + client.getPrenom());
 
         Dialog<Client> dialog = new Dialog<>();
-        dialog.setTitle("Modifier les informations du client");
+        dialog.setTitle("Modifier le client");
 
-        dialog.getDialogPane().setPrefWidth(600);
-        dialog.getDialogPane().setPrefHeight(400);
+        dialog.getDialogPane().setPrefWidth(400);
+        dialog.getDialogPane().setPrefHeight(300);
 
-        // Champs à modifier
+        // Champs spécifiques à modifier
+        DatePicker dateNaissanceField = new DatePicker(client.getDateNaissance().toInstant()
+                .atZone(ZoneId.systemDefault()).toLocalDate());
+
         TextField telephoneField = new TextField(String.valueOf(client.getTel()));
-        TextField emailField = new TextField(client.getEmail());
+        TextField societeField = new TextField(client.getSociete());
         TextField carteCreditField = new TextField(client.getCarteCredit());
-        TextField lieuPermisField = new TextField(client.getLieuPermis());
 
-        // Formulaire limité aux champs modifiables
         VBox form = new VBox(10,
+                new Label("Date de naissance:"), dateNaissanceField,
                 new Label("Numéro de téléphone:"), telephoneField,
-                new Label("Email:"), emailField,
-                new Label("Numéro de carte de crédit:"), carteCreditField,
-                new Label("Lieu de délivrance du permis:"), lieuPermisField
+                new Label("Société:"), societeField,
+                new Label("Carte de crédit:"), carteCreditField
         );
 
         ScrollPane scrollPane = new ScrollPane(form);
         scrollPane.setFitToWidth(true);
         dialog.getDialogPane().setContent(scrollPane);
 
-        // Boutons
         ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
 
         dialog.setResultConverter(buttonType -> {
             if (buttonType == saveButtonType) {
                 try {
-                    // Mise à jour des champs modifiables du client
+                    // Validation et mise à jour des champs modifiés
+                    client.setDateNaissance(java.sql.Date.valueOf(dateNaissanceField.getValue()));
                     client.setTel(Double.parseDouble(telephoneField.getText()));
-                    client.setEmail(emailField.getText());
+                    client.setSociete(societeField.getText());
                     client.setCarteCredit(carteCreditField.getText());
-                    client.setLieuPermis(lieuPermisField.getText());
 
                     return client;
                 } catch (Exception e) {
-                    System.err.println("Erreur lors de la modification du client : " + e.getMessage());
+                    System.err.println("Erreur dans les données : " + e.getMessage());
+                    showAlert("Erreur", "Données invalides", "Vérifiez les données saisies.", Alert.AlertType.ERROR);
                 }
             }
             return null;
         });
 
-        // Affichage de la boîte de dialogue
         dialog.showAndWait().ifPresent(updatedClient -> {
-            tableClient.refresh(); // Met à jour la TableView
-            Gerant.getInstance().setClients(new ArrayList<>(clients)); // Met à jour la liste des clients dans le gestionnaire
+            tableViewClients.refresh(); // Rafraîchit la TableView après modification
+            System.out.println("Client mis à jour : " + updatedClient);
         });
     }
 
     @FXML
-    public void SupprimerClient() {
-        // Récupérer le chauffeur sélectionné dans la TableView
-        Client selectedClient = tableClient.getSelectionModel().getSelectedItem();
+    private void supprimerClient() {
+        // Récupérer le client sélectionné dans la TableView
+        Client selectedClient = tableViewClients.getSelectionModel().getSelectedItem();
 
         if (selectedClient != null) {
             // Afficher une boîte de confirmation
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirmation de suppression");
-            confirmationAlert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce chauffeur ?");
+            confirmationAlert.setHeaderText("Êtes-vous sûr de vouloir supprimer ce client ?");
             confirmationAlert.setContentText("Nom : " + selectedClient.getNom() + "\nPrénom : " + selectedClient.getPrenom());
 
-            // Si l'utilisateur confirme, supprimer le chauffeur
+            // Si l'utilisateur confirme, supprimer le client
             confirmationAlert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    // Suppression du chauffeur de la liste
-                    clients.remove(selectedClient);
+                    // Suppression du client de la liste
+                    clientList.remove(selectedClient);
 
                     // Mise à jour de la TableView
-                    tableClient.refresh();
+                    tableViewClients.refresh();
 
                     // Mise à jour du message dans la status bar
-                    statusBar.setText("Chauffeur '" + selectedClient.getNom() + "' supprimé avec succès !");
+                    statusBar.setText("Client '" + selectedClient.getNom() + "' supprimé avec succès !");
                 }
             });
 
         } else {
-            // Si aucun chauffeur n'est sélectionné, afficher un message d'erreur avec votre méthode showAlert
-            System.out.println("Aucun chauffeur sélectionné");
-            showAlert("Erreur", "Aucun chauffeur sélectionné", "Sélectionnez un chauffeur à supprimer !", Alert.AlertType.ERROR);
+            // Si aucun client n'est sélectionné, afficher un message d'erreur avec votre méthode showAlert()
+            showAlert("Erreur", "Aucun client sélectionné", "Veuillez sélectionner un client à supprimer.", Alert.AlertType.WARNING);
         }
     }
+
+    @FXML
+    private void refresh() {
+        // Rafraîchir la TableView pour actualiser les données
+        clientList.clear();
+        clientList.addAll(Gerant.getInstance().getClients());
+        tableViewClients.refresh();
+    }
+
     private void showAlert(String title, String header, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -329,7 +322,5 @@ public class GestionClientsController  {
         alert.setContentText(content);
         alert.showAndWait();
     }
-
-
-
 }
+

@@ -16,6 +16,7 @@ import models.vehicules.ContratLocation;
 import models.vehicules.Vehicule;
 import models.vehicules.VoitureCommerciale;
 import models.vehicules.VoitureFamiliale;
+import models.management.Garage;
 
 /**
  *
@@ -29,9 +30,10 @@ public final class Gerant extends Personne {
     public ArrayList<ContratLocation> locations;
     public ArrayList<Entretien> entretiens;    
     public ArrayList<Assurance> assurances;
+
     public ArrayList<Remise> remises;
     public ArrayList<Facture> factures;
-   
+    public ArrayList<Garage> garages;
     private static Gerant instance;
 
     public static Gerant getInstance() {
@@ -42,7 +44,7 @@ public final class Gerant extends Personne {
     }
 
 
-    public Gerant(ArrayList<Vehicule> vehicules, ArrayList<Client> clients, ArrayList<Chauffeur> chauffeurs, ArrayList<ContratLocation> locations, ArrayList<Entretien> entretiens,ArrayList<Assurance> assurances, double cin, String nom, String prenom, double tel, String email, Adresse adresse, Date dateNaissance, String nationalite, Date dateCin, String lieuCin) {
+    public Gerant(ArrayList<Vehicule> vehicules, ArrayList<Client> clients, ArrayList<Chauffeur> chauffeurs, ArrayList<ContratLocation> locations, ArrayList<Entretien> entretiens,ArrayList<Assurance> assurances,ArrayList<Garage> garages, double cin, String nom, String prenom, double tel, String email, Adresse adresse, Date dateNaissance, String nationalite, Date dateCin, String lieuCin) {
         super(cin, nom, prenom, tel, email, adresse, dateNaissance, nationalite, dateCin, lieuCin);
         this.vehicules = new ArrayList<Vehicule>();
         this.clients = new ArrayList<Client>();
@@ -51,6 +53,7 @@ public final class Gerant extends Personne {
         this.entretiens = new ArrayList<Entretien>();
         this.assurances = new ArrayList<Assurance>();
         this.factures = new ArrayList<Facture>();
+        this.garages=new ArrayList<Garage>();
     }
 
     public Gerant() {
@@ -75,8 +78,11 @@ public final class Gerant extends Personne {
      public void ajouterLocation(ContratLocation location){
         locations.add(location);
     }
-      public void ajouterEntretien(Entretien entretien){
+    public void ajouterEntretien(Entretien entretien){
         entretiens.add(entretien);
+    }
+    public void ajouterGarage(Garage garage){
+        garages.add(garage);
     }
 
     public void setVehicules(ArrayList<Vehicule> vehicules) {
@@ -162,7 +168,9 @@ public final class Gerant extends Personne {
      public ArrayList<Assurance> getAssurances() {
         return assurances;
     }
-     
+    public ArrayList<Garage> getGarages() {
+        return garages;
+    }
 
     public double getCin() {
         return cin;

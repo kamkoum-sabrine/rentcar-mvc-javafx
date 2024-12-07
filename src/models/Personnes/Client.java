@@ -2,7 +2,6 @@
 package models.Personnes;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -14,11 +13,11 @@ public final class Client extends Personne implements Comparable<Client> {
     private String societe;
     private String carteCredit;
     private String numPermis;
-    private Date datePermis;
+    public Date datePermis;
     private String lieuPermis;
 
 
-    public Client() {
+    public Client(String societe, String carteCredit, double cin, String nom, String prenom, double telephone, String email, Adresse adresse, java.sql.Date date, String nationalite, java.sql.Date valueOf, String lieuCin) {
         super();
     }
 

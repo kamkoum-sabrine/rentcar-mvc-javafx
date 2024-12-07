@@ -13,6 +13,7 @@ public sealed abstract class Personne permits Chauffeur,Client, Gerant {
     protected String prenom;
     protected double tel;
     protected String email;
+
     protected Adresse adresse;
     protected Date dateNaissance;
     protected String nationalite;
