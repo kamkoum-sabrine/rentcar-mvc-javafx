@@ -14,6 +14,8 @@ import models.management.Entretien;
 import models.vehicules.Assurance;
 import models.vehicules.ContratLocation;
 import models.vehicules.Vehicule;
+import models.vehicules.VoitureCommerciale;
+import models.vehicules.VoitureFamiliale;
 
 /**
  *
@@ -272,9 +274,21 @@ public final class Gerant extends Personne {
     public boolean supprimerFacture(Facture facture) {
       if (factures.contains(facture)) {
           factures.remove(facture);
-          return true; // Indique que la suppression a réussi
+          return true; 
       }
-      return false; // Indique que la remise n'était pas dans la liste
+      return false; 
     }   
+    
+     public int getNombreVoituresFamiliales() {
+        return (int) vehicules.stream()
+                .filter(v -> v instanceof VoitureFamiliale)
+                .count();
+    }
+
+    public int getNombreVoituresCommerciales() {
+        return (int) vehicules.stream()
+                .filter(v -> v instanceof VoitureCommerciale)
+                .count();
+    }
 
 }

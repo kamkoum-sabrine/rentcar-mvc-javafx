@@ -11,9 +11,11 @@ import javafx.scene.media.MediaView;
 import java.io.File;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 public class LoginController {
 
@@ -79,12 +81,14 @@ public class LoginController {
             // Charger la page Accueil
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/acceuil.fxml"));
             Parent accueilRoot = loader.load();
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
             // Obtenir la scène actuelle et remplacer son contenu
             Stage stage = (Stage) usernameField.getScene().getWindow();
-            Scene scene = new Scene(accueilRoot,1200, 800);
+            Scene scene = new Scene(accueilRoot,screenBounds.getWidth(), screenBounds.getHeight());
         
             stage.setScene(scene);
+            
         } catch (IOException e) {
             e.printStackTrace();
             errorLabel.setText("Erreur lors du chargement de la page d'accueil.");

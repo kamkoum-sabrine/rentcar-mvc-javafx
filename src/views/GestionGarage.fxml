@@ -5,31 +5,64 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.beans.property.SimpleStringProperty?>
 
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionGarageController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" stylesheets="@style.css" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GestionGarageController">
+    <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <top>
-
+        <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
+            <Button onAction="#onAjouterGarageClick" style="-fx-background-color: #FF4C29;" textFill="white" text="Ajouter un garage">
+                 <font>
+                  <Font name="Calibri Light" size="20.0" />
+               </font>
+            </Button>
+        </HBox>
     </top>
     <center>
-        <VBox spacing="10" style="-fx-padding: 10;" BorderPane.alignment="CENTER">
-            <!-- TableView pour afficher les garages -->
-            <TableView fx:id="tableViewGarages" prefHeight="300" prefWidth="800">
+        <VBox style="-fx-padding: 0 0 0 20;"> <!-- Padding: haut, droite, bas, gauche -->
+            <TableView fx:id="tableGarage" prefHeight="400" prefWidth="800">
                 <columns>
-                    <TableColumn fx:id="colIdGarage" prefWidth="100" text="ID Garage" />
-                    <TableColumn fx:id="colNomGarage" prefWidth="150" text="Nom" />
-                    <TableColumn fx:id="colAdresseGarage" prefWidth="200" text="Adresse" />
-                    <TableColumn fx:id="colNumeroTelephone" prefWidth="150" text="Numéro Téléphone" />
-                    <TableColumn fx:id="colCapaciteGarage" prefWidth="100" text="Capacité" />
-                    <TableColumn fx:id="colTechniciens" prefWidth="200" text="Techniciens" />
-                    <TableColumn fx:id="colVehiculesEntretien" prefWidth="200" text="Véhicules en Entretien" />
-                    <TableColumn fx:id="colHorairesOuverture" prefWidth="200" text="Horaires Ouverture" />
-                    <TableColumn fx:id="colServicesDisponibles" prefWidth="250" text="Services Disponibles" />
+                    <TableColumn fx:id="colIdGarage" text="ID Garage">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="idGarage" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colNomGarage" text="Nom">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="nom" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colAdresse" text="Adresse">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="adresse" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colNumeroTelephone" text="Téléphone">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="numeroTelephone" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colCapacite" text="Capacité">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="capacite" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colHorairesOuverture" text="Horaires d'ouverture">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="horairesOuverture" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="colServicesDisponibles" text="Services Disponibles">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="servicesDisponibles" />
+                        </cellValueFactory>
+                    </TableColumn>
                 </columns>
             </TableView>
-            <!--<Button onAction="#ajouterGarage" prefHeight="26.0" prefWidth="200.0" text="Ajouter un garage" />
-            <Button layoutX="20.0" layoutY="331.0" onAction="#modifierGarage" prefHeight="26.0" prefWidth="200.0" text="Modifier un garage" />
-            <Button layoutX="20.0" layoutY="367.0" onAction="#supprimerGarage" prefHeight="26.0" prefWidth="200.0" text="Supprimer un garage" />-->
         </VBox>
     </center>
 </BorderPane>
 
+</AnchorPane>

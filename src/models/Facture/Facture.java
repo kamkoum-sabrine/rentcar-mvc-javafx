@@ -55,6 +55,7 @@ public class Facture {
             double pourcentageRemise = remise.getPourcentageRemise();
             coutLocation -= coutLocation * (pourcentageRemise / 100);
         }
+        System.out.println("Cout "+coutLocation);
 
         return coutLocation;
     }
@@ -75,6 +76,7 @@ public class Facture {
    
 
     public void ajouterRemise(Remise remise) {
+        System.out.println("remise "+remise.toString());
         remises.add(remise);
     }
 
@@ -104,6 +106,10 @@ public class Facture {
 
     public void setRemises(List<Remise> remises) {
         this.remises = remises;
+    }
+    
+    public void videsLesRemises(){
+        this.remises = new ArrayList<>();
     }
     
 

@@ -29,6 +29,7 @@ import models.vehicules.Assurance;
 import models.vehicules.ContratLocation;
 import models.vehicules.CoordonnéesGPS;
 import models.vehicules.VoitureCommerciale;
+import models.vehicules.VoitureFamiliale;
 
 
 public class RentcarMvc extends Application {
@@ -140,6 +141,43 @@ public class RentcarMvc extends Application {
             } catch (CoutException e) {
                 System.out.println("Erreur : " + e.getMessage());
             }
+           try {
+               VoitureFamiliale peugeot5008 = new VoitureFamiliale(
+                "200-TN-9012",              // matricule
+                "Peugeot",                  // marque
+                "5008",                     // modèle
+                "130 CV",                   // puissance
+                "Essence",                  // carburant
+                2023,                       // annéeModèle
+                15000.0,                    // kilométrage
+                true,                       // roueSecours
+                true,                       // CricOutils
+                true,                       // RadioAntenne
+                true,                       // enjoliveurs
+                true,                       // rétroviseurs
+                true,                       // climatiseurMarche
+                7,                          // nombrePlaces
+                true,                       // siègeBébéDisponible
+                true,                       // grandCoffre
+                "SUV",                      // type
+                200.0,                      // coût par jour
+                new CoordonnéesGPS(34.7594, 10.8111), // coordonnéesGPS (Sfax)
+                new Assurance(
+                    101,                            // ID Assurance
+                    "AXA",                          // Nom de l'assureur
+                    "Assurance Tous Risques",       // Type d'assurance
+                    new Date(2023 - 1900, 0, 15),    // Date de début (15 janvier 2023)
+                    new Date(2024 - 1900, 0, 15),    // Date de fin (15 janvier 2024)
+                    1200.0                          // Coût de l'assurance
+                )
+            );
+           Gerant.getInstance().ajouterVoiture(peugeot5008);
+
+        } catch (CoutException e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+           
+                
 
             try {
                 // Instanciation de l'assurance
@@ -188,7 +226,9 @@ public class RentcarMvc extends Application {
           
 
             Scene scene = new Scene(root, 818, 614);
-              scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
+           // scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
+            //  scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
             primaryStage.setTitle("RentCar");
             primaryStage.setScene(scene);
             primaryStage.show();

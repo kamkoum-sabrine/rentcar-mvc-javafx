@@ -81,8 +81,8 @@ public class GestionRemisesController implements Initializable {
                 deleteButton.setText("Supprimer");
 
                 // (Facultatif) Ajoute des styles pour différencier les boutons
-                editButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold;");
-                deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+                editButton.setStyle("-fx-background-color: #F3C623; -fx-text-fill: white; -fx-font-weight: bold;");
+                deleteButton.setStyle("-fx-background-color: #B8001F; -fx-text-fill: white; -fx-font-weight: bold;");
 
                 // Ajout des actions
                 editButton.setOnAction(event -> {

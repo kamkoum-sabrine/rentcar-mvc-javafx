@@ -53,62 +53,62 @@ public class GestionVehiculesController  {
      * Initializes the controller class.
      */
     @FXML
-private TableView<Vehicule> tableVoitures;
+    private TableView<Vehicule> tableVoitures;
 
-@FXML
-private TableColumn<Vehicule, String> colMatricule;
+    @FXML
+    private TableColumn<Vehicule, String> colMatricule;
 
-@FXML
-private TableColumn<Vehicule, String> colMarque;
+    @FXML
+    private TableColumn<Vehicule, String> colMarque;
 
-@FXML
-private TableColumn<Vehicule, String> colModele;
+    @FXML
+    private TableColumn<Vehicule, String> colModele;
 
-@FXML
-private TableColumn<Vehicule, String> colType;
+    @FXML
+    private TableColumn<Vehicule, String> colType;
 
-@FXML
-private TableColumn<Vehicule, Double> colCoutParJour;
+    @FXML
+    private TableColumn<Vehicule, Double> colCoutParJour;
 
-// Colonnes spécifiques aux VoitureFamiliale
-@FXML
-private TableColumn<VoitureFamiliale, Integer> colNombrePlaces;
+    // Colonnes spécifiques aux VoitureFamiliale
+    @FXML
+    private TableColumn<VoitureFamiliale, Integer> colNombrePlaces;
 
-@FXML
-private TableColumn<VoitureFamiliale, Boolean> colSiegeBebe;
-@FXML
-private TableColumn<VoitureCommerciale, Integer> colCapaciteCharge;
+   /** @FXML
+    private TableColumn<VoitureFamiliale, Boolean> colSiegeBebe;**/
+    @FXML
+    private TableColumn<VoitureCommerciale, Integer> colCapaciteCharge;
+/**
+    @FXML
+    private TableColumn<VoitureFamiliale, Boolean> colGrandCoffre;
 
-@FXML
-private TableColumn<VoitureFamiliale, Boolean> colGrandCoffre;
+    @FXML
+    private TableColumn<VoitureCommerciale, Boolean> colToitOuvrant;
 
-@FXML
-private TableColumn<VoitureCommerciale, Boolean> colToitOuvrant;
+    @FXML
+    private TableColumn<VoitureCommerciale, Boolean> colCameraRecul;
+**/
+    @FXML
+    private TextField searchField;  // Le champ de recherche
 
-@FXML
-private TableColumn<VoitureCommerciale, Boolean> colCameraRecul;
+    // Liste observable des véhicules
+    private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 
-@FXML
-private TextField searchField;  // Le champ de recherche
+    @FXML
+    private TableColumn<Vehicule, Void> colActions;
 
-// Liste observable des véhicules
-private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<Vehicule, Void> colActionsAssurance;
 
-@FXML
-private TableColumn<Vehicule, Void> colActions;
+    @FXML
+    private TableColumn<Vehicule, String> colAssurance;
 
-@FXML
-private TableColumn<Vehicule, Void> colActionsAssurance;
-
-@FXML
-private TableColumn<Vehicule, String> colAssurance;
-
-private ObservableList<Vehicule> listeVehicules = FXCollections.observableArrayList();
+    private ObservableList<Vehicule> listeVehicules = FXCollections.observableArrayList();
 
 
 @FXML
 public void initialize() {
-        
+           
    //  tableVoitures.lookup(".column-header-background").setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
     // Initialiser les colonnes génériques
     colMatricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
@@ -134,21 +134,21 @@ public void initialize() {
         return null; // Pas applicable pour les autres types
     });
 
-    colSiegeBebe.setCellValueFactory(cellData -> {
+   /** colSiegeBebe.setCellValueFactory(cellData -> {
         Vehicule vehicule = cellData.getValue();
         if (vehicule instanceof VoitureFamiliale vf) {
             return new SimpleBooleanProperty(vf.getSiegeBebeDisponible());
         }
         return null; // Pas applicable pour les autres types
-    });
+    });**/
     
-     colGrandCoffre.setCellValueFactory(cellData -> {
+    /** colGrandCoffre.setCellValueFactory(cellData -> {
         Vehicule vehicule = cellData.getValue();
         if (vehicule instanceof VoitureFamiliale vf) {
             return new SimpleBooleanProperty(vf.getGrandCoffre());
         }
         return null; // Pas applicable pour les autres types
-    });
+    });**/
     
      colCapaciteCharge.setCellValueFactory(cellData -> {
         Vehicule vehicule = cellData.getValue();
@@ -158,7 +158,7 @@ public void initialize() {
         return null; // Pas applicable pour les autres types
     });
      
-     colToitOuvrant.setCellValueFactory(cellData -> {
+    /** colToitOuvrant.setCellValueFactory(cellData -> {
         Vehicule vehicule = cellData.getValue();
         if (vehicule instanceof VoitureCommerciale vc) {
             return new SimpleBooleanProperty(vc.getToitOuvrant());
@@ -172,7 +172,7 @@ public void initialize() {
             return new SimpleBooleanProperty(vc.getCameraRecul());
         }
         return null; // Pas applicable pour les autres types
-    });
+    });**/
 
     // Charger des données initiales
     vehicules.addAll(getVehiculesInitiaux());
@@ -181,12 +181,17 @@ public void initialize() {
   // Ajouter des boutons pour la colonne d'actions
    // Colonne Actions : bouton pour affecter l'assurance et supprimer l'affectation
          colActionsAssurance.setCellFactory(param -> new TableCell<Vehicule, Void>() {
+              private final HBox actionBox = new HBox(10); // Conteneur horizontal pour les icônes
+    
             private final Button affecterButton = new Button("Affecter");
             private final Button supprimerButton = new Button("Supprimer");
 
             {
                 affecterButton.setOnAction(event -> affecterAssurance(getTableRow().getItem()));
                 supprimerButton.setOnAction(event -> supprimerAssurance(getTableRow().getItem()));
+                affecterButton.setStyle("-fx-background-color: #347928; -fx-text-fill: white; -fx-font-weight: bold;");
+                supprimerButton.setStyle("-fx-background-color: #B8001F; -fx-text-fill: white; -fx-font-weight: bold;");
+                actionBox.getChildren().addAll(affecterButton, supprimerButton);
             }
 
             @Override
@@ -195,8 +200,9 @@ public void initialize() {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    VBox vbox = new VBox(affecterButton, supprimerButton);
-                    setGraphic(vbox);
+                    
+                    HBox hbox = new HBox(10,affecterButton, supprimerButton);
+                    setGraphic(hbox);
                 }
             }
         });
@@ -213,9 +219,9 @@ public void initialize() {
             editButton.setText("Éditer");
             deleteButton.setText("Supprimer");
 
-            // (Facultatif) Ajoute des styles pour différencier les boutons
-            editButton.setStyle("-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold;");
-            deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");
+           
+            editButton.setStyle("-fx-background-color: #F3C623; -fx-text-fill: white; -fx-font-weight: bold;");
+            deleteButton.setStyle("-fx-background-color: #B8001F; -fx-text-fill: white; -fx-font-weight: bold;");
 
             // Ajout des actions
             editButton.setOnAction(event -> {
@@ -549,7 +555,17 @@ public void onAjouterVoitureClick(ActionEvent event) {
 
     dialog.getDialogPane().setContent(scrollPane);
     // Boutons
-    ButtonType ajouterButtonType = new ButtonType("Ajouter", ButtonBar.ButtonData.OK_DONE);
+   ButtonType ajouterButtonType = new ButtonType("Ajouter", ButtonBar.ButtonData.OK_DONE);
+  
+   /** // Créez une alerte (ou une boîte de dialogue) avec ce ButtonType
+    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Voulez-vous ajouter cet élément ?", ajouterButtonType);
+
+    // Accédez à l'interface utilisateur du bouton
+    alert.getDialogPane().lookupButton(ajouterButtonType).setStyle("-fx-background-color: #FF4C29; -fx-text-fill: white; -fx-font-weight: bold;");
+**/
+    // Affichez l'alerte
+   // alert.showAndWait();
+
     dialog.getDialogPane().getButtonTypes().addAll(ajouterButtonType, ButtonType.CANCEL);
 
     // Gestion de l'ajout

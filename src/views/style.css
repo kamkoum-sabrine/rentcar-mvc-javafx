@@ -8,66 +8,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 /* Exemple de fichier CSS pour styliser AnchorPane et d'autres éléments */
-.root {
-    -fx-background-color: #f0f0f0;
-}
+/* Appliquer le style bleu à l'en-tête uniquement */
+/* Style pour l'en-tête du tableau */
 
-.login-pane {
-    -fx-background-color: white;
-    -fx-border-radius: 10;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
-}
-
-.label {
-    -fx-text-fill: #2c3e50;
-}
-
-.button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1); /* Légère couleur de fond lors du survol */
-    -fx-border-color: rgba(255, 255, 255, 0.5); /* Bordure visible lors du survol */
-}
-/* Style du label */
-.title-label {
-    -fx-font-size: 18px;
+.table-view .column-header .label {
+    -fx-text-fill: white; /* Texte blanc */
     -fx-font-weight: bold;
 }
+.table-view .column-header {
+    -fx-background-color: #FF4C29; /* Bleu vif */
+}
 
-/* Style général pour les boutons */
+/* Corps du tableau */
+.table-view .table-row-cell {
+    -fx-background-color: white; /* Fond blanc */
+    -fx-text-fill: black; /* Texte noir */
+}
+
+/* Définir la couleur pour la bordure des cellules */
+.table-view .cell {
+    -fx-border-color: lightgray;
+    -fx-border-width: 0.5px
+}
+
+/* Définir la ligne sélectionnée */
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #E5E3D4; /* Couleur de fond pour la ligne sélectionnée */
+    -fx-text-fill: black; /* Couleur du texte en noir */
+}
+
+/* Pour garantir que toutes les cellules de la ligne sélectionnée aient du texte noir */
+.table-view .table-row-cell:filled:selected .text {
+    -fx-fill: black; /* Couleur du texte des cellules */
+}
+/* Style global pour tous les boutons */
 .button {
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-padding: 10 20;
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-    -fx-border-width: 2px;
-    -fx-pref-width: 200px;
-    -fx-pref-height: 40px;
+    -fx-background-color: #4CAF50; /* Couleur de fond du bouton */
+    -fx-text-fill: white !important; /* Forcer la couleur du texte en blanc */
 }
 
-/* Styles spécifiques par classe */
-.btn-ajouter {
-    -fx-background-color: #1abc9c;
-    -fx-border-color: #16a085;
+/* Bouton survolé */
+.button:hover {
+    -fx-background-color: #45A049; /* Couleur de fond au survol */
+    -fx-text-fill: white !important; /* Forcer la couleur du texte en blanc */
 }
 
-.btn-ajouter:hover {
-    -fx-background-color: #16a085;
+/* Bouton pressé */
+.button:pressed {
+    -fx-background-color: #388E3C; /* Couleur de fond lorsqu'il est pressé */
+    -fx-text-fill: white !important; /* Forcer la couleur du texte en blanc */
 }
 
-.btn-modifier {
-    -fx-background-color: #f39c12;
-    -fx-border-color: #e67e22;
-}
-
-.btn-modifier:hover {
-    -fx-background-color: #e67e22;
-}
-
-.btn-supprimer {
-    -fx-background-color: #e74c3c;
-    -fx-border-color: #c0392b;
-}
-
-.btn-supprimer:hover {
-    -fx-background-color: #c0392b;
+/* Bouton désactivé */
+.button:disabled {
+    -fx-background-color: #B0B0B0; /* Couleur de fond pour les boutons désactivés */
+    -fx-text-fill: white !important; /* Forcer la couleur du texte en blanc */
 }
