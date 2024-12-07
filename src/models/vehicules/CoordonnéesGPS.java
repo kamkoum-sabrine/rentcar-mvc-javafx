@@ -9,10 +9,9 @@ package models.vehicules;
  * @author LENOVO
  */
 public record CoordonnéesGPS(double latitude, double longitude) {
-    // Vous pouvez ajouter des méthodes utiles, par exemple pour calculer la distance
+   
     public double distanceTo(CoordonnéesGPS autreCoordonnee) {
-        // Implémentation simplifiée pour la distance en km (vous pouvez utiliser la formule de Haversine)
-        double earthRadius = 6371.0; // Rayon de la Terre en kilomètres
+        double earthRadius = 6371.0;
         double deltaLat = Math.toRadians(autreCoordonnee.latitude - this.latitude);
         double deltaLon = Math.toRadians(autreCoordonnee.longitude - this.longitude);
         double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +

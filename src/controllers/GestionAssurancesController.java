@@ -82,7 +82,6 @@ public class GestionAssurancesController {
      @FXML
     public void initialize() {
 
-       //  tableVoitures.lookup(".column-header-background").setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
         // Initialiser les colonnes génériques
         colIdAssurance.setCellValueFactory(new PropertyValueFactory<>("idAssurance"));
         colNomAssureur.setCellValueFactory(new PropertyValueFactory<>("nomAssureur"));

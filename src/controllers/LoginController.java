@@ -36,25 +36,13 @@ public class LoginController {
 
     @FXML
     public void initialize() {
-        // Charger la vidéo en arrière-plan
-       /**  String videoPath = getClass().getResource("/resources/videos/bg.mp4").toExternalForm();
-        Media media = new Media(videoPath);
-        mediaPlayer = new MediaPlayer(media);
-        backgroundVideo.setMediaPlayer(mediaPlayer);
-
-        // Démarrer la vidéo en boucle
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();**/
-       // Charger la vidéo en arrière-plan
-       // String videoPath = getClass().getResource("/ressources/videos/bg.mp4").toExternalForm();
-        String videoPath = new File("src/ressources/videos/bg.mp4").toURI().toString();
+           String videoPath = new File("src/ressources/videos/bg.mp4").toURI().toString();
 
 
         Media media = new Media(videoPath);
         mediaPlayer = new MediaPlayer(media);
         backgroundVideo.setMediaPlayer(mediaPlayer);
 
-        // Démarrer la vidéo en boucle
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
     }
@@ -62,15 +50,14 @@ public class LoginController {
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
-         // Clear previous error message
         errorLabel.setText("");
 
-        // Validate username and password
+       
         if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Veuillez remplir tous les champs.");
         } else if ("admin".equals(username) && "password".equals(password)) {
             System.out.println("Connexion réussie!");
-             navigateToAccueil(); // Naviguer vers la page d'accueil
+             navigateToAccueil(); 
         } else {
             errorLabel.setText("Nom d'utilisateur ou mot de passe incorrect.");
         }
@@ -78,12 +65,10 @@ public class LoginController {
     }
     private void navigateToAccueil() {
         try {
-            // Charger la page Accueil
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/acceuil.fxml"));
             Parent accueilRoot = loader.load();
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
 
-            // Obtenir la scène actuelle et remplacer son contenu
             Stage stage = (Stage) usernameField.getScene().getWindow();
             Scene scene = new Scene(accueilRoot,screenBounds.getWidth(), screenBounds.getHeight());
         

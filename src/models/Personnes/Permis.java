@@ -13,12 +13,10 @@ public enum Permis {
 
     private final String description;
 
-    // Constructeur pour associer une description à chaque catégorie
     Permis(String description) {
         this.description = description;
     }
 
-    // Méthode pour obtenir la description
     public String getDescription() {
         return description;
     }

@@ -78,16 +78,7 @@ public class GestionVehiculesController  {
     private TableColumn<VoitureFamiliale, Boolean> colSiegeBebe;**/
     @FXML
     private TableColumn<VoitureCommerciale, Integer> colCapaciteCharge;
-/**
-    @FXML
-    private TableColumn<VoitureFamiliale, Boolean> colGrandCoffre;
 
-    @FXML
-    private TableColumn<VoitureCommerciale, Boolean> colToitOuvrant;
-
-    @FXML
-    private TableColumn<VoitureCommerciale, Boolean> colCameraRecul;
-**/
     @FXML
     private TextField searchField;  // Le champ de recherche
 
@@ -109,8 +100,6 @@ public class GestionVehiculesController  {
 @FXML
 public void initialize() {
            
-   //  tableVoitures.lookup(".column-header-background").setStyle("-fx-background-color: #2980b9; -fx-text-fill: white;");
-    // Initialiser les colonnes génériques
     colMatricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
     colMarque.setCellValueFactory(new PropertyValueFactory<>("marque"));
     colModele.setCellValueFactory(new PropertyValueFactory<>("modele"));
@@ -134,46 +123,17 @@ public void initialize() {
         return null; // Pas applicable pour les autres types
     });
 
-   /** colSiegeBebe.setCellValueFactory(cellData -> {
-        Vehicule vehicule = cellData.getValue();
-        if (vehicule instanceof VoitureFamiliale vf) {
-            return new SimpleBooleanProperty(vf.getSiegeBebeDisponible());
-        }
-        return null; // Pas applicable pour les autres types
-    });**/
-    
-    /** colGrandCoffre.setCellValueFactory(cellData -> {
-        Vehicule vehicule = cellData.getValue();
-        if (vehicule instanceof VoitureFamiliale vf) {
-            return new SimpleBooleanProperty(vf.getGrandCoffre());
-        }
-        return null; // Pas applicable pour les autres types
-    });**/
+   
     
      colCapaciteCharge.setCellValueFactory(cellData -> {
         Vehicule vehicule = cellData.getValue();
         if (vehicule instanceof VoitureCommerciale vc) {
             return new SimpleIntegerProperty(vc.getCapaciteCharge()).asObject();
         }
-        return null; // Pas applicable pour les autres types
+        return null;
     });
      
-    /** colToitOuvrant.setCellValueFactory(cellData -> {
-        Vehicule vehicule = cellData.getValue();
-        if (vehicule instanceof VoitureCommerciale vc) {
-            return new SimpleBooleanProperty(vc.getToitOuvrant());
-        }
-        return null; // Pas applicable pour les autres types
-    });
-    
-     colCameraRecul.setCellValueFactory(cellData -> {
-        Vehicule vehicule = cellData.getValue();
-        if (vehicule instanceof VoitureCommerciale vc) {
-            return new SimpleBooleanProperty(vc.getCameraRecul());
-        }
-        return null; // Pas applicable pour les autres types
-    });**/
-
+  
     // Charger des données initiales
     vehicules.addAll(getVehiculesInitiaux());
     tableVoitures.setItems(vehicules);
@@ -212,11 +172,7 @@ public void initialize() {
         private final Button deleteButton = new Button();
 
         {
-            // Configure les boutons avec des icônes
-           // editButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ressources/images/edit.png"))));
-           // deleteButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/ressources/images/trash.png"))));
-            // Configure les boutons avec des chaînes de caractères
-            editButton.setText("Éditer");
+              editButton.setText("Éditer");
             deleteButton.setText("Supprimer");
 
            
@@ -401,18 +357,14 @@ private void onEditVehicule(Vehicule vehicule) {
 }
 
 
-
-// Méthode pour gérer la suppression
-
-// Méthode pour gérer la suppression d'un véhicule
 private void onDeleteVehicule(Vehicule vehicule) {
     Gerant gerant = Gerant.getInstance(); // Obtenez l'instance unique de Gerant
 
     boolean supprimé = gerant.supprimerVehicule(vehicule);
     if (supprimé) {
         System.out.println("Véhicule supprimé : " + vehicule.getMatricule());
-        vehicules.remove(vehicule); // Met à jour la liste observable si utilisée dans l'interface
-        tableVoitures.refresh(); // Rafraîchit la table
+        vehicules.remove(vehicule); 
+        tableVoitures.refresh(); 
     } else {
         System.out.println("Échec de la suppression : Véhicule introuvable.");
     }
@@ -423,27 +375,6 @@ public List<Vehicule> getVehiculesInitiaux() {
     return Gerant.getInstance().getVehicules();
 }
 
-
-/**private List<Vehicule> getVehiculesInitiaux() {
-    
-    Gerant gerant = Gerant.getInstance();
-    
-    
-    List<Vehicule> vehiculesInitiaux = new ArrayList<>();
-    vehiculesInitiaux.add(new VoitureFamiliale("1234AB", "Toyota", "Corolla", "90cv", "Essence", 2020, 15000.0,
-            true, true, false, true, true, true, 5, true, true, "Voiture Familiale", 50.0, null));
-    vehiculesInitiaux.add(new VoitureCommerciale("5678CD", "Renault", "Kangoo", "110cv", "Diesel", 2019, 30000.0,
-            true, true, true, true, true, true, 1000, false, true, "Voiture Commerciale", 70.0, null));
-    vehiculesInitiaux.add(new Vehicule("9101EF", "Ford", "Focus", "100cv", "Essence", 2018, 20000.0,
-            true, true, true, true, true, true, "Vehicule", 60.0, null));
-
-    for (Vehicule v : vehiculesInitiaux) {
-        gerant.ajouterVoiture(v);
-    }
-    
-    // Retourner la liste des véhicules
-    return vehiculesInitiaux;
-}**/
 
 
   @FXML
@@ -557,15 +488,7 @@ public void onAjouterVoitureClick(ActionEvent event) {
     // Boutons
    ButtonType ajouterButtonType = new ButtonType("Ajouter", ButtonBar.ButtonData.OK_DONE);
   
-   /** // Créez une alerte (ou une boîte de dialogue) avec ce ButtonType
-    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Voulez-vous ajouter cet élément ?", ajouterButtonType);
-
-    // Accédez à l'interface utilisateur du bouton
-    alert.getDialogPane().lookupButton(ajouterButtonType).setStyle("-fx-background-color: #FF4C29; -fx-text-fill: white; -fx-font-weight: bold;");
-**/
-    // Affichez l'alerte
-   // alert.showAndWait();
-
+  
     dialog.getDialogPane().getButtonTypes().addAll(ajouterButtonType, ButtonType.CANCEL);
 
     // Gestion de l'ajout

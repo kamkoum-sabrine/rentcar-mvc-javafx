@@ -38,7 +38,7 @@ public final class Gerant extends Personne {
 
     public static Gerant getInstance() {
         if (instance == null) {
-            instance = new Gerant(); // Ensure instance is created
+            instance = new Gerant(); 
         }
         return instance;
     }
@@ -215,16 +215,16 @@ public final class Gerant extends Personne {
     public boolean supprimerVehicule(Vehicule vehicule) {
         if (vehicules.contains(vehicule)) {
             vehicules.remove(vehicule);
-            return true; // Indique que la suppression a réussi
+            return true; 
         }
-        return false; // Indique que le véhicule n'était pas dans la liste
+        return false; 
     }  
     public boolean supprimerAssurance(Assurance assurance) {
         if (assurances.contains(assurance)) {
             assurances.remove(assurance);
-            return true; // Indique que la suppression a réussi
+            return true; 
         }
-        return false; // Indique que l'assurance n'était pas dans la liste
+        return false; 
     }   
 
 
@@ -255,18 +255,18 @@ public final class Gerant extends Personne {
     public boolean supprimerRemise(Remise remise) {
       if (remises.contains(remise)) {
           remises.remove(remise);
-          return true; // Indique que la suppression a réussi
+          return true; 
       }
-      return false; // Indique que la remise n'était pas dans la liste
+      return false;
     }   
     
    
     public boolean supprimerLocation(ContratLocation contratLocation) {
       if (locations.contains(contratLocation)) {
           locations.remove(contratLocation);
-          return true; // Indique que la suppression a réussi
+          return true; 
       }
-      return false; // Indique que le contrat n'était pas dans la liste
+      return false; 
     }   
 
     public ArrayList<Facture> getFactures() {

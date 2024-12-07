@@ -317,20 +317,7 @@ public class GestionChauffeursController {
         alert.showAndWait();
     }
 
-    /*@FXML
-    private void supprimerChauffeur() {
-        Chauffeur selectedChauffeur = tableViewChauffeurs.getSelectionModel().getSelectedItem();
 
-        if (selectedChauffeur != null) {
-            chauffeurList.remove(selectedChauffeur);
-            statusBar.setText("Chauffeur supprimé avec succès !");;
-        } else {
-            System.out.println("Aucun chauffeur sélectionné");
-            showAlert("Erreur", "Aucun chauffeur sélectionné", "Sélectionnez un chauffeur à supprimer !", Alert.AlertType.ERROR);
-        }
-
-
-    }*/
     @FXML
     private void supprimerChauffeur() {
         // Récupérer le chauffeur sélectionné dans la TableView

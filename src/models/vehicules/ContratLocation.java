@@ -17,7 +17,6 @@ import models.Personnes.Client;
 
 public class ContratLocation {
     private int id;
-    //private Set<Client> clients ;
     private Client conducteur1;
     private Client conducteur2;
     private Vehicule vehicule;
@@ -29,14 +28,13 @@ public class ContratLocation {
   
     
     public ContratLocation(int id,Client conducteur1, Client conducteur2, Vehicule vehicule, Date dateDebut, Date dateFin) throws DateLocationException{
-       // this.clients =new HashSet<Client>();
+    
         this.id = id;
         this.conducteur1 = conducteur1;
         this.conducteur2 = conducteur2;
         this.vehicule = vehicule;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
-       // if (this.dateDebut.compareTo(this.dateFin) > 0) throw new DateLocationException(); 
 
     }
 
@@ -44,9 +42,7 @@ public class ContratLocation {
         return id;
     }
 
-  /**  public Set<Client> getConducteurs() {
-        return this.clients;
-    }**/
+ 
 
     public Vehicule getVehicule() {
         return vehicule;
@@ -64,11 +60,7 @@ public class ContratLocation {
         this.id = id;
     }
 
-    /**public void setClients(Client c1,Client c2) {
-        this.clients.add(c1) ;
-        this.clients.add(c2);
-    }**/
-
+ 
     public void changerVoiture(Vehicule vehicule) {
         this.vehicule = vehicule;
     }
@@ -110,11 +102,7 @@ public class ContratLocation {
     public String toString() {
         return "ContratLocation{" + "id=" + id + ", conducteur1=" + conducteur1 + ", conducteur2=" + conducteur2 + ", vehicule=" + vehicule + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin + '}';
     }
-    /** @Override
-    public String toString() {
-    List<String> list = new ArrayList(clients);
-    return "ContratLocation{" + "id=" + id + ", conducteur1=" + list.get(0) + ", conducteur2=" + list.get(1) + ", vehicule=" + vehicule + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin +'}';
-    }**/
+   
     public Date getDateFin() {
         return dateFin;
     }

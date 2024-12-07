@@ -81,12 +81,10 @@ public class GestionFacturesController  {
           colActions.setCellFactory(param -> new TableCell<>() {
             private final HBox actionBox = new HBox(10); // Conteneur horizontal pour les icônes
             private final Button PayeButton = new Button();
-          //  private final Button deleteButton = new Button();
-
+        
             {
                 PayeButton.setText("Payer");
-                //deleteButton.setText("Supprimer");
-
+               
                 // (Facultatif) Ajoute des styles pour différencier les boutons
                 PayeButton.setStyle("-fx-background-color: #219C90; -fx-text-fill: white; -fx-font-weight: bold;");
                // deleteButton.setStyle("-fx-background-color: #d9534f; -fx-text-fill: white; -fx-font-weight: bold;");

@@ -187,17 +187,9 @@ public class Vehicule implements Comparable<Vehicule>{
     }
     
     public static List<Vehicule> filtrerVehicules(List<Vehicule> vehicules, FiltreVehicule filtre) {
-        List<Vehicule> vehiculesFiltres = new ArrayList<>();
-      /**  for (Vehicule vehicule : vehicules) {
-            if (filtre.filtrer(vehicule)) {
-                vehiculesFiltres.add(vehicule);
-            }
-        }
-      
-        return vehiculesFiltres;**/
-       return vehicules.stream()  // Crée un Stream à partir de la liste de véhicules
-            .filter(filtre::filtrer)  // Applique le filtre fonctionnel
-            .collect(Collectors.toList());  // Collecte les résultats dans une nouvelle liste
+       return vehicules.stream() 
+            .filter(filtre::filtrer)  
+            .collect(Collectors.toList()); 
     }
 
     public Double getCoutParJour() {
