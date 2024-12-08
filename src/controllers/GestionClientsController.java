@@ -6,6 +6,7 @@ package controllers;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import models.Personnes.Adresse;
+import models.Personnes.Chauffeur;
 import models.Personnes.Client;
 import models.Personnes.Gerant;
 import java.sql.Date;
@@ -70,7 +72,7 @@ public class GestionClientsController  {
         colDatePermis.setCellValueFactory(new PropertyValueFactory<>("datePermis"));
         colLieuPermis.setCellValueFactory(new PropertyValueFactory<>("lieuPermis"));
 
-        clients.addAll(getClientsInitiaux());
+        //clients.addAll(getClientsInitiaux());
         tableClient.setItems(clients);
         
         colActions.setCellFactory(param -> new TableCell<>() {
@@ -93,7 +95,7 @@ public class GestionClientsController  {
                     Client Client = getTableView().getItems().get(getIndex());
                     System.out.println("CIN du Client "+ Client.getCin());
                     try {
-                        onEditClient(Client);
+                        onEditClient();
                     } catch (Exception e) {
                         System.err.println("Erreur lors de l'édition : " + e.getMessage());
                         e.printStackTrace();
@@ -104,7 +106,7 @@ public class GestionClientsController  {
                     /*Garage Garage = getTableView().getItems().get(getIndex());
                     onDeleteGarage(Garage);*/
                     Client selectedClient = getTableView().getItems().get(getIndex());
-                    onDeleteClient(selectedClient);
+                    //onDeleteClient(selectedClient);
                 });
 
                 actionBox.getChildren().addAll(editButton, deleteButton);
@@ -259,7 +261,17 @@ public class GestionClientsController  {
             tableClient.refresh();
         });
     }
-    private void onEditClient(Client client) {
+    public void onEditClient() {
+        Client client = tableClient.getSelectionModel().getSelectedItem();
+        if (client == null) {
+            // Afficher un message d'erreur si aucun chauffeur n'est sélectionné
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aucun client sélectionné");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un client à modifier.");
+            alert.showAndWait();
+            return;
+        }
         Dialog<Client> dialog = new Dialog<>();
         dialog.setTitle("Modifier un client");
 
@@ -388,40 +400,7 @@ public class GestionClientsController  {
     }
 
     
-    private void onDeleteClient(Client Client) {
-        System.out.println("onDeleteClient called for Client: " + Client.getCin());
 
-        // Confirmation dialog
-        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationDialog.setTitle("Supprimer le garage");
-        confirmationDialog.setHeaderText("Confirmez-vous la suppression de ce garage ?");
-        confirmationDialog.setContentText(
-            "CIN Client " + Client.getCin() + "\n" +
-            "Nom: " + Client.getNom() + "\n" +
-            "Prenom: " + Client.getPrenom() + "\n" +
-            "Attention : Cette action est irréversible."
-        );
-
-        // Show dialog and capture user response
-        Optional<ButtonType> result = confirmationDialog.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Logic to delete the garage
-            // Example: Remove it from the data source (e.g., a database or a list)
-
-            // Notify user of the result
-            clients.remove(Client);
-            tableClient.refresh();
-        } else {
-            System.out.println("Suppression annulée par l'utilisateur.");
-        }
-    }
-
-    
-    public List<Client> getClientsInitiaux() {
-    // Récupère les contrats stockés dans Gerant
-        return Gerant.getInstance().getClients();
-    }
 
 
 
