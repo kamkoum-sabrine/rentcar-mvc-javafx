@@ -60,6 +60,7 @@
 
                         <!-- Actions -->
                         <TableColumn fx:id="colLocation" text="Locations" />
+                        <TableColumn fx:id="colActions" text="Actions" />
                     </columns>
                 </TableView>
             </VBox>
