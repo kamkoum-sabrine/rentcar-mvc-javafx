@@ -14,7 +14,7 @@ import java.util.Date;
 public class Entretien {
     
     private int idEntretien;
-    private Date dateEntretien;
+    private java.sql.Date dateEntretien;
     private String typeEntretien;
     private double cout;
     private int kilometrage;
@@ -26,7 +26,7 @@ public class Entretien {
     public Entretien() {
     }
 
-    public Entretien(int idEntretien, Date dateEntretien, String typeEntretien, double cout, int kilometrage, Technicien technicienEnCharge, String notes, Vehicule vehicule, Garage garage) {
+    public Entretien(int idEntretien, java.sql.Date dateEntretien, String typeEntretien, double cout, int kilometrage, Technicien technicienEnCharge, String notes, Vehicule vehicule, Garage garage) {
         this.idEntretien = idEntretien;
         this.dateEntretien = dateEntretien;
         this.typeEntretien = typeEntretien;
@@ -43,7 +43,7 @@ public class Entretien {
         return idEntretien;
     }
 
-    public Date getDateEntretien() {
+    public java.sql.Date getDateEntretien() {
         return dateEntretien;
     }
 
@@ -79,7 +79,7 @@ public class Entretien {
         this.idEntretien = idEntretien;
     }
 
-    public void setDateEntretien(Date dateEntretien) {
+    public void setDateEntretien(java.sql.Date dateEntretien) {
         this.dateEntretien = dateEntretien;
     }
 

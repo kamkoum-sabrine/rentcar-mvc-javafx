@@ -3,22 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionGarage.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionAssurances.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionVehiculesController.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionLocationsController.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionAssurancesController.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionRemisesController.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionVehicules.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionRemises.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionEntretien.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionClients.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionLocations.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionFacturesController.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionFactures.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/Login.fxml</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/controllers/GestionClientsController.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/NetBeansProjects/rentcar-mvc/src/views/GestionChauffeurs.fxml</file>
+            <file>file:/C:/Users/lenovo/Documents/NetBeansProjects/rentcar-mvc-javafx/src/controllers/GestionEntretienController.java</file>
+            <file>file:/C:/Users/lenovo/Documents/NetBeansProjects/rentcar-mvc-javafx/src/views/GestionEntretien.fxml</file>
+            <file>file:/C:/Users/lenovo/Documents/NetBeansProjects/rentcar-mvc-javafx/src/controllers/GestionGarageController.java</file>
+            <file>file:/C:/Users/lenovo/Documents/NetBeansProjects/rentcar-mvc-javafx/src/rentcar/mvc/RentcarMvc.java</file>
         </group>
     </open-files>
 </project-private>

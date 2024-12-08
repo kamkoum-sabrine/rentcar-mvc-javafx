@@ -19,6 +19,10 @@ import models.Personnes.Adresse;
 import models.Personnes.Client;
 import models.Personnes.Gerant;
 import java.sql.Date;
+import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -52,7 +56,7 @@ public class GestionClientsController  {
     @FXML
     private TableColumn<Client, Void> colActions;
 
-    private ObservableList<Client> clients;
+    private ObservableList<Client> clients =  FXCollections.observableArrayList();
     public void initialize() {
         // Initialize table columns
         colCin.setCellValueFactory(new PropertyValueFactory<>("cin"));
@@ -66,8 +70,56 @@ public class GestionClientsController  {
         colDatePermis.setCellValueFactory(new PropertyValueFactory<>("datePermis"));
         colLieuPermis.setCellValueFactory(new PropertyValueFactory<>("lieuPermis"));
 
-        clients = FXCollections.observableArrayList();
+        clients.addAll(getClientsInitiaux());
         tableClient.setItems(clients);
+        
+        colActions.setCellFactory(param -> new TableCell<>() {
+            private final HBox actionBox = new HBox(10); // Conteneur horizontal pour les icônes
+            private final Button editButton = new Button();
+            private final Button deleteButton = new Button();
+
+            {
+                editButton.setText("Éditer");
+                deleteButton.setText("Supprimer");
+
+                // (Facultatif) Ajoute des styles pour différencier les boutons
+                editButton.setStyle("-fx-background-color: #F3C623; -fx-text-fill: white; -fx-font-weight: bold;");
+                deleteButton.setStyle("-fx-background-color: #B8001F; -fx-text-fill: white; -fx-font-weight: bold;");
+
+
+                // Ajout des actions
+                editButton.setOnAction(event -> {
+                    System.out.println("edit !!");
+                    Client Client = getTableView().getItems().get(getIndex());
+                    System.out.println("CIN du Client "+ Client.getCin());
+                    try {
+                        onEditClient(Client);
+                    } catch (Exception e) {
+                        System.err.println("Erreur lors de l'édition : " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                });
+
+                deleteButton.setOnAction(event -> {
+                    /*Garage Garage = getTableView().getItems().get(getIndex());
+                    onDeleteGarage(Garage);*/
+                    Client selectedClient = getTableView().getItems().get(getIndex());
+                    onDeleteClient(selectedClient);
+                });
+
+                actionBox.getChildren().addAll(editButton, deleteButton);
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(actionBox);
+                }
+            }
+            });
 
     }
     public void AjouterClient(){
@@ -207,6 +259,172 @@ public class GestionClientsController  {
             tableClient.refresh();
         });
     }
+    private void onEditClient(Client client) {
+        Dialog<Client> dialog = new Dialog<>();
+        dialog.setTitle("Modifier un client");
 
+        dialog.getDialogPane().setPrefWidth(600);
+        dialog.getDialogPane().setPrefHeight(700);
 
+        // Pre-filled fields with current client details
+        TextField nomField = new TextField(client.getNom());
+        nomField.setPromptText("Nom");
+
+        TextField prenomField = new TextField(client.getPrenom());
+        prenomField.setPromptText("Prénom");
+
+        TextField cinField = new TextField(String.valueOf(client.getCin()));
+        cinField.setPromptText("CIN");
+        cinField.setDisable(true); // CIN shouldn't be editable
+
+        TextField telephoneField = new TextField(String.valueOf(client.getTel()));
+        telephoneField.setPromptText("Numéro de téléphone");
+
+        TextField emailField = new TextField(client.getEmail());
+        emailField.setPromptText("Email");
+
+        /*DatePicker dateNaissanceField = new DatePicker(client.getDateNaissance().ToLocalDate());
+        dateNaissanceField.setPromptText("Date de naissance");*/
+
+        TextField nationaliteField = new TextField(client.getNationalite());
+        nationaliteField.setPromptText("Nationalité");
+
+        // Adresse fields
+        TextField rueField = new TextField(client.getAdresse().rue());
+        rueField.setPromptText("Rue");
+
+        TextField villeField = new TextField(client.getAdresse().ville());
+        villeField.setPromptText("Ville");
+
+        TextField codePostalField = new TextField(client.getAdresse().codePostal());
+        codePostalField.setPromptText("Code Postal");
+
+        TextField paysField = new TextField(client.getAdresse().pays());
+        paysField.setPromptText("Pays");
+
+        // Client-specific fields
+        TextField societeField = new TextField(client.getSociete());
+        societeField.setPromptText("Société");
+
+        TextField carteCreditField = new TextField(client.getCarteCredit());
+        carteCreditField.setPromptText("Numéro de carte de crédit");
+
+        TextField numPermisField = new TextField(client.getNumPermis());
+        numPermisField.setPromptText("Numéro de permis");
+
+        /*DatePicker datePermisField = new DatePicker(client.getDatePermis().ToLocalDate());
+        datePermisField.setPromptText("Date de délivrance du permis");*/
+
+        TextField lieuPermisField = new TextField(client.getLieuPermis());
+        lieuPermisField.setPromptText("Lieu de délivrance du permis");
+
+        // Form layout
+        VBox form = new VBox(10,
+                new Label("Nom:"), nomField,
+                new Label("Prénom:"), prenomField,
+                new Label("CIN:"), cinField,
+                new Label("Numéro de téléphone:"), telephoneField,
+                new Label("Email:"), emailField,
+                /*new Label("Date de naissance:"), dateNaissanceField,*/
+                new Label("Nationalité:"), nationaliteField,
+                new Label("Adresse:"),
+                new Label("Rue:"), rueField,
+                new Label("Ville:"), villeField,
+                new Label("Code Postal:"), codePostalField,
+                new Label("Pays:"), paysField,
+                new Label("Société:"), societeField,
+                new Label("Numéro de carte de crédit:"), carteCreditField,
+                new Label("Numéro de permis:"), numPermisField,
+                /*new Label("Date de délivrance du permis:"), datePermisField,*/
+                new Label("Lieu de délivrance du permis:"), lieuPermisField
+        );
+
+        ScrollPane scrollPane = new ScrollPane(form);
+        scrollPane.setFitToWidth(true);
+
+        dialog.getDialogPane().setContent(scrollPane);
+
+        // Buttons
+        ButtonType saveButtonType = new ButtonType("Sauvegarder", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        // Handle result
+        dialog.setResultConverter(buttonType -> {
+            if (buttonType == saveButtonType) {
+                try {
+                    client.setNom(nomField.getText());
+                    client.setPrenom(prenomField.getText());
+                    client.setTel(Double.parseDouble(telephoneField.getText()));
+                    client.setEmail(emailField.getText());
+                    /*client.setDateNaissance(java.sql.Date.valueOf(dateNaissanceField.getValue()));*/
+                    client.setNationalite(nationaliteField.getText());
+
+                    Adresse adresse = new Adresse(
+                            rueField.getText(),
+                            villeField.getText(),
+                            codePostalField.getText(),
+                            paysField.getText()
+                    );
+                    client.setAdresse(adresse);
+
+                    client.setSociete(societeField.getText());
+                    client.setCarteCredit(carteCreditField.getText());
+                    client.setNumPermis(numPermisField.getText());
+                    /*client.setDatePermis(java.sql.Date.valueOf(datePermisField.getValue()));*/
+                    client.setLieuPermis(lieuPermisField.getText());
+
+                    return client;
+                } catch (Exception e) {
+                    System.err.println("Erreur lors de l'édition du client : " + e.getMessage());
+                }
+            }
+            return null;
+        });
+
+        // Show dialog and handle updated client
+        dialog.showAndWait().ifPresent(updatedClient -> {
+            tableClient.refresh(); // Refresh table to reflect updated data
+        });
     }
+
+    
+    private void onDeleteClient(Client Client) {
+        System.out.println("onDeleteClient called for Client: " + Client.getCin());
+
+        // Confirmation dialog
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Supprimer le garage");
+        confirmationDialog.setHeaderText("Confirmez-vous la suppression de ce garage ?");
+        confirmationDialog.setContentText(
+            "CIN Client " + Client.getCin() + "\n" +
+            "Nom: " + Client.getNom() + "\n" +
+            "Prenom: " + Client.getPrenom() + "\n" +
+            "Attention : Cette action est irréversible."
+        );
+
+        // Show dialog and capture user response
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Logic to delete the garage
+            // Example: Remove it from the data source (e.g., a database or a list)
+
+            // Notify user of the result
+            clients.remove(Client);
+            tableClient.refresh();
+        } else {
+            System.out.println("Suppression annulée par l'utilisateur.");
+        }
+    }
+
+    
+    public List<Client> getClientsInitiaux() {
+    // Récupère les contrats stockés dans Gerant
+        return Gerant.getInstance().getClients();
+    }
+
+
+
+
+}
+

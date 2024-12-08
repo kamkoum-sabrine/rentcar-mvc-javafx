@@ -211,6 +211,7 @@ public void initialize() {
         }
     });
 }
+
 private void onEditContratLocation(ContratLocation contratLocation) {
         System.out.println("onEditContratLocation appelé pour le contrat : " + contratLocation.getId());
         // Configuration de la boîte de dialogue
@@ -703,6 +704,7 @@ private LocalDate toLocalDate(Date date) {
     }
     return null;
 }
+
  public int generateUniqueInvoiceNumber() {
         Random random = new Random();
         int invoiceNumber;
